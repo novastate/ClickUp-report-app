@@ -1,0 +1,29 @@
+<div class="kpi-row">
+  <div class="kpi-card" data-filter="forecasted">
+    <div class="label">Forecasted</div>
+    <div class="value">{{ summary.forecasted|default(0) }}</div>
+    <div class="sub">{{ team.metric_type }}</div>
+  </div>
+  <div class="kpi-card" data-filter="completed">
+    <div class="value green">{{ summary.completed|default(0) }}</div>
+    <div class="label">Completed</div>
+    <div class="sub">of {{ summary.forecasted|default(0) }}</div>
+  </div>
+  <div class="kpi-card" data-filter="scope_changes">
+    <div class="value red">+{{ summary.scope_added|default(0) }} / -{{ summary.scope_removed|default(0) }}</div>
+    <div class="label">Scope Changes</div>
+    <div class="sub">added / removed</div>
+  </div>
+  <div class="kpi-card" data-filter="not_completed">
+    <div class="value purple">{{ (summary.completion_rate|default(0) * 100)|round|int }}%</div>
+    <div class="label">Completion</div>
+    <div class="sub">Day {{ sprint_day|default('?') }} of {{ team.sprint_length_days }}</div>
+  </div>
+  {% if on_track is defined %}
+  <div class="kpi-card">
+    <div class="value">{% if on_track == 'ahead' %}✅{% elif on_track == 'on_track' %}👍{% else %}⚠️{% endif %}</div>
+    <div class="label">On Track?</div>
+    <div class="sub">{{ on_track|replace('_', ' ')|title }}</div>
+  </div>
+  {% endif %}
+</div>

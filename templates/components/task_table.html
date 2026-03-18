@@ -1,0 +1,20 @@
+<div class="panel">
+  <h3>Tasks</h3>
+  <table class="task-table">
+    <thead>
+      <tr><th></th><th>Task</th><th>Assignee</th><th>Status</th><th>{{ team.metric_type|default('metric')|title }}</th></tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr data-filter="{% if task.task_status in ['complete','closed'] %}completed forecasted{% elif task.scope_change == 'added' %}scope_changes{% elif task.scope_change == 'removed' %}scope_changes{% else %}not_completed forecasted{% endif %}"
+          class="{% if task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">
+        <td>{% if task.task_status in ['complete','closed'] %}✅{% elif task.scope_change == 'added' %}➕{% elif task.scope_change == 'removed' %}➖{% elif task.task_status == 'in progress' %}🔵{% else %}⬜{% endif %}</td>
+        <td>{{ task.task_name }}{% if task.scope_change == 'added' %}<span class="scope-badge">(added)</span>{% endif %}</td>
+        <td>{{ task.assignee_name or '—' }}</td>
+        <td><span class="badge-{{ 'complete' if task.task_status in ['complete','closed'] else ('progress' if task.task_status == 'in progress' else 'todo') }}">{{ task.task_status }}</span></td>
+        <td>{% if team.metric_type == 'points' %}{{ task.points or '—' }}{% elif team.metric_type == 'hours' %}{{ task.hours or '—' }}{% else %}1{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

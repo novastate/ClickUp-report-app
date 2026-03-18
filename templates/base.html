@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Sprint Reporter{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    {% for t in nav_teams|default([]) %}
+    <a href="/teams/{{ t.id }}/sprints">{{ t.name }}</a>
+    {% endfor %}
+    <a href="/teams/new">+ New Team</a>
+  </nav>
+  {% block content %}{% endblock %}
+  <script src="/static/dashboard.js"></script>
+</body>
+</html>

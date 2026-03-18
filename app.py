@@ -8,10 +8,10 @@ import os
 
 app = FastAPI(title="Sprint Reporter")
 
+app.include_router(pages.router)
 app.include_router(teams.router)
 app.include_router(sprints.router)
 app.include_router(clickup_proxy.router)
-app.include_router(pages.router)
 
 # Only mount static files if the directory exists
 if os.path.isdir("static"):

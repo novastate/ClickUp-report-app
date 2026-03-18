@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ sprint.name }} — Sprint Reporter{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <div>
+    <h1 style="display:inline">{{ sprint.name }}</h1>
+    <span class="meta">{{ sprint.start_date }} — {{ sprint.end_date }}</span>
+    <span class="badge badge-{{ status }}">{{ status|upper }}</span>
+  </div>
+  <div class="actions">
+    {% if status == 'active' %}
+    <button class="btn btn-secondary" id="refresh-btn" onclick="refreshSprint({{ sprint.id }})">🔄 Refresh Now</button>
+    <button class="btn btn-danger" onclick="closeSprint({{ sprint.id }})">🔒 Close Sprint</button>
+    {% elif status == 'planning' %}
+    <button class="btn btn-success" onclick="closeForecast({{ sprint.id }})">📋 Close Forecast</button>
+    {% endif %}
+  </div>
+</div>
+{% if status != 'planning' %}
+{% include "components/kpi_cards.html" %}
+<div class="content">
+  <div class="grid-2">
+    {% include "components/burndown_chart.html" %}
+    {% include "components/scope_timeline.html" %}
+  </div>
+  {% include "components/task_table.html" %}
+</div>
+{% else %}
+<div class="content" style="padding-top: 24px;">
+  <div class="panel">
+    <h3>Planning Phase</h3>
+    <p>Fill the iteration list in ClickUp, then click <strong>Close Forecast</strong> to start tracking.</p>
+    <p style="margin-top: 12px; color: #718096;">{{ tasks|length }} tasks currently in this list.</p>
+  </div>
+  {% include "components/task_table.html" %}
+</div>
+{% endif %}
+{% endblock %}

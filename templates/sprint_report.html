@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}{{ sprint.name }} — Report — Sprint Reporter{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <div>
+    <h1 style="display:inline">{{ sprint.name }}</h1>
+    <span class="meta">{{ sprint.start_date }} — {{ sprint.end_date }}</span>
+    <span class="badge badge-closed">CLOSED</span>
+  </div>
+  <div class="actions">
+    <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary">← Sprint History</a>
+  </div>
+</div>
+
+{% if summary %}
+{% set pct = (summary.completion_rate * 100) | round | int %}
+<div class="content" style="padding-top: 20px;">
+  <div class="verdict {% if pct >= 90 %}good{% elif pct >= 70 %}ok{% else %}bad{% endif %}">
+    {% if pct >= 90 %}
+      Sprint completed successfully — {{ pct }}% delivery rate
+    {% elif pct >= 70 %}
+      Sprint partially completed — {{ pct }}% delivery rate
+    {% else %}
+      Sprint underdelivered — {{ pct }}% delivery rate
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% include "components/kpi_cards.html" %}
+
+<div class="content">
+  <div class="grid-2">
+    {% include "components/burndown_chart.html" %}
+    {% include "components/scope_timeline.html" %}
+  </div>
+
+  {% if summary %}
+  <div class="panel">
+    <h3>Forecast Accuracy</h3>
+    <div style="margin-bottom: 8px; font-size: 13px; color: #4a5568;">
+      Completed {{ summary.completed }} of {{ summary.forecasted }} forecasted
+      ({{ (summary.forecast_accuracy * 100) | round | int }}% accuracy)
+    </div>
+    <div class="accuracy-bar">
+      {% set done_pct = [summary.forecast_accuracy * 100, 100] | min | int %}
+      <div class="segment completed" style="width: {{ done_pct }}%;"></div>
+    </div>
+    <div style="display:flex; gap:24px; margin-top: 12px; font-size: 12px; color: #718096;">
+      <span><span class="green">■</span> Completed: {{ summary.completed }}</span>
+      <span>Forecasted: {{ summary.forecasted }}</span>
+      {% if summary.scope_added > 0 %}
+      <span class="orange">+{{ summary.scope_added }} scope added</span>
+      {% endif %}
+      {% if summary.scope_removed > 0 %}
+      <span class="red">-{{ summary.scope_removed }} scope removed</span>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% include "components/task_table.html" %}
+</div>
+{% endblock %}

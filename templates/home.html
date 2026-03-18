@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Sprint Reporter — Home{% endblock %}
+{% block content %}
+<div class="home-hero">
+  <h1>Sprint Reporter</h1>
+  <p>Track ClickUp sprint performance, velocity, and scope changes.</p>
+  <a href="/teams/new" class="btn btn-primary">+ Create Your First Team</a>
+</div>
+
+{% if teams %}
+<div class="team-cards">
+  {% for team in teams %}
+  <div class="team-card">
+    <h3>{{ team.name }}</h3>
+    <div class="text-small text-muted">
+      Metric: {{ team.metric_type | replace('_', ' ') | title }} &nbsp;·&nbsp;
+      {{ team.sprint_length_days }}-day sprints
+    </div>
+    <div class="team-links">
+      <a href="/teams/{{ team.id }}/sprints" class="btn btn-primary" style="font-size:12px; padding:5px 12px;">Sprint History</a>
+      <a href="/teams/{{ team.id }}/settings" class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">Settings</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <h3>No teams yet</h3>
+  <p>Create a team to start tracking sprints.</p>
+  <br>
+  <a href="/teams/new" class="btn btn-primary">+ New Team</a>
+</div>
+{% endif %}
+{% endblock %}

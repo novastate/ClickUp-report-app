@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ team.name }} — Sprints — Sprint Reporter{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <div>
+    <h1>{{ team.name }}</h1>
+    <span class="meta">Sprint History</span>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" id="sync-btn" onclick="syncSprints({{ team.id }})">
+      🔄 Sync Sprints
+    </button>
+    <a href="/teams/{{ team.id }}/settings" class="btn btn-secondary">⚙ Settings</a>
+  </div>
+</div>
+
+<div class="content">
+  {% if sprints %}
+  <div class="panel">
+    <table class="sprint-history-table">
+      <thead>
+        <tr>
+          <th>Sprint</th>
+          <th>Dates</th>
+          <th>Status</th>
+          <th>Velocity</th>
+          <th>Completion</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sprint in sprints %}
+        <tr class="{% if sprint.status == 'active' %}active-sprint{% endif %}">
+          <td>
+            <a href="/sprint/{{ sprint.id }}">{{ sprint.name }}</a>
+          </td>
+          <td class="text-muted text-small">
+            {% if sprint.start_date %}{{ sprint.start_date }}{% else %}—{% endif %}
+            {% if sprint.end_date %} &ndash; {{ sprint.end_date }}{% endif %}
+          </td>
+          <td>
+            <span class="badge-{{ sprint.status }}">{{ sprint.status | upper }}</span>
+          </td>
+          <td>
+            {% if sprint.status == 'closed' and sprint.summary %}
+              {{ sprint.summary.velocity }}
+              <span class="text-muted text-small">{{ team.metric_type | replace('_',' ') }}</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if sprint.status == 'closed' and sprint.summary %}
+              {% set pct = (sprint.summary.completion_rate * 100) | round | int %}
+              <span class="{% if pct >= 90 %}green{% elif pct >= 70 %}orange{% else %}red{% endif %}">
+                {{ pct }}%
+              </span>
+            {% elif sprint.status == 'active' %}
+              <span class="text-muted text-small">In progress</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="/sprint/{{ sprint.id }}" class="btn btn-secondary" style="font-size:11px; padding:4px 10px;">
+              {% if sprint.status == 'active' %}Live View{% elif sprint.status == 'planning' %}Plan{% else %}Report{% endif %}
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state panel">
+    <h3>No sprints yet</h3>
+    <p>Click <strong>Sync Sprints</strong> to pull sprint lists from ClickUp.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

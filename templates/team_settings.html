@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block title %}{% if team %}Edit {{ team.name }}{% else %}New Team{% endif %} — Sprint Reporter{% endblock %}
+{% block content %}
+<div class="content" style="max-width: 600px;">
+  <div class="panel">
+    <h2 style="margin-bottom: 20px;">{% if team %}Edit Team{% else %}New Team{% endif %}</h2>
+
+    <div id="error-msg" class="alert alert-danger" style="display:none;"></div>
+    <div id="success-msg" class="alert alert-success" style="display:none;"></div>
+
+    <form id="team-form">
+      <div class="form-group">
+        <label for="name">Team Name</label>
+        <input type="text" id="name" name="name" placeholder="e.g. Engineering" required
+               value="{{ team.name if team else '' }}">
+      </div>
+
+      <div class="form-group">
+        <label for="space-select">ClickUp Space</label>
+        <select id="space-select" name="space_id" required>
+          <option value="">— Loading spaces… —</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="folder-select">ClickUp Folder</label>
+        <select id="folder-select" name="folder_id" required disabled>
+          <option value="">— Select a space first —</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Metric Type</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="metric_type" value="task_count"
+              {% if not team or team.metric_type == 'task_count' %}checked{% endif %}>
+            Task Count
+          </label>
+          <label>
+            <input type="radio" name="metric_type" value="points"
+              {% if team and team.metric_type == 'points' %}checked{% endif %}>
+            Story Points
+          </label>
+          <label>
+            <input type="radio" name="metric_type" value="hours"
+              {% if team and team.metric_type == 'hours' %}checked{% endif %}>
+            Hours
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sprint-length">Sprint Length (days)</label>
+        <input type="number" id="sprint-length" name="sprint_length_days" min="1" max="90"
+               value="{{ team.sprint_length_days if team else 14 }}" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" id="save-btn">
+          {% if team %}Save Changes{% else %}Create Team{% endif %}
+        </button>
+        {% if team %}
+        <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary">Cancel</a>
+        {% else %}
+        <a href="/" class="btn btn-secondary">Cancel</a>
+        {% endif %}
+        {% if team %}
+        <button type="button" class="btn btn-danger" id="delete-btn" style="margin-left:auto;"
+                onclick="deleteTeam({{ team.id }})">Delete Team</button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  const teamId = {{ team.id | tojson if team else 'null' }};
+  const currentSpaceId = {{ team.clickup_space_id | tojson if team else 'null' }};
+  const currentFolderId = {{ team.clickup_folder_id | tojson if team else 'null' }};
+
+  const spaceSelect = document.getElementById('space-select');
+  const folderSelect = document.getElementById('folder-select');
+
+  // Load spaces on page load
+  async function loadSpaces() {
+    try {
+      const resp = await fetch('/api/clickup/spaces');
+      if (!resp.ok) throw new Error('Failed to load spaces');
+      const spaces = await resp.json();
+      spaceSelect.innerHTML = '<option value="">— Select a space —</option>';
+      spaces.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.space_id;
+        opt.textContent = `${s.workspace} / ${s.space_name}`;
+        if (s.space_id === currentSpaceId) opt.selected = true;
+        spaceSelect.appendChild(opt);
+      });
+      if (currentSpaceId) {
+        await loadFolders(currentSpaceId);
+      }
+    } catch (e) {
+      spaceSelect.innerHTML = '<option value="">— Error loading spaces —</option>';
+      showError('Could not load ClickUp spaces: ' + e.message);
+    }
+  }
+
+  async function loadFolders(spaceId) {
+    folderSelect.disabled = true;
+    folderSelect.innerHTML = '<option value="">— Loading folders… —</option>';
+    try {
+      const resp = await fetch(`/api/clickup/folders/${spaceId}`);
+      if (!resp.ok) throw new Error('Failed to load folders');
+      const folders = await resp.json();
+      folderSelect.innerHTML = '<option value="">— Select a folder —</option>';
+      folders.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f.id;
+        opt.textContent = f.name;
+        if (f.id === currentFolderId) opt.selected = true;
+        folderSelect.appendChild(opt);
+      });
+      folderSelect.disabled = false;
+    } catch (e) {
+      folderSelect.innerHTML = '<option value="">— Error loading folders —</option>';
+      showError('Could not load folders: ' + e.message);
+    }
+  }
+
+  spaceSelect.addEventListener('change', function () {
+    if (this.value) {
+      loadFolders(this.value);
+    } else {
+      folderSelect.innerHTML = '<option value="">— Select a space first —</option>';
+      folderSelect.disabled = true;
+    }
+  });
+
+  document.getElementById('team-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    clearMessages();
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    const data = {
+      name: document.getElementById('name').value.trim(),
+      space_id: spaceSelect.value,
+      folder_id: folderSelect.value,
+      metric_type: document.querySelector('input[name="metric_type"]:checked').value,
+      sprint_length_days: parseInt(document.getElementById('sprint-length').value, 10),
+    };
+
+    if (!data.name) { showError('Team name is required.'); reset(btn); return; }
+    if (!data.space_id) { showError('Please select a ClickUp space.'); reset(btn); return; }
+    if (!data.folder_id) { showError('Please select a ClickUp folder.'); reset(btn); return; }
+
+    try {
+      let resp;
+      if (teamId) {
+        resp = await fetch(`/teams/${teamId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+      } else {
+        resp = await fetch('/teams', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+      }
+      if (resp.ok) {
+        const result = await resp.json();
+        window.location.href = `/teams/${result.id || teamId}/sprints`;
+      } else {
+        const err = await resp.json();
+        showError('Error: ' + (err.detail || JSON.stringify(err)));
+        reset(btn);
+      }
+    } catch (err) {
+      showError('Request failed: ' + err.message);
+      reset(btn);
+    }
+  });
+
+  function reset(btn) {
+    btn.disabled = false;
+    btn.textContent = teamId ? 'Save Changes' : 'Create Team';
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('error-msg');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function clearMessages() {
+    document.getElementById('error-msg').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'none';
+  }
+
+  loadSpaces();
+})();
+
+async function deleteTeam(teamId) {
+  if (!confirm('Delete this team and all its sprint data? This cannot be undone.')) return;
+  const resp = await fetch(`/teams/${teamId}`, { method: 'DELETE' });
+  if (resp.ok) {
+    window.location.href = '/';
+  } else {
+    alert('Failed to delete team.');
+  }
+}
+</script>
+{% endblock %}

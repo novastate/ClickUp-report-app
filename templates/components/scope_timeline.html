@@ -1,0 +1,16 @@
+{% if scope_changes %}
+<div class="panel">
+  <h3>Scope Changes</h3>
+  <div class="scope-timeline">
+    {% for change in scope_changes %}
+    <div class="scope-event {{ change.change_type }}">
+      <div class="date">{{ change.detected_at[:10] }}</div>
+      <div class="detail">
+        {% if change.change_type == 'added' %}➕{% else %}➖{% endif %}
+        "{{ change.task_name }}"{% if change.assignee_name %} — {{ change.assignee_name }}{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

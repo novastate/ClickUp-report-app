@@ -1,0 +1,31 @@
+<div class="panel">
+  <h3>Burndown Chart</h3>
+  <div class="chart-container">
+    <canvas id="burndownChart"></canvas>
+  </div>
+</div>
+<script>
+(function() {
+  const progressData = {{ progress_history|tojson }};
+  const forecasted = {{ summary.forecasted|default(0) }};
+  const sprintDays = {{ team.sprint_length_days }};
+  const idealLabels = [];
+  const idealData = [];
+  for (let i = 0; i <= sprintDays; i++) {
+    idealLabels.push('Day ' + i);
+    idealData.push(Math.round(forecasted - (forecasted / sprintDays) * i));
+  }
+  const actualData = progressData.map(p => forecasted - p.completed_tasks);
+  new Chart(document.getElementById('burndownChart'), {
+    type: 'line',
+    data: {
+      labels: idealLabels.slice(0, Math.max(actualData.length, 2)),
+      datasets: [
+        { label: 'Ideal', data: idealData, borderColor: '#cbd5e0', borderDash: [6, 4], borderWidth: 2, pointRadius: 0, fill: false },
+        { label: 'Actual', data: actualData, borderColor: '#5f55ee', borderWidth: 3, pointRadius: 3, fill: false }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { position: 'bottom' } } }
+  });
+})();
+</script>
