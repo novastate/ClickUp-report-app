@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% block title %}{{ team.name }} — Performance Trends — Sprint Reporter{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <div>
+    <h1 style="display:inline">{{ team.name }}</h1>
+    <span class="meta">Performance Trends</span>
+  </div>
+  <div class="actions">
+    <a href="?range=4" class="btn {% if range == 4 %}btn-primary{% else %}btn-secondary{% endif %}">Last 4</a>
+    <a href="?range=8" class="btn {% if range == 8 %}btn-primary{% else %}btn-secondary{% endif %}">Last 8</a>
+    <a href="?range=0" class="btn {% if range == 0 %}btn-primary{% else %}btn-secondary{% endif %}">All</a>
+    <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary">← Sprint History</a>
+  </div>
+</div>
+
+<div class="content" style="padding-top: 20px;">
+
+  {# Trend KPI cards #}
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="label">Avg Velocity</div>
+      <div class="value">{{ trends.avg_velocity | round(1) }}</div>
+      <div class="sub">{{ team.metric_type | replace('_', ' ') }} per sprint</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Avg Completion</div>
+      {% set comp_pct = (trends.avg_completion_rate * 100) | round | int %}
+      <div class="value {% if comp_pct >= 90 %}green{% elif comp_pct >= 70 %}orange{% else %}red{% endif %}">
+        {{ comp_pct }}%
+      </div>
+      <div class="sub">completion rate</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Avg Scope Added</div>
+      <div class="value orange">+{{ trends.avg_scope_added | round(1) }}</div>
+      <div class="sub">items per sprint</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Avg Forecast Accuracy</div>
+      {% set acc_pct = (trends.avg_forecast_accuracy * 100) | round | int %}
+      <div class="value {% if acc_pct >= 90 %}green{% elif acc_pct >= 70 %}orange{% else %}red{% endif %}">
+        {{ acc_pct }}%
+      </div>
+      <div class="sub">forecast accuracy</div>
+    </div>
+  </div>
+
+  {# Velocity bar chart #}
+  <div class="panel">
+    <h3>Velocity Over Time</h3>
+    <div class="chart-container">
+      <canvas id="velocityChart"></canvas>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    {# Completion rate line chart #}
+    <div class="panel">
+      <h3>Completion Rate</h3>
+      <div class="chart-container">
+        <canvas id="completionChart"></canvas>
+      </div>
+    </div>
+
+    {# Scope changes stacked bar chart #}
+    <div class="panel">
+      <h3>Scope Changes per Sprint</h3>
+      <div class="chart-container">
+        <canvas id="scopeChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  {# Sprint comparison table #}
+  <div class="panel">
+    <h3>Sprint Comparison</h3>
+    <table class="sprint-history-table">
+      <thead>
+        <tr>
+          <th>Sprint</th>
+          <th>Dates</th>
+          <th>Velocity</th>
+          <th>Completion</th>
+          <th>Scope Added</th>
+          <th>Scope Removed</th>
+          <th>Forecast Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in trends.sprints %}
+        <tr>
+          <td><a href="/sprint/{{ s.sprint_id }}">{{ s.sprint_name }}</a></td>
+          <td class="text-muted text-small">
+            {% if s.start_date %}{{ s.start_date }}{% else %}—{% endif %}
+            {% if s.end_date %} &ndash; {{ s.end_date }}{% endif %}
+          </td>
+          <td>{{ s.velocity }}</td>
+          <td>
+            {% set pct = (s.completion_rate * 100) | round | int %}
+            <span class="{% if pct >= 90 %}green{% elif pct >= 70 %}orange{% else %}red{% endif %}">
+              {{ pct }}%
+            </span>
+          </td>
+          <td>
+            {% if s.scope_added > 0 %}
+              <span class="orange">+{{ s.scope_added }}</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if s.scope_removed > 0 %}
+              <span class="red">-{{ s.scope_removed }}</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% set acc = (s.forecast_accuracy * 100) | round | int %}
+            <span class="{% if acc >= 90 %}green{% elif acc >= 70 %}orange{% else %}red{% endif %}">
+              {{ acc }}%
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+        {% if not trends.sprints %}
+        <tr>
+          <td colspan="7" class="text-muted" style="text-align:center; padding: 20px;">No closed sprints found.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const sprints = {{ trends.sprints | tojson }};
+  const labels = sprints.map(s => s.sprint_name);
+  const avgVelocity = {{ trends.avg_velocity | float }};
+
+  const chartDefaults = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom' } },
+  };
+
+  // --- Velocity Bar Chart with trend line ---
+  new Chart(document.getElementById('velocityChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Velocity',
+          data: sprints.map(s => s.velocity),
+          backgroundColor: 'rgba(95, 85, 238, 0.7)',
+          borderColor: '#5f55ee',
+          borderWidth: 1,
+        },
+        {
+          label: 'Avg Velocity',
+          data: sprints.map(() => avgVelocity),
+          type: 'line',
+          borderColor: '#f6ad55',
+          borderDash: [6, 4],
+          borderWidth: 2,
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+
+  // --- Completion Rate Line Chart with 80% target ---
+  new Chart(document.getElementById('completionChart'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Completion Rate (%)',
+          data: sprints.map(s => Math.round(s.completion_rate * 100)),
+          borderColor: '#68d391',
+          backgroundColor: 'rgba(104, 211, 145, 0.15)',
+          borderWidth: 2,
+          pointRadius: 4,
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: '80% Target',
+          data: sprints.map(() => 80),
+          borderColor: '#fc8181',
+          borderDash: [6, 4],
+          borderWidth: 2,
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: { y: { beginAtZero: true, max: 110, ticks: { callback: v => v + '%' } } }
+    }
+  });
+
+  // --- Scope Changes Stacked Bar Chart ---
+  new Chart(document.getElementById('scopeChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Scope Added',
+          data: sprints.map(s => s.scope_added),
+          backgroundColor: 'rgba(104, 211, 145, 0.8)',
+          borderColor: '#68d391',
+          borderWidth: 1,
+          stack: 'scope',
+        },
+        {
+          label: 'Scope Removed',
+          data: sprints.map(s => s.scope_removed),
+          backgroundColor: 'rgba(252, 129, 129, 0.8)',
+          borderColor: '#fc8181',
+          borderWidth: 1,
+          stack: 'scope',
+        }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: { y: { beginAtZero: true, stacked: true }, x: { stacked: true } }
+    }
+  });
+})();
+</script>
+{% endblock %}

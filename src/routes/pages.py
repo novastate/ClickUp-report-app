@@ -126,3 +126,11 @@ async def sprint_page(request: Request, sprint_id: int):
         sprint_day=sprint_day,
         on_track=on_track,
     ))
+
+
+@router.get("/teams/{team_id}/trends", response_class=HTMLResponse)
+def team_trends_page(request: Request, team_id: int, range: int = 8):
+    team = get_team(team_id)
+    from src.services.trend_service import get_team_trends
+    trends = get_team_trends(team_id, limit=range if range > 0 else None)
+    return templates.TemplateResponse("team_trends.html", _ctx(request, team=team, trends=trends, range=range))
