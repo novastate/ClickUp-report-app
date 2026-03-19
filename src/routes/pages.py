@@ -5,6 +5,8 @@ from src.services.team_service import get_all_teams, get_team
 from src.services.sprint_service import get_team_sprints, get_sprint, get_sprint_status
 from src.services.trend_service import get_sprint_summary
 from src.services.snapshot_service import get_scope_changes, get_daily_progress_history, get_forecast_snapshot
+from src.config import get_clickup_api_key, DB_PATH
+from src.database import set_setting
 from datetime import datetime, date
 
 templates = Jinja2Templates(directory="templates")
@@ -17,8 +19,14 @@ def _ctx(request, **kwargs):
     return kwargs
 
 
+def _needs_setup() -> bool:
+    return not get_clickup_api_key()
+
+
 @router.get("/", response_class=HTMLResponse)
 def home(request: Request):
+    if _needs_setup():
+        return RedirectResponse("/setup")
     teams = get_all_teams()
     for team in teams:
         sprints = get_team_sprints(team["id"])
@@ -26,6 +34,22 @@ def home(request: Request):
             if get_sprint_status(s) == "active":
                 return RedirectResponse(f"/sprint/{s['id']}")
     return templates.TemplateResponse("home.html", _ctx(request, teams=teams))
+
+
+@router.get("/setup", response_class=HTMLResponse)
+def setup_page(request: Request):
+    current_key = get_clickup_api_key()
+    masked = f"pk_...{current_key[-8:]}" if current_key and len(current_key) > 12 else ""
+    return templates.TemplateResponse("setup.html", _ctx(request, masked_key=masked, has_key=bool(current_key)))
+
+
+@router.post("/setup")
+async def save_setup(request: Request):
+    form = await request.form()
+    api_key = form.get("api_key", "").strip()
+    if api_key:
+        set_setting(DB_PATH, "clickup_api_key", api_key)
+    return RedirectResponse("/", status_code=303)
 
 
 @router.get("/teams/new", response_class=HTMLResponse)
@@ -60,8 +84,8 @@ async def sprint_page(request: Request, sprint_id: int):
 
     if status != "closed":
         from src.clickup_client import ClickUpClient
-        from src.config import CLICKUP_API_KEY
-        client = ClickUpClient(CLICKUP_API_KEY)
+        from src.config import get_clickup_api_key
+        client = ClickUpClient(get_clickup_api_key())
         raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
         tasks = [client.extract_task_data(t) for t in raw_tasks]
         # Mark scope changes for active sprints

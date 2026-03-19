@@ -56,6 +56,11 @@ def init_db(db_path: str):
             completed_hours REAL
         );
 
+        CREATE TABLE IF NOT EXISTS app_settings (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS scope_changes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             sprint_id INTEGER NOT NULL REFERENCES sprints(id) ON DELETE CASCADE,
@@ -66,5 +71,17 @@ def init_db(db_path: str):
             assignee_name TEXT
         );
     """)
+    conn.commit()
+    conn.close()
+
+def get_setting(db_path: str, key: str) -> str | None:
+    conn = get_connection(db_path)
+    row = conn.execute("SELECT value FROM app_settings WHERE key = ?", (key,)).fetchone()
+    conn.close()
+    return row["value"] if row else None
+
+def set_setting(db_path: str, key: str, value: str):
+    conn = get_connection(db_path)
+    conn.execute("INSERT OR REPLACE INTO app_settings (key, value) VALUES (?, ?)", (key, value))
     conn.commit()
     conn.close()

@@ -4,7 +4,7 @@ from src.services import team_service
 from src.services.sprint_service import create_sprint_from_list, get_team_sprints, get_sprint_status
 from src.services.trend_service import get_team_trends
 from src.clickup_client import ClickUpClient
-from src.config import CLICKUP_API_KEY
+from src.config import get_clickup_api_key
 
 router = APIRouter(prefix="/teams", tags=["teams"])
 
@@ -59,7 +59,7 @@ async def sync_sprints(team_id: int):
     team = team_service.get_team(team_id)
     if not team:
         raise HTTPException(404, "Team not found")
-    client = ClickUpClient(CLICKUP_API_KEY)
+    client = ClickUpClient(get_clickup_api_key())
     lists = await client.get_folder_lists(team["clickup_folder_id"])
     synced = []
     for lst in lists:

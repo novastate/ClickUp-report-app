@@ -6,7 +6,7 @@ from src.database import init_db
 from src.routes import teams, sprints, clickup_proxy, pages
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
-from src.config import DAILY_SNAPSHOT_TIME, CLICKUP_API_KEY
+from src.config import DAILY_SNAPSHOT_TIME, get_clickup_api_key
 from src.services.snapshot_service import detect_scope_changes, record_daily_progress
 from src.clickup_client import ClickUpClient
 from src.database import get_connection
@@ -22,7 +22,7 @@ async def daily_snapshot_job():
     ).fetchall()
     conn.close()
 
-    client = ClickUpClient(CLICKUP_API_KEY)
+    client = ClickUpClient(get_clickup_api_key())
     for sprint in sprints:
         sprint = dict(sprint)
         raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
