@@ -33,31 +33,31 @@
 <div class="content" style="padding-top: 24px;">
   <div class="panel">
     <h3>Planning Overview</h3>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:16px; margin-top:12px;">
-      <div>
-        <div style="font-size:28px; font-weight:bold;">{{ tasks|length }}</div>
-        <div style="color:#718096; font-size:13px;">Tasks</div>
+    <div class="plan-stats">
+      <div class="plan-stat">
+        <div class="value">{{ tasks|length }}</div>
+        <div class="label">Tasks</div>
       </div>
-      <div>
-        <div style="font-size:28px; font-weight:bold;" id="plan-team-hours">—</div>
-        <div style="color:#718096; font-size:13px;">Team Assigned</div>
+      <div class="plan-stat">
+        <div class="value" id="plan-team-hours">—</div>
+        <div class="label">Team Assigned</div>
       </div>
       {% if team.capacity_mode|default('individual') != 'none' %}
-      <div>
-        <div style="font-size:28px; font-weight:bold;" id="plan-cap-value">—</div>
-        <div style="color:#718096; font-size:13px;">Team Capacity</div>
+      <div class="plan-stat">
+        <div class="value" id="plan-cap-value">—</div>
+        <div class="label">Team Capacity</div>
       </div>
-      <div>
-        <div style="font-size:28px; font-weight:bold;" id="plan-avail-value">—</div>
-        <div style="color:#718096; font-size:13px;">Available</div>
+      <div class="plan-stat">
+        <div class="value" id="plan-avail-value">—</div>
+        <div class="label">Available</div>
       </div>
       {% endif %}
-      <div>
-        <div style="font-size:28px; font-weight:bold; color:#718096;" id="plan-ext-hours">—</div>
-        <div style="color:#718096; font-size:13px;">External</div>
+      <div class="plan-stat">
+        <div class="value" style="color:#a0aec0;" id="plan-ext-hours">—</div>
+        <div class="label">External</div>
       </div>
     </div>
-    <p style="margin-top:16px; color:#718096; font-size:13px;">Fill the iteration list in ClickUp, then click <strong>Close Forecast</strong> to start tracking.</p>
+    <p style="margin-top:20px; color:#a0aec0; font-size:13px;">Fill the iteration list in ClickUp, then click <strong>Close Forecast</strong> to start tracking.</p>
   </div>
   {% include "components/task_table.html" %}
   {% if team.capacity_mode|default('individual') != 'none' %}
@@ -67,7 +67,38 @@
 {% endif %}
 {% if status == 'planning' or status == 'active' %}
 <script>
-setInterval(function() { location.reload(); }, 30000);
+setInterval(async function() {
+  try {
+    const scrollY = window.scrollY;
+    const resp = await fetch(location.href);
+    if (!resp.ok) return;
+    const html = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const newContent = doc.querySelector('.content');
+    const oldContent = document.querySelector('.content');
+    if (newContent && oldContent) {
+      oldContent.innerHTML = newContent.innerHTML;
+      // Re-execute inline scripts
+      oldContent.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        s.textContent = old.textContent;
+        old.replaceWith(s);
+      });
+      // Re-apply grouping
+      const group = sessionStorage.getItem('sprint-{{ sprint.id }}-group');
+      if (group && group !== 'none' && typeof groupBy === 'function') {
+        groupBy(group);
+      }
+    }
+    // Also update KPI row
+    const newKpi = doc.querySelector('.kpi-row');
+    const oldKpi = document.querySelector('.kpi-row');
+    if (newKpi && oldKpi) oldKpi.innerHTML = newKpi.innerHTML;
+    window.scrollTo(0, scrollY);
+  } catch(e) {}
+}, 30000);
+
 document.addEventListener('DOMContentLoaded', function() {
   const group = sessionStorage.getItem('sprint-{{ sprint.id }}-group');
   if (group && group !== 'none' && typeof groupBy === 'function') {
@@ -78,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
 {% endif %}
 
 {% if status == 'planning' %}
-<div id="forecast-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-  <div style="background:white; border-radius:12px; padding:32px; max-width:480px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+<div id="forecast-modal" class="modal-overlay">
+  <div class="modal-box">
     <h3 style="margin:0 0 16px;">Close Forecast</h3>
     <p>You are about to lock the baseline snapshot for <strong>{{ sprint.name }}</strong>.</p>
-    <div style="background:#fff8e1; border:1px solid #ffe082; padding:12px 16px; border-radius:8px; margin:16px 0;">
+    <div class="alert alert-warning" style="margin:16px 0;">
       <strong>Sprint closes:</strong> {{ sprint.end_date }}
     </div>
     <p style="color:#e53e3e; font-size:14px; margin:16px 0;">This action cannot be reverted. All current tasks will be captured as the forecast baseline.</p>
@@ -94,10 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 <script>
 function showCloseForecastModal() {
-  document.getElementById('forecast-modal').style.display = 'flex';
+  document.getElementById('forecast-modal').classList.add('visible');
 }
 function hideForecastModal() {
-  document.getElementById('forecast-modal').style.display = 'none';
+  document.getElementById('forecast-modal').classList.remove('visible');
 }
 document.getElementById('forecast-modal').addEventListener('click', function(e) {
   if (e.target === this) hideForecastModal();

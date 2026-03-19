@@ -10,39 +10,39 @@
 {% if teams %}
 <div class="content" style="padding-top: 24px;">
   {% for team in teams %}
-  <div class="panel" style="margin-bottom: 16px;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-      <h3 style="margin:0;">{{ team.name }}</h3>
-      <div style="display:flex; gap:8px;">
-        <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary" style="font-size:12px; padding:4px 10px;">Sprint History</a>
-        <a href="/teams/{{ team.id }}/trends" class="btn btn-secondary" style="font-size:12px; padding:4px 10px;">Trends</a>
-        <a href="/teams/{{ team.id }}/settings" class="btn btn-secondary" style="font-size:12px; padding:4px 10px;">Settings</a>
+  <div class="panel">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3 style="margin:0; font-size:1.15rem;">{{ team.name }}</h3>
+      <div style="display:flex; gap:6px;">
+        <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">Sprint History</a>
+        <a href="/teams/{{ team.id }}/trends" class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">Trends</a>
+        <a href="/teams/{{ team.id }}/settings" class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">Settings</a>
       </div>
     </div>
 
     {% if team.active_sprint %}
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:16px; padding:16px; background:#f7fafc; border-radius:8px;">
-      <div>
-        <a href="/sprint/{{ team.active_sprint.id }}" style="font-size:18px; font-weight:bold; text-decoration:none;">{{ team.active_sprint.name }}</a>
-        <div style="color:#718096; font-size:13px;">Active Sprint</div>
+    <div style="display:flex; align-items:center; gap:24px; padding:14px 18px; background:#f7fafc; border-radius:8px; border:1px solid #edf2f7;">
+      <div style="flex:1;">
+        <a href="/sprint/{{ team.active_sprint.id }}" style="font-size:16px; font-weight:600; text-decoration:none; color:#2d3748;">{{ team.active_sprint.name }}</a>
+        <div style="color:#718096; font-size:13px; margin-top:2px;">{{ team.active_sprint.start_date }} &mdash; {{ team.active_sprint.end_date }}</div>
       </div>
-      <div>
-        <div style="font-size:18px; font-weight:bold;">{{ team.active_sprint.start_date }} — {{ team.active_sprint.end_date }}</div>
-        <div style="color:#718096; font-size:13px;">Dates</div>
-      </div>
+      <span class="badge-active">ACTIVE</span>
+      <a href="/sprint/{{ team.active_sprint.id }}" class="btn btn-primary" style="font-size:12px; padding:5px 14px;">View Sprint</a>
     </div>
     {% else %}
-    <div style="color:#718096; font-size:14px;">No active sprint</div>
+    <div style="color:#a0aec0; font-size:14px; padding:12px 0;">No active sprint</div>
     {% endif %}
   </div>
   {% endfor %}
 
-  <a href="/teams/new" class="btn btn-primary" style="margin-top:8px;">+ New Team</a>
+  <div style="text-align:center; padding-top:8px;">
+    <a href="/teams/new" class="btn btn-primary">+ New Team</a>
+  </div>
 </div>
 {% else %}
-<div class="content" style="padding-top: 24px;">
+<div class="content-narrow" style="padding-top: 60px;">
   <div class="empty-state">
-    <h3>No teams yet</h3>
+    <h3 style="font-size:1.2rem;">No teams yet</h3>
     <p>Create a team to start tracking sprints.</p>
     <br>
     <a href="/teams/new" class="btn btn-primary">+ New Team</a>

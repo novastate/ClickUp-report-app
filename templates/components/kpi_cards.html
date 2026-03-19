@@ -17,13 +17,13 @@
   <div class="kpi-card" data-filter="not_completed">
     <div class="value purple">{{ (summary.completion_rate|default(0) * 100)|round|int }}%</div>
     <div class="label">Completion</div>
-    <div class="sub">Day {{ sprint_day|default('?') }} of {{ team.sprint_length_days }}</div>
+    <div class="sub">{{ summary.completed|default(0) }} of {{ summary.forecasted|default(0) }} tasks</div>
   </div>
   {% if on_track is defined %}
   <div class="kpi-card">
-    <div class="value">{% if on_track == 'ahead' %}✅{% elif on_track == 'on_track' %}👍{% else %}⚠️{% endif %}</div>
-    <div class="label">On Track?</div>
-    <div class="sub">{{ on_track|replace('_', ' ')|title }}</div>
+    <div class="value {% if on_track == 'ahead' %}green{% elif on_track == 'on_track' %}green{% else %}orange{% endif %}">{% if on_track == 'ahead' %}Ahead{% elif on_track == 'on_track' %}On Track{% else %}Behind{% endif %}</div>
+    <div class="label">Status</div>
+    <div class="sub">Day {{ sprint_day|default('?') }} of {{ team.sprint_length_days }}</div>
   </div>
   {% endif %}
 </div>

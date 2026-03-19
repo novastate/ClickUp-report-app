@@ -64,7 +64,8 @@ def new_team_page(request: Request):
 @router.get("/teams/{team_id}/settings", response_class=HTMLResponse)
 def team_settings_page(request: Request, team_id: int):
     team = get_team(team_id)
-    return templates.TemplateResponse("team_settings.html", _ctx(request, team=team))
+    members = get_team_members(team_id) if team else []
+    return templates.TemplateResponse("team_settings.html", _ctx(request, team=team, current_members=members))
 
 
 @router.get("/teams/{team_id}/sprints", response_class=HTMLResponse)

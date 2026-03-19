@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{% if team %}Edit {{ team.name }}{% else %}New Team{% endif %} — Sprint Reporter{% endblock %}
 {% block content %}
-<div class="content" style="max-width: 600px;">
+<div class="content-narrow" style="padding-top: 24px;">
   <div class="panel">
     <h2 style="margin-bottom: 20px;">{% if team %}Edit Team{% else %}New Team{% endif %}</h2>
 
@@ -111,6 +111,7 @@
   const teamId = {{ team.id | tojson if team else 'null' }};
   const currentSpaceId = {{ team.clickup_space_id | tojson if team else 'null' }};
   const currentFolderId = {{ team.clickup_folder_id | tojson if team else 'null' }};
+  const currentMemberIds = new Set({{ (current_members | default([]) | map(attribute='clickup_user_id') | list) | tojson }});
 
   const spaceSelect = document.getElementById('space-select');
   const folderSelect = document.getElementById('folder-select');
@@ -179,9 +180,25 @@
         const opt = document.createElement('option');
         opt.value = t.id;
         opt.textContent = `@${t.handle || t.name} (${t.members.length} members)`;
+        // Match current team by comparing member IDs
+        if (currentMemberIds.size > 0) {
+          const teamMemberIds = new Set(t.members.map(m => String(m.id)));
+          const overlap = [...currentMemberIds].filter(id => teamMemberIds.has(id));
+          if (overlap.length === currentMemberIds.size) {
+            opt.selected = true;
+          }
+        }
         teamSelect.appendChild(opt);
       });
       teamSelect.disabled = false;
+      // Show members for pre-selected team
+      const selectedTeam = allTeams.find(t => t.id === teamSelect.value);
+      if (selectedTeam) {
+        membersDiv.style.display = 'block';
+        membersList.innerHTML = selectedTeam.members.map(m =>
+          `<span style="background:#edf2f7; padding:2px 8px; border-radius:4px; font-size:12px;">${m.username}</span>`
+        ).join('');
+      }
     } catch (e) {
       teamSelect.innerHTML = '<option value="">— Error loading teams —</option>';
     }

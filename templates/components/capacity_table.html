@@ -96,7 +96,7 @@
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${name}</td>
-        <td><input type="number" class="cap-input" data-member="${name}" value="${cap}" min="0" step="${step}" style="width:80px; padding:4px 8px; border:1px solid #cbd5e0; border-radius:4px;"></td>
+        <td><input type="number" class="cap-input" data-member="${name}" value="${cap}" min="0" step="${step}"></td>
         <td style="color:#718096;">${fmt(assigned)}</td>
         <td style="color:${available < 0 ? '#e53e3e' : '#38a169'}; font-weight:${available < 0 ? 'bold' : 'normal'};">${fmt(available)}</td>
       `;
@@ -125,7 +125,7 @@
     capRow.style.background = '#f7fafc';
     capRow.innerHTML = `
       <td style="font-weight:bold;">Team Capacity</td>
-      <td><input type="number" class="cap-input" data-member="__team__" value="${teamCap}" min="0" step="${step}" style="width:80px; padding:4px 8px; border:1px solid #cbd5e0; border-radius:4px; font-weight:bold;"></td>
+      <td><input type="number" class="cap-input" data-member="__team__" value="${teamCap}" min="0" step="${step}" style="font-weight:bold;"></td>
       <td></td>
       <td></td>
     `;

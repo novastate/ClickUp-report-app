@@ -209,6 +209,19 @@ nav a:first-child {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.content-narrow {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .grid-2 {
@@ -559,3 +572,90 @@ nav a:first-child {
 .alert-success { background: #c6f6d5; color: #276749; border: 1px solid #9ae6b4; }
 .alert-warning { background: #fefcbf; color: #744210; border: 1px solid #f6e05e; }
 .alert-danger  { background: #fed7d7; color: #742a2a; border: 1px solid #fc8181; }
+
+/* ---- Group headers ---- */
+.group-header td {
+  background: #edf2f7 !important;
+  font-weight: 600;
+  padding: 10px 12px !important;
+  font-size: 13px;
+  color: #2d3748;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.group-header:hover td {
+  background: #e2e8f0 !important;
+}
+
+/* ---- Active button state ---- */
+.btn.active,
+.btn-secondary.active {
+  background: #5f55ee;
+  color: #fff;
+  border-color: #5f55ee;
+}
+
+/* ---- Modal overlay ---- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.visible { display: flex; }
+
+.modal-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* ---- Capacity input ---- */
+.cap-input {
+  width: 80px;
+  padding: 4px 8px;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  font-size: 13px;
+  text-align: right;
+  transition: border-color 0.15s;
+}
+
+.cap-input:focus {
+  outline: none;
+  border-color: #5f55ee;
+  box-shadow: 0 0 0 2px rgba(95,85,238,0.12);
+}
+
+/* ---- Planning overview stats ---- */
+.plan-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.plan-stat .value {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.plan-stat .label {
+  color: #718096;
+  font-size: 13px;
+}
+
+/* ---- Footer separator ---- */
+.table-footer td {
+  padding-top: 10px !important;
+  font-size: 12px;
+  color: #718096;
+}
