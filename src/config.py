@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-HOST = os.getenv("HOST", "localhost")
+HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8000"))
 DB_PATH = os.getenv("DB_PATH", "./sprint_data.db")
 DAILY_SNAPSHOT_TIME = os.getenv("DAILY_SNAPSHOT_TIME", "06:00")
