@@ -13,7 +13,7 @@ body {
   line-height: 1.5;
 }
 
-a { color: #5f55ee; text-decoration: none; }
+a { color: #3182ce; text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.btn { text-decoration: none; }
 a.btn:hover { text-decoration: none; }
@@ -106,8 +106,8 @@ nav a:first-child {
 
 .btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
-.btn-primary  { background: #5f55ee; color: #fff; border-color: #5f55ee; }
-.btn-primary:hover  { background: #4c43d4; }
+.btn-primary  { background: #3182ce; color: #fff; border-color: #3182ce; }
+.btn-primary:hover  { background: #2b6cb0; }
 
 .btn-secondary { background: #2d3748; color: #e2e8f0; border-color: #4a5568; }
 .btn-secondary:hover { background: #4a5568; }
@@ -163,13 +163,13 @@ nav a:first-child {
 }
 
 .kpi-card:hover {
-  border-color: #5f55ee;
+  border-color: #3182ce;
   box-shadow: 0 2px 8px rgba(95,85,238,0.15);
 }
 
 .kpi-card.active {
-  border-color: #5f55ee;
-  background: #f0efff;
+  border-color: #3182ce;
+  background: #ebf8ff;
   box-shadow: 0 2px 8px rgba(95,85,238,0.2);
 }
 
@@ -182,7 +182,7 @@ nav a:first-child {
 
 .kpi-card .value.green  { color: #38a169; }
 .kpi-card .value.red    { color: #e53e3e; }
-.kpi-card .value.purple { color: #5f55ee; }
+.kpi-card .value.purple { color: #3182ce; }
 .kpi-card .value.orange { color: #dd6b20; }
 
 .kpi-card .label {
@@ -412,7 +412,7 @@ nav a:first-child {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #5f55ee;
+  border-color: #3182ce;
   box-shadow: 0 0 0 3px rgba(95,85,238,0.12);
 }
 
@@ -484,11 +484,11 @@ nav a:first-child {
 
 .sprint-history-table tr:last-child td { border-bottom: none; }
 .sprint-history-table tr:hover td { background: #f7fafc; }
-.sprint-history-table tr.active-sprint td { background: #f0efff; }
+.sprint-history-table tr.active-sprint td { background: #ebf8ff; }
 
 .sprint-history-table a {
   font-weight: 500;
-  color: #5f55ee;
+  color: #3182ce;
 }
 
 /* ---- Home page ---- */
@@ -531,7 +531,7 @@ nav a:first-child {
 }
 
 .team-card:hover {
-  border-color: #5f55ee;
+  border-color: #3182ce;
   box-shadow: 0 2px 8px rgba(95,85,238,0.15);
 }
 
@@ -563,7 +563,7 @@ nav a:first-child {
 .mb-4  { margin-bottom: 16px; }
 .green { color: #38a169; }
 .red   { color: #e53e3e; }
-.purple { color: #5f55ee; }
+.purple { color: #3182ce; }
 .orange { color: #dd6b20; }
 
 /* ---- Alert ---- */
@@ -595,9 +595,9 @@ nav a:first-child {
 /* ---- Active button state ---- */
 .btn.active,
 .btn-secondary.active {
-  background: #5f55ee;
+  background: #3182ce;
   color: #fff;
-  border-color: #5f55ee;
+  border-color: #3182ce;
 }
 
 /* ---- Modal overlay ---- */
@@ -635,7 +635,7 @@ nav a:first-child {
 
 .cap-input:focus {
   outline: none;
-  border-color: #5f55ee;
+  border-color: #3182ce;
   box-shadow: 0 0 0 2px rgba(95,85,238,0.12);
 }
 
