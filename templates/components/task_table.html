@@ -118,6 +118,8 @@
   }
 
   window.groupBy = function(mode) {
+    // Persist grouping state for auto-refresh
+    try { sessionStorage.setItem('sprint-' + document.querySelector('[data-sprint-id]')?.dataset.sprintId + '-group', mode); } catch(e) {}
     document.querySelectorAll('[id^="group-"]').forEach(b => b.classList.remove('active'));
     const btn = document.getElementById('group-' + mode + '-btn');
     if (btn) btn.classList.add('active');

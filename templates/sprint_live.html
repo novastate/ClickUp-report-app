@@ -3,7 +3,7 @@
 {% block content %}
 <div class="top-bar">
   <div>
-    <h1 style="display:inline">{{ sprint.name }}</h1>
+    <h1 style="display:inline" data-sprint-id="{{ sprint.id }}">{{ sprint.name }}</h1>
     <span class="meta">{{ sprint.start_date }} — {{ sprint.end_date }}</span>
     <span class="badge badge-{{ status }}">{{ status|upper }}</span>
   </div>
@@ -25,7 +25,9 @@
     {% include "components/scope_timeline.html" %}
   </div>
   {% include "components/task_table.html" %}
+  {% if team.capacity_mode|default('individual') != 'none' %}
   {% include "components/capacity_table.html" %}
+  {% endif %}
 </div>
 {% else %}
 <div class="content" style="padding-top: 24px;">
@@ -40,6 +42,7 @@
         <div style="font-size:28px; font-weight:bold;" id="plan-team-hours">—</div>
         <div style="color:#718096; font-size:13px;">Team Assigned</div>
       </div>
+      {% if team.capacity_mode|default('individual') != 'none' %}
       <div>
         <div style="font-size:28px; font-weight:bold;" id="plan-cap-value">—</div>
         <div style="color:#718096; font-size:13px;">Team Capacity</div>
@@ -48,6 +51,7 @@
         <div style="font-size:28px; font-weight:bold;" id="plan-avail-value">—</div>
         <div style="color:#718096; font-size:13px;">Available</div>
       </div>
+      {% endif %}
       <div>
         <div style="font-size:28px; font-weight:bold; color:#718096;" id="plan-ext-hours">—</div>
         <div style="color:#718096; font-size:13px;">External</div>
@@ -56,11 +60,21 @@
     <p style="margin-top:16px; color:#718096; font-size:13px;">Fill the iteration list in ClickUp, then click <strong>Close Forecast</strong> to start tracking.</p>
   </div>
   {% include "components/task_table.html" %}
+  {% if team.capacity_mode|default('individual') != 'none' %}
   {% include "components/capacity_table.html" %}
+  {% endif %}
 </div>
 {% endif %}
 {% if status == 'planning' or status == 'active' %}
-<script>setInterval(function() { location.reload(); }, 30000);</script>
+<script>
+setInterval(function() { location.reload(); }, 30000);
+document.addEventListener('DOMContentLoaded', function() {
+  const group = sessionStorage.getItem('sprint-{{ sprint.id }}-group');
+  if (group && group !== 'none' && typeof groupBy === 'function') {
+    groupBy(group);
+  }
+});
+</script>
 {% endif %}
 
 {% if status == 'planning' %}

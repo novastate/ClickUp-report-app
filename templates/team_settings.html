@@ -65,6 +65,11 @@
         <label>Capacity Mode</label>
         <div class="radio-group">
           <label>
+            <input type="radio" name="capacity_mode" value="none"
+              {% if team and team.capacity_mode == 'none' %}checked{% endif %}>
+            None
+          </label>
+          <label>
             <input type="radio" name="capacity_mode" value="individual"
               {% if not team or team.capacity_mode == 'individual' %}checked{% endif %}>
             Individual (per member)
