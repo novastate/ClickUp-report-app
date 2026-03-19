@@ -2,7 +2,7 @@
   <div class="kpi-card" data-filter="forecasted">
     <div class="label">Forecasted</div>
     <div class="value">{{ summary.forecasted|default(0) }}</div>
-    <div class="sub">{{ team.metric_type }}</div>
+    <div class="sub">{{ team.metric_type | replace('task_count', 'tasks') | replace('_', ' ') }}</div>
   </div>
   <div class="kpi-card" data-filter="completed">
     <div class="value green">{{ summary.completed|default(0) }}</div>
