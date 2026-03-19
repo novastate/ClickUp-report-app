@@ -47,6 +47,13 @@
         <td></td>
         <td id="total-hours"></td>
       </tr>
+      <tr style="color:#718096; font-size:13px;" id="team-ext-row">
+        <td></td>
+        <td><span id="team-hours-label"></span> &nbsp; <span id="ext-hours-label"></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
     </tfoot>
   </table>
 </div>
@@ -57,10 +64,30 @@
   if (!tbody) return;
   const rows = Array.from(tbody.querySelectorAll('tr.task-row'));
 
-  // Calculate total hours
+  // Calculate total hours + team vs external breakdown
+  const teamMembers = new Set({{ team_members | default([]) | tojson }});
   const totalHours = rows.reduce((sum, r) => sum + parseFloat(r.dataset.hours || 0), 0);
   const totalEl = document.getElementById('total-hours');
   if (totalEl) totalEl.textContent = totalHours ? totalHours.toFixed(1) : '—';
+
+  let teamHours = 0, extHours = 0;
+  rows.forEach(r => {
+    try {
+      const ah = JSON.parse(r.dataset.assigneeHours || '[]');
+      ah.forEach(entry => {
+        if (teamMembers.has(entry.name)) teamHours += (entry.hours || 0);
+        else extHours += (entry.hours || 0);
+      });
+    } catch(e) {}
+  });
+  const teamLabel = document.getElementById('team-hours-label');
+  const extLabel = document.getElementById('ext-hours-label');
+  if (teamLabel) teamLabel.textContent = `Team: ${teamHours.toFixed(1)}h`;
+  if (extLabel && extHours > 0) extLabel.textContent = `External: ${extHours.toFixed(1)}h`;
+  const planTeamEl = document.getElementById('plan-team-hours');
+  const planExtEl = document.getElementById('plan-ext-hours');
+  if (planTeamEl) planTeamEl.textContent = teamHours.toFixed(1);
+  if (planExtEl) planExtEl.textContent = extHours > 0 ? extHours.toFixed(1) : '0';
 
   const statusOrder = ['in progress', 'to do', 'on hold', 'waiting internal', 'waiting external', 'accepted', 'complete', 'closed', 'cancelled'];
 

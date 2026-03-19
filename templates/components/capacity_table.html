@@ -13,10 +13,22 @@
     </tbody>
     <tfoot>
       <tr style="font-weight:bold; border-top:2px solid #cbd5e0;">
-        <td>Total</td>
+        <td>Team</td>
         <td id="cap-total"></td>
-        <td id="cap-assigned-total"></td>
+        <td id="cap-team-assigned"></td>
         <td id="cap-available-total"></td>
+      </tr>
+      <tr style="color:#718096; font-style:italic;" id="cap-ext-row">
+        <td>External</td>
+        <td></td>
+        <td id="cap-ext-assigned"></td>
+        <td></td>
+      </tr>
+      <tr style="font-weight:bold; border-top:1px solid #e2e8f0;">
+        <td>Total</td>
+        <td id="cap-total-dup"></td>
+        <td id="cap-assigned-total"></td>
+        <td></td>
       </tr>
     </tfoot>
   </table>
@@ -44,6 +56,8 @@
   const tbody = document.getElementById('capacity-tbody');
   let totalCap = 0, totalAssigned = 0;
 
+  const memberSet = new Set(members);
+
   members.forEach(name => {
     const cap = capMap[name] || 0;
     const assigned = assignedMap[name] || 0;
@@ -61,8 +75,41 @@
     tbody.appendChild(tr);
   });
 
+  // External hours row
+  let externalHours = 0;
+  Object.entries(assignedMap).forEach(([name, hours]) => {
+    if (!memberSet.has(name)) externalHours += hours;
+  });
+  if (externalHours > 0) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:#718096; font-style:italic;">External</td>
+      <td></td>
+      <td style="color:#718096;">${externalHours.toFixed(1)}</td>
+      <td></td>
+    `;
+    tbody.appendChild(tr);
+  }
+
   document.getElementById('cap-total').textContent = totalCap.toFixed(1);
-  document.getElementById('cap-assigned-total').textContent = totalAssigned.toFixed(1);
+  document.getElementById('cap-total-dup').textContent = totalCap.toFixed(1);
+  document.getElementById('cap-team-assigned').textContent = totalAssigned.toFixed(1);
+  document.getElementById('cap-assigned-total').textContent = (totalAssigned + externalHours).toFixed(1);
+  if (externalHours > 0) {
+    document.getElementById('cap-ext-assigned').textContent = externalHours.toFixed(1);
+  } else {
+    document.getElementById('cap-ext-row').style.display = 'none';
+  }
+
+  // Update planning overview stats
+  const planCapEl = document.getElementById('plan-cap-value');
+  const planAvailEl = document.getElementById('plan-avail-value');
+  if (planCapEl) {
+    planCapEl.textContent = totalCap.toFixed(0) + 'h';
+    const avail = totalCap - totalAssigned;
+    planAvailEl.textContent = avail.toFixed(0) + 'h';
+    planAvailEl.style.color = avail < 0 ? '#e53e3e' : '#38a169';
+  }
   const totalAvail = totalCap - totalAssigned;
   const availEl = document.getElementById('cap-available-total');
   availEl.textContent = totalAvail.toFixed(1);
@@ -85,9 +132,15 @@
       cells[3].style.fontWeight = avail < 0 ? 'bold' : 'normal';
     });
     document.getElementById('cap-total').textContent = tc.toFixed(1);
+    document.getElementById('cap-total-dup').textContent = tc.toFixed(1);
     const ta = tc - totalAssigned;
     availEl.textContent = ta.toFixed(1);
     availEl.style.color = ta < 0 ? '#e53e3e' : '#38a169';
+    if (planCapEl) {
+      planCapEl.textContent = tc.toFixed(0) + 'h';
+      planAvailEl.textContent = ta.toFixed(0) + 'h';
+      planAvailEl.style.color = ta < 0 ? '#e53e3e' : '#38a169';
+    }
   });
 
   window.saveCapacity = async function() {
