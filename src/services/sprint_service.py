@@ -54,6 +54,22 @@ def get_sprint_status(sprint: dict) -> str:
         return "active"
     return "planning"
 
+def get_sprint_capacity(sprint_id: int) -> list[dict]:
+    conn = get_connection(_db_path())
+    rows = conn.execute("SELECT * FROM sprint_capacity WHERE sprint_id = ? ORDER BY username", (sprint_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def set_sprint_capacity(sprint_id: int, capacities: list[dict]):
+    conn = get_connection(_db_path())
+    for c in capacities:
+        conn.execute(
+            "INSERT OR REPLACE INTO sprint_capacity (sprint_id, username, capacity) VALUES (?, ?, ?)",
+            (sprint_id, c["username"], c["capacity"]),
+        )
+    conn.commit()
+    conn.close()
+
 def close_forecast(sprint_id: int) -> dict:
     conn = get_connection(_db_path())
     now = datetime.now().isoformat()

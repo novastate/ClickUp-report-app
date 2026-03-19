@@ -29,6 +29,14 @@ def init_db(db_path: str):
             UNIQUE(team_id, clickup_user_id)
         );
 
+        CREATE TABLE IF NOT EXISTS sprint_capacity (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            sprint_id INTEGER NOT NULL REFERENCES sprints(id) ON DELETE CASCADE,
+            username TEXT NOT NULL,
+            capacity REAL NOT NULL DEFAULT 0,
+            UNIQUE(sprint_id, username)
+        );
+
         CREATE TABLE IF NOT EXISTS sprints (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,

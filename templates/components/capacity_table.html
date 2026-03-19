@@ -1,0 +1,119 @@
+<div class="panel" id="capacity-panel">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+    <h3 style="margin:0;">Team Capacity</h3>
+    <button class="btn btn-primary" style="font-size:12px; padding:4px 10px;" onclick="saveCapacity()" id="save-cap-btn">Save</button>
+  </div>
+  {% set metric = team.metric_type|default('hours') %}
+  {% set unit = 'pts' if metric == 'points' else 'h' %}
+  <table class="task-table">
+    <thead>
+      <tr><th>Member</th><th style="width:120px;">Capacity ({{ unit }})</th><th style="width:120px;">Assigned ({{ unit }})</th><th style="width:120px;">Available ({{ unit }})</th></tr>
+    </thead>
+    <tbody id="capacity-tbody">
+    </tbody>
+    <tfoot>
+      <tr style="font-weight:bold; border-top:2px solid #cbd5e0;">
+        <td>Total</td>
+        <td id="cap-total"></td>
+        <td id="cap-assigned-total"></td>
+        <td id="cap-available-total"></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<script>
+(function() {
+  const sprintId = {{ sprint.id }};
+  const members = {{ team_members | tojson }};
+  const capacity = {{ capacity | tojson }};
+  const capMap = {};
+  capacity.forEach(c => { capMap[c.username] = c.capacity; });
+
+  // Calculate assigned hours per member from task data (always in hours)
+  const assignedMap = {};
+  document.querySelectorAll('#task-tbody tr.task-row').forEach(row => {
+    try {
+      const ah = JSON.parse(row.dataset.assigneeHours || '[]');
+      ah.forEach(entry => {
+        assignedMap[entry.name] = (assignedMap[entry.name] || 0) + (entry.hours || 0);
+      });
+    } catch(e) {}
+  });
+
+  const tbody = document.getElementById('capacity-tbody');
+  let totalCap = 0, totalAssigned = 0;
+
+  members.forEach(name => {
+    const cap = capMap[name] || 0;
+    const assigned = assignedMap[name] || 0;
+    const available = cap - assigned;
+    totalCap += cap;
+    totalAssigned += assigned;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${name}</td>
+      <td><input type="number" class="cap-input" data-member="${name}" value="${cap}" min="0" step="0.5" style="width:80px; padding:4px 8px; border:1px solid #cbd5e0; border-radius:4px;"></td>
+      <td style="color:#718096;">${assigned.toFixed(1)}</td>
+      <td style="color:${available < 0 ? '#e53e3e' : '#38a169'}; font-weight:${available < 0 ? 'bold' : 'normal'};">${available.toFixed(1)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('cap-total').textContent = totalCap.toFixed(1);
+  document.getElementById('cap-assigned-total').textContent = totalAssigned.toFixed(1);
+  const totalAvail = totalCap - totalAssigned;
+  const availEl = document.getElementById('cap-available-total');
+  availEl.textContent = totalAvail.toFixed(1);
+  availEl.style.color = totalAvail < 0 ? '#e53e3e' : '#38a169';
+
+  // Recalculate on input change
+  tbody.addEventListener('input', function() {
+    let tc = 0;
+    tbody.querySelectorAll('tr').forEach(row => {
+      const input = row.querySelector('.cap-input');
+      if (!input) return;
+      const name = input.dataset.member;
+      const cap = parseFloat(input.value) || 0;
+      const assigned = assignedMap[name] || 0;
+      const avail = cap - assigned;
+      tc += cap;
+      const cells = row.querySelectorAll('td');
+      cells[3].textContent = avail.toFixed(1);
+      cells[3].style.color = avail < 0 ? '#e53e3e' : '#38a169';
+      cells[3].style.fontWeight = avail < 0 ? 'bold' : 'normal';
+    });
+    document.getElementById('cap-total').textContent = tc.toFixed(1);
+    const ta = tc - totalAssigned;
+    availEl.textContent = ta.toFixed(1);
+    availEl.style.color = ta < 0 ? '#e53e3e' : '#38a169';
+  });
+
+  window.saveCapacity = async function() {
+    const btn = document.getElementById('save-cap-btn');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    const entries = [];
+    tbody.querySelectorAll('.cap-input').forEach(input => {
+      entries.push({username: input.dataset.member, capacity: parseFloat(input.value) || 0});
+    });
+    try {
+      const resp = await fetch(`/sprints/${sprintId}/capacity`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(entries),
+      });
+      if (resp.ok) {
+        btn.textContent = 'Saved!';
+        setTimeout(() => { btn.textContent = 'Save'; btn.disabled = false; }, 1500);
+      } else {
+        alert('Failed to save capacity');
+        btn.textContent = 'Save'; btn.disabled = false;
+      }
+    } catch(e) {
+      alert('Error: ' + e.message);
+      btn.textContent = 'Save'; btn.disabled = false;
+    }
+  };
+})();
+</script>

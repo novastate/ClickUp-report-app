@@ -28,10 +28,14 @@ def get_team(team_id: int):
 
 @router.put("/{team_id}")
 def update_team(team_id: int, body: TeamUpdate):
+    members = body.members
     updates = body.model_dump(exclude_none=True)
+    updates.pop("members", None)
     team = team_service.update_team(team_id, **updates)
     if not team:
         raise HTTPException(404, "Team not found")
+    if members is not None:
+        team_service.set_team_members(team_id, [m.model_dump() for m in members])
     return team
 
 @router.delete("/{team_id}")

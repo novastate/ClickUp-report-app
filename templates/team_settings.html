@@ -209,7 +209,7 @@
       clickup_folder_id: folderSelect.value,
       metric_type: document.querySelector('input[name="metric_type"]:checked').value,
       sprint_length_days: parseInt(document.getElementById('sprint-length').value, 10),
-      members: selectedTeam ? selectedTeam.members.map(m => ({id: String(m.id), username: m.username})) : [],
+      members: selectedTeam ? selectedTeam.members.map(m => ({id: String(m.id), username: m.username})) : undefined,
     };
 
     if (!data.name) { showError('Team name is required.'); reset(btn); return; }

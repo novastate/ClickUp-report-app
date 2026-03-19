@@ -24,6 +24,7 @@
     {% include "components/scope_timeline.html" %}
   </div>
   {% include "components/task_table.html" %}
+  {% include "components/capacity_table.html" %}
 </div>
 {% else %}
 <div class="content" style="padding-top: 24px;">
@@ -33,6 +34,7 @@
     <p style="margin-top: 12px; color: #718096;">{{ tasks|length }} tasks currently in this list.</p>
   </div>
   {% include "components/task_table.html" %}
+  {% include "components/capacity_table.html" %}
 </div>
 {% endif %}
 {% endblock %}

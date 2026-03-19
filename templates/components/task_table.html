@@ -17,6 +17,7 @@
           data-status="{{ task.task_status }}"
           data-assignee-hours='{{ task.assignee_hours | tojson }}'
           data-hours="{{ task.hours or 0 }}"
+          data-points="{{ task.points or 0 }}"
           class="task-row {% if task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">
         <td>{% if task.task_status in ['complete','closed'] %}✅{% elif task.scope_change == 'added' %}➕{% elif task.scope_change == 'removed' %}➖{% elif task.task_status == 'in progress' %}🔵{% else %}⬜{% endif %}</td>
         <td>{{ task.task_name }}{% if task.scope_change == 'added' %}<span class="scope-badge">(added)</span>{% endif %}</td>
@@ -84,6 +85,24 @@
       return;
     }
 
+    let groupCounter = 0;
+
+    function renderGroup(label, count, hours, groupRows) {
+      const groupId = 'grp-' + (groupCounter++);
+      const header = document.createElement('tr');
+      header.className = 'group-header';
+      header.style.cursor = 'pointer';
+      header.innerHTML = `<td colspan="4" style="background:#edf2f7; font-weight:bold; padding:8px 12px;"><span class="gi" style="display:inline-block; width:16px;">▼</span> ${label} (${count} tasks, ${hours.toFixed(1)}h)</td><td style="background:#edf2f7; font-weight:bold; padding:8px 12px;">${hours ? hours.toFixed(1) : '—'}</td>`;
+      header.onclick = function() {
+        const icon = this.querySelector('.gi');
+        const collapsed = icon.textContent === '▶';
+        icon.textContent = collapsed ? '▼' : '▶';
+        groupRows.forEach(r => { r.style.display = collapsed ? '' : 'none'; });
+      };
+      tbody.appendChild(header);
+      groupRows.forEach(r => { r.style.display = ''; tbody.appendChild(r); });
+    }
+
     if (mode === 'status') {
       const groups = {};
       rows.forEach(r => {
@@ -92,87 +111,46 @@
         groups[key].push(r);
       });
 
-      const sortedKeys = Object.keys(groups).sort((a, b) => {
+      Object.keys(groups).sort((a, b) => {
         const ai = statusOrder.indexOf(a), bi = statusOrder.indexOf(b);
         return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-      });
-
-      sortedKeys.forEach(key => {
-        const groupRows = groups[key];
-        const groupHours = groupRows.reduce((sum, r) => sum + parseFloat(r.dataset.hours || 0), 0);
-        const groupId = 'group-' + key.replace(/[^a-zA-Z0-9]/g, '-');
-        const header = document.createElement('tr');
-        header.className = 'group-header';
-        header.style.cursor = 'pointer';
-        header.innerHTML = `<td colspan="4" style="background:#edf2f7; font-weight:bold; padding:8px 12px;"><span class="collapse-icon" style="display:inline-block; width:16px;">▼</span> ${key.toUpperCase()} (${groupRows.length})</td><td style="background:#edf2f7; font-weight:bold; padding:8px 12px;">${groupHours ? groupHours.toFixed(1) : '—'}</td>`;
-        header.addEventListener('click', function() {
-          const icon = this.querySelector('.collapse-icon');
-          const collapsed = icon.textContent === '▶';
-          icon.textContent = collapsed ? '▼' : '▶';
-          tbody.querySelectorAll(`tr[data-group="${groupId}"]`).forEach(r => {
-            r.style.display = collapsed ? '' : 'none';
-          });
-        });
-        tbody.appendChild(header);
-        groupRows.forEach(r => { r.dataset.group = groupId; tbody.appendChild(r); });
+      }).forEach(key => {
+        const gr = groups[key];
+        renderGroup(key.toUpperCase(), gr.length, gr.reduce((s, r) => s + parseFloat(r.dataset.hours || 0), 0), gr);
       });
     }
 
     if (mode === 'assignee') {
-      // Build per-assignee data using assignee_hours breakdown
-      const assigneeData = {}; // name -> [{row, hours}]
+      const assigneeData = {};
+      const addedRows = new Set();
       rows.forEach(r => {
         const ah = getAssigneeHours(r);
         if (ah.length === 0) {
-          const key = 'Unassigned';
-          if (!assigneeData[key]) assigneeData[key] = [];
-          assigneeData[key].push({row: r, hours: parseFloat(r.dataset.hours || 0)});
+          if (!assigneeData['Unassigned']) assigneeData['Unassigned'] = [];
+          assigneeData['Unassigned'].push({row: r, hours: parseFloat(r.dataset.hours || 0)});
         } else {
           ah.forEach(entry => {
-            const key = entry.name;
-            if (!assigneeData[key]) assigneeData[key] = [];
-            assigneeData[key].push({row: r, hours: entry.hours || 0});
+            if (!assigneeData[entry.name]) assigneeData[entry.name] = [];
+            assigneeData[entry.name].push({row: r, hours: entry.hours || 0});
           });
         }
       });
 
-      const sortedKeys = Object.keys(assigneeData).sort((a, b) =>
+      Object.keys(assigneeData).sort((a, b) =>
         a === 'Unassigned' ? 1 : b === 'Unassigned' ? -1 : a.localeCompare(b)
-      );
-
-      // Track which rows have been added (a row can appear in multiple groups)
-      const addedRows = new Set();
-
-      sortedKeys.forEach(key => {
+      ).forEach(key => {
         const entries = assigneeData[key];
-        const groupHours = entries.reduce((sum, e) => sum + e.hours, 0);
-        const groupId = 'group-' + key.replace(/[^a-zA-Z0-9]/g, '-');
-        const header = document.createElement('tr');
-        header.className = 'group-header';
-        header.style.cursor = 'pointer';
-        header.innerHTML = `<td colspan="4" style="background:#edf2f7; font-weight:bold; padding:8px 12px;"><span class="collapse-icon" style="display:inline-block; width:16px;">▼</span> ${key} (${entries.length} tasks, ${groupHours.toFixed(1)}h)</td><td style="background:#edf2f7; font-weight:bold; padding:8px 12px;">${groupHours ? groupHours.toFixed(1) : '—'}</td>`;
-        header.addEventListener('click', function() {
-          const icon = this.querySelector('.collapse-icon');
-          const collapsed = icon.textContent === '▶';
-          icon.textContent = collapsed ? '▼' : '▶';
-          tbody.querySelectorAll(`tr[data-group="${groupId}"]`).forEach(r => {
-            r.style.display = collapsed ? '' : 'none';
-          });
-        });
-        tbody.appendChild(header);
-        entries.forEach(e => {
-          // Clone row if it appears in multiple groups
-          let row;
+        const groupHours = entries.reduce((s, e) => s + e.hours, 0);
+        const groupRows = entries.map(e => {
           if (addedRows.has(e.row)) {
-            row = e.row.cloneNode(true);
-            row.className = 'task-row';
-          } else {
-            row = e.row;
-            addedRows.add(row);
+            const clone = e.row.cloneNode(true);
+            clone.className = 'task-row';
+            return clone;
           }
-          row.dataset.group = groupId;
-          tbody.appendChild(row);
+          addedRows.add(e.row);
+          return e.row;
         });
+        renderGroup(key, entries.length, groupHours, groupRows);
       });
     }
   };

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from src.services.sprint_service import get_sprint, close_forecast as do_close_forecast, close_sprint as do_close_sprint, get_sprint_status
+from src.services.sprint_service import get_sprint, close_forecast as do_close_forecast, close_sprint as do_close_sprint, get_sprint_status, get_sprint_capacity, set_sprint_capacity
+from pydantic import BaseModel
 from src.services.snapshot_service import save_forecast_snapshot, record_daily_progress, detect_scope_changes, get_scope_changes, get_forecast_snapshot, get_daily_progress_history
 from src.services.trend_service import get_sprint_summary
 from src.services.team_service import get_team
@@ -118,3 +119,19 @@ async def sprint_tasks(sprint_id: int, filter: str = None):
     elif filter == "scope_changes":
         tasks = [t for t in tasks if t.get("scope_change")]
     return tasks
+
+class CapacityEntry(BaseModel):
+    username: str
+    capacity: float
+
+@router.get("/{sprint_id}/capacity")
+def get_capacity(sprint_id: int):
+    return get_sprint_capacity(sprint_id)
+
+@router.post("/{sprint_id}/capacity")
+def save_capacity(sprint_id: int, entries: list[CapacityEntry]):
+    sprint = get_sprint(sprint_id)
+    if not sprint:
+        raise HTTPException(404, "Sprint not found")
+    set_sprint_capacity(sprint_id, [e.model_dump() for e in entries])
+    return {"ok": True}

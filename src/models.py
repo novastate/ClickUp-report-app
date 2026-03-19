@@ -21,6 +21,7 @@ class TeamUpdate(BaseModel):
     clickup_folder_id: Optional[str] = None
     metric_type: Optional[str] = None
     sprint_length_days: Optional[int] = None
+    members: Optional[list[TeamMember]] = None
 
 class TeamOut(BaseModel):
     id: int
