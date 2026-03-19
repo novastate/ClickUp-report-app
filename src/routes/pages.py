@@ -29,10 +29,12 @@ def home(request: Request):
         return RedirectResponse("/setup")
     teams = get_all_teams()
     for team in teams:
-        sprints = get_team_sprints(team["id"])
-        for s in sprints:
-            if get_sprint_status(s) == "active":
-                return RedirectResponse(f"/sprint/{s['id']}")
+        team["sprints"] = get_team_sprints(team["id"])
+        team["active_sprint"] = None
+        for s in team["sprints"]:
+            s["status"] = get_sprint_status(s)
+            if s["status"] == "active":
+                team["active_sprint"] = s
     return templates.TemplateResponse("home.html", _ctx(request, teams=teams))
 
 
