@@ -30,6 +30,17 @@
       </div>
 
       <div class="form-group">
+        <label for="team-select">ClickUp Team (members)</label>
+        <select id="team-select" name="clickup_team_id" disabled>
+          <option value="">— Select a space first —</option>
+        </select>
+        <div id="team-members" style="margin-top:8px; display:none;">
+          <div style="font-size:12px; color:#718096; margin-bottom:4px;">Members:</div>
+          <div id="members-list" style="display:flex; flex-wrap:wrap; gap:4px;"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label>Metric Type</label>
         <div class="radio-group">
           <label>
@@ -82,6 +93,10 @@
 
   const spaceSelect = document.getElementById('space-select');
   const folderSelect = document.getElementById('folder-select');
+  const teamSelect = document.getElementById('team-select');
+  const membersDiv = document.getElementById('team-members');
+  const membersList = document.getElementById('members-list');
+  let allTeams = [];
 
   // Load spaces on page load
   async function loadSpaces() {
@@ -99,6 +114,8 @@
         spaceSelect.appendChild(opt);
       });
       if (currentSpaceId) {
+        const selectedOpt = spaceSelect.querySelector(`option[value="${currentSpaceId}"]`);
+        if (selectedOpt) await loadTeams(selectedOpt.dataset.workspaceId);
         await loadFolders(currentSpaceId);
       }
     } catch (e) {
@@ -129,12 +146,50 @@
     }
   }
 
+  async function loadTeams(workspaceId) {
+    teamSelect.disabled = true;
+    teamSelect.innerHTML = '<option value="">— Loading teams… —</option>';
+    try {
+      const resp = await fetch(`/api/clickup/teams/${workspaceId}`);
+      if (!resp.ok) throw new Error('Failed to load teams');
+      allTeams = await resp.json();
+      teamSelect.innerHTML = '<option value="">— Select a team —</option>';
+      allTeams.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t.id;
+        opt.textContent = `@${t.handle || t.name} (${t.members.length} members)`;
+        teamSelect.appendChild(opt);
+      });
+      teamSelect.disabled = false;
+    } catch (e) {
+      teamSelect.innerHTML = '<option value="">— Error loading teams —</option>';
+    }
+  }
+
+  teamSelect.addEventListener('change', function() {
+    const team = allTeams.find(t => t.id === this.value);
+    if (team) {
+      membersDiv.style.display = 'block';
+      membersList.innerHTML = team.members.map(m =>
+        `<span style="background:#edf2f7; padding:2px 8px; border-radius:4px; font-size:12px;">${m.username}</span>`
+      ).join('');
+    } else {
+      membersDiv.style.display = 'none';
+      membersList.innerHTML = '';
+    }
+  });
+
   spaceSelect.addEventListener('change', function () {
     if (this.value) {
+      const selectedOpt = this.options[this.selectedIndex];
       loadFolders(this.value);
+      loadTeams(selectedOpt.dataset.workspaceId);
     } else {
       folderSelect.innerHTML = '<option value="">— Select a space first —</option>';
       folderSelect.disabled = true;
+      teamSelect.innerHTML = '<option value="">— Select a space first —</option>';
+      teamSelect.disabled = true;
+      membersDiv.style.display = 'none';
     }
   });
 
@@ -146,6 +201,7 @@
     btn.textContent = 'Saving…';
 
     const selectedSpace = spaceSelect.options[spaceSelect.selectedIndex];
+    const selectedTeam = allTeams.find(t => t.id === teamSelect.value);
     const data = {
       name: document.getElementById('name').value.trim(),
       clickup_workspace_id: selectedSpace ? selectedSpace.dataset.workspaceId || '' : '',
@@ -153,6 +209,7 @@
       clickup_folder_id: folderSelect.value,
       metric_type: document.querySelector('input[name="metric_type"]:checked').value,
       sprint_length_days: parseInt(document.getElementById('sprint-length').value, 10),
+      members: selectedTeam ? selectedTeam.members.map(m => ({id: String(m.id), username: m.username})) : [],
     };
 
     if (!data.name) { showError('Team name is required.'); reset(btn); return; }

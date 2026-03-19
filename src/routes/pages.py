@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from src.services.team_service import get_all_teams, get_team
+from src.services.team_service import get_all_teams, get_team, get_team_members
 from src.services.sprint_service import get_team_sprints, get_sprint, get_sprint_status
 from src.services.trend_service import get_sprint_summary
 from src.services.snapshot_service import get_scope_changes, get_daily_progress_history, get_forecast_snapshot
@@ -151,6 +151,7 @@ async def sprint_page(request: Request, sprint_id: int):
         progress_history=progress,
         sprint_day=sprint_day,
         on_track=on_track,
+        team_members=[m["username"] for m in get_team_members(team["id"])],
     ))
 
 

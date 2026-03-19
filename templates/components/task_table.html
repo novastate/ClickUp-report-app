@@ -1,20 +1,181 @@
 <div class="panel">
-  <h3>Tasks</h3>
-  <table class="task-table">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+    <h3 style="margin:0;">Tasks</h3>
+    <div style="display:flex; gap:8px;">
+      <button class="btn btn-secondary" style="font-size:12px; padding:4px 10px;" onclick="groupBy('none')" id="group-none-btn">No Grouping</button>
+      <button class="btn btn-secondary" style="font-size:12px; padding:4px 10px;" onclick="groupBy('status')" id="group-status-btn">Group by Status</button>
+      <button class="btn btn-secondary" style="font-size:12px; padding:4px 10px;" onclick="groupBy('assignee')" id="group-assignee-btn">Group by Assignee</button>
+    </div>
+  </div>
+  <table class="task-table" id="task-table">
     <thead>
-      <tr><th></th><th>Task</th><th>Assignee</th><th>Status</th><th>{{ team.metric_type|default('metric')|title }}</th></tr>
+      <tr><th></th><th>Task</th><th>Assignee</th><th>Status</th><th>Hours</th></tr>
     </thead>
-    <tbody>
+    <tbody id="task-tbody">
       {% for task in tasks %}
       <tr data-filter="{% if task.task_status in ['complete','closed'] %}completed forecasted{% elif task.scope_change == 'added' %}scope_changes{% elif task.scope_change == 'removed' %}scope_changes{% else %}not_completed forecasted{% endif %}"
-          class="{% if task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">
+          data-status="{{ task.task_status }}"
+          data-assignee-hours='{{ task.assignee_hours | tojson }}'
+          data-hours="{{ task.hours or 0 }}"
+          class="task-row {% if task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">
         <td>{% if task.task_status in ['complete','closed'] %}✅{% elif task.scope_change == 'added' %}➕{% elif task.scope_change == 'removed' %}➖{% elif task.task_status == 'in progress' %}🔵{% else %}⬜{% endif %}</td>
         <td>{{ task.task_name }}{% if task.scope_change == 'added' %}<span class="scope-badge">(added)</span>{% endif %}</td>
-        <td>{{ task.assignee_name or '—' }}</td>
-        <td><span class="badge-{{ 'complete' if task.task_status in ['complete','closed'] else ('progress' if task.task_status == 'in progress' else 'todo') }}">{{ task.task_status }}</span></td>
-        <td>{% if team.metric_type == 'points' %}{{ task.points or '—' }}{% elif team.metric_type == 'hours' %}{{ task.hours or '—' }}{% else %}1{% endif %}</td>
+        <td>
+          {% if task.assignee_hours and task.assignee_hours|length > 1 %}
+            {% for ah in task.assignee_hours %}
+              <div style="white-space:nowrap;">
+                {% if team_members is defined and team_members and ah.name not in team_members %}<span style="color:#e53e3e;" title="External">⊘</span> {% endif %}{{ ah.name }} <span style="color:#718096; font-size:11px;">({{ ah.hours }}h)</span>
+              </div>
+            {% endfor %}
+          {% elif task.assignee_name %}
+            {% if team_members is defined and team_members and task.assignee_name not in team_members %}<span style="color:#e53e3e;" title="External">⊘</span> {% endif %}{{ task.assignee_name }}
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td><span class="badge-{{ 'complete' if task.task_status in ['complete','closed'] else ('progress' if task.task_status == 'in progress' else 'todo') }}">{{ task.task_status|upper }}</span></td>
+        <td>{{ task.hours or '—' }}</td>
       </tr>
       {% endfor %}
     </tbody>
+    <tfoot id="task-tfoot">
+      <tr style="font-weight:bold; border-top:2px solid #cbd5e0;">
+        <td></td>
+        <td>Total ({{ tasks|length }} tasks)</td>
+        <td></td>
+        <td></td>
+        <td id="total-hours"></td>
+      </tr>
+    </tfoot>
   </table>
+</div>
+
+<script>
+(function() {
+  const tbody = document.getElementById('task-tbody');
+  if (!tbody) return;
+  const rows = Array.from(tbody.querySelectorAll('tr.task-row'));
+
+  // Calculate total hours
+  const totalHours = rows.reduce((sum, r) => sum + parseFloat(r.dataset.hours || 0), 0);
+  const totalEl = document.getElementById('total-hours');
+  if (totalEl) totalEl.textContent = totalHours ? totalHours.toFixed(1) : '—';
+
+  const statusOrder = ['in progress', 'to do', 'on hold', 'waiting internal', 'waiting external', 'accepted', 'complete', 'closed', 'cancelled'];
+
+  function getAssigneeHours(row) {
+    try { return JSON.parse(row.dataset.assigneeHours || '[]'); }
+    catch(e) { return []; }
+  }
+
+  window.groupBy = function(mode) {
+    document.querySelectorAll('[id^="group-"]').forEach(b => b.classList.remove('active'));
+    const btn = document.getElementById('group-' + mode + '-btn');
+    if (btn) btn.classList.add('active');
+
+    // Remove existing group headers
+    tbody.querySelectorAll('.group-header').forEach(el => el.remove());
+
+    // Reset row visibility
+    rows.forEach(r => { r.style.display = ''; delete r.dataset.group; });
+
+    if (mode === 'none') {
+      rows.forEach(r => tbody.appendChild(r));
+      return;
+    }
+
+    if (mode === 'status') {
+      const groups = {};
+      rows.forEach(r => {
+        const key = r.dataset.status;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(r);
+      });
+
+      const sortedKeys = Object.keys(groups).sort((a, b) => {
+        const ai = statusOrder.indexOf(a), bi = statusOrder.indexOf(b);
+        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+      });
+
+      sortedKeys.forEach(key => {
+        const groupRows = groups[key];
+        const groupHours = groupRows.reduce((sum, r) => sum + parseFloat(r.dataset.hours || 0), 0);
+        const groupId = 'group-' + key.replace(/[^a-zA-Z0-9]/g, '-');
+        const header = document.createElement('tr');
+        header.className = 'group-header';
+        header.style.cursor = 'pointer';
+        header.innerHTML = `<td colspan="4" style="background:#edf2f7; font-weight:bold; padding:8px 12px;"><span class="collapse-icon" style="display:inline-block; width:16px;">▼</span> ${key.toUpperCase()} (${groupRows.length})</td><td style="background:#edf2f7; font-weight:bold; padding:8px 12px;">${groupHours ? groupHours.toFixed(1) : '—'}</td>`;
+        header.addEventListener('click', function() {
+          const icon = this.querySelector('.collapse-icon');
+          const collapsed = icon.textContent === '▶';
+          icon.textContent = collapsed ? '▼' : '▶';
+          tbody.querySelectorAll(`tr[data-group="${groupId}"]`).forEach(r => {
+            r.style.display = collapsed ? '' : 'none';
+          });
+        });
+        tbody.appendChild(header);
+        groupRows.forEach(r => { r.dataset.group = groupId; tbody.appendChild(r); });
+      });
+    }
+
+    if (mode === 'assignee') {
+      // Build per-assignee data using assignee_hours breakdown
+      const assigneeData = {}; // name -> [{row, hours}]
+      rows.forEach(r => {
+        const ah = getAssigneeHours(r);
+        if (ah.length === 0) {
+          const key = 'Unassigned';
+          if (!assigneeData[key]) assigneeData[key] = [];
+          assigneeData[key].push({row: r, hours: parseFloat(r.dataset.hours || 0)});
+        } else {
+          ah.forEach(entry => {
+            const key = entry.name;
+            if (!assigneeData[key]) assigneeData[key] = [];
+            assigneeData[key].push({row: r, hours: entry.hours || 0});
+          });
+        }
+      });
+
+      const sortedKeys = Object.keys(assigneeData).sort((a, b) =>
+        a === 'Unassigned' ? 1 : b === 'Unassigned' ? -1 : a.localeCompare(b)
+      );
+
+      // Track which rows have been added (a row can appear in multiple groups)
+      const addedRows = new Set();
+
+      sortedKeys.forEach(key => {
+        const entries = assigneeData[key];
+        const groupHours = entries.reduce((sum, e) => sum + e.hours, 0);
+        const groupId = 'group-' + key.replace(/[^a-zA-Z0-9]/g, '-');
+        const header = document.createElement('tr');
+        header.className = 'group-header';
+        header.style.cursor = 'pointer';
+        header.innerHTML = `<td colspan="4" style="background:#edf2f7; font-weight:bold; padding:8px 12px;"><span class="collapse-icon" style="display:inline-block; width:16px;">▼</span> ${key} (${entries.length} tasks, ${groupHours.toFixed(1)}h)</td><td style="background:#edf2f7; font-weight:bold; padding:8px 12px;">${groupHours ? groupHours.toFixed(1) : '—'}</td>`;
+        header.addEventListener('click', function() {
+          const icon = this.querySelector('.collapse-icon');
+          const collapsed = icon.textContent === '▶';
+          icon.textContent = collapsed ? '▼' : '▶';
+          tbody.querySelectorAll(`tr[data-group="${groupId}"]`).forEach(r => {
+            r.style.display = collapsed ? '' : 'none';
+          });
+        });
+        tbody.appendChild(header);
+        entries.forEach(e => {
+          // Clone row if it appears in multiple groups
+          let row;
+          if (addedRows.has(e.row)) {
+            row = e.row.cloneNode(true);
+            row.className = 'task-row';
+          } else {
+            row = e.row;
+            addedRows.add(row);
+          }
+          row.dataset.group = groupId;
+          tbody.appendChild(row);
+        });
+      });
+    }
+  };
+})();
+</script>
 </div>

@@ -20,3 +20,11 @@ async def list_folders(space_id: str):
     client = ClickUpClient(get_clickup_api_key())
     folders = await client.get_folders(space_id)
     return [{"id": f["id"], "name": f["name"]} for f in folders]
+
+@router.get("/teams/{workspace_id}")
+async def list_clickup_teams(workspace_id: str):
+    client = ClickUpClient(get_clickup_api_key())
+    teams = await client.get_teams(workspace_id)
+    return [{"id": g["id"], "name": g["name"], "handle": g.get("handle", ""),
+             "members": [{"id": m["id"], "username": m["username"]} for m in g.get("members", [])]}
+            for g in teams]

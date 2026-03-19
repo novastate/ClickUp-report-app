@@ -2,6 +2,10 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, date
 
+class TeamMember(BaseModel):
+    id: str
+    username: str
+
 class TeamCreate(BaseModel):
     name: str
     clickup_workspace_id: str = ""
@@ -9,6 +13,7 @@ class TeamCreate(BaseModel):
     clickup_folder_id: str
     metric_type: str = "task_count"
     sprint_length_days: int = 14
+    members: list[TeamMember] = []
 
 class TeamUpdate(BaseModel):
     name: Optional[str] = None

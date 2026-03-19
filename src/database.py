@@ -21,6 +21,14 @@ def init_db(db_path: str):
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
 
+        CREATE TABLE IF NOT EXISTS team_members (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
+            clickup_user_id TEXT NOT NULL,
+            username TEXT NOT NULL,
+            UNIQUE(team_id, clickup_user_id)
+        );
+
         CREATE TABLE IF NOT EXISTS sprints (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,

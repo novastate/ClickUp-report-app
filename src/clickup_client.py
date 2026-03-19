@@ -30,6 +30,10 @@ class ClickUpClient:
         data = await self._get(f"/space/{space_id}/folder")
         return data.get("folders", [])
 
+    async def get_teams(self, workspace_id: str) -> list[dict]:
+        data = await self._get("/group", {"team_id": workspace_id})
+        return data.get("groups", [])
+
     async def get_folder_lists(self, folder_id: str) -> list[dict]:
         data = await self._get(f"/folder/{folder_id}/list")
         return data.get("lists", [])
@@ -60,11 +64,31 @@ class ClickUpClient:
     def extract_task_data(self, raw_task: dict) -> dict:
         assignees = raw_task.get("assignees", [])
         time_estimate = raw_task.get("time_estimate")
+        time_by_user = raw_task.get("time_estimates_by_user", [])
+
+        assignee_hours = []
+        for entry in time_by_user:
+            user = entry.get("user", {})
+            ms = entry.get("time_estimate", 0) or 0
+            assignee_hours.append({
+                "name": user.get("username", "?"),
+                "hours": round(ms / 3_600_000, 2),
+            })
+
+        # If no per-user breakdown, fall back to assignees with total split
+        if not assignee_hours and assignees:
+            total_h = round(time_estimate / 3_600_000, 2) if time_estimate else 0
+            if len(assignees) == 1:
+                assignee_hours = [{"name": assignees[0]["username"], "hours": total_h}]
+            else:
+                assignee_hours = [{"name": a["username"], "hours": 0} for a in assignees]
+
         return {
             "task_id": raw_task["id"],
             "task_name": raw_task["name"],
             "task_status": raw_task["status"]["status"],
-            "assignee_name": assignees[0]["username"] if assignees else None,
+            "assignee_name": ", ".join(a["username"] for a in assignees) if assignees else None,
+            "assignee_hours": assignee_hours,
             "points": raw_task.get("points"),
             "hours": round(time_estimate / 3_600_000, 2) if time_estimate else None,
         }

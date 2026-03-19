@@ -46,3 +46,20 @@ def delete_team(team_id: int) -> bool:
     conn.commit()
     conn.close()
     return cursor.rowcount > 0
+
+def set_team_members(team_id: int, members: list[dict]):
+    conn = get_connection(_db_path())
+    conn.execute("DELETE FROM team_members WHERE team_id = ?", (team_id,))
+    for m in members:
+        conn.execute(
+            "INSERT INTO team_members (team_id, clickup_user_id, username) VALUES (?, ?, ?)",
+            (team_id, str(m["id"]), m["username"]),
+        )
+    conn.commit()
+    conn.close()
+
+def get_team_members(team_id: int) -> list[dict]:
+    conn = get_connection(_db_path())
+    rows = conn.execute("SELECT * FROM team_members WHERE team_id = ? ORDER BY username", (team_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
