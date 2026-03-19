@@ -12,7 +12,7 @@ def parse_iteration_dates(name: str, reference_year: int = None) -> tuple[date, 
     match = re.search(r"\((\d{1,2})/(\d{1,2})\s*-\s*(\d{1,2})/(\d{1,2})\)", name)
     if not match:
         return None, None
-    start_day, start_month, end_day, end_month = (int(g) for g in match.groups())
+    start_month, start_day, end_month, end_day = (int(g) for g in match.groups())
     start = date(reference_year, start_month, start_day)
     end_year = reference_year + 1 if end_month < start_month else reference_year
     end = date(end_year, end_month, end_day)

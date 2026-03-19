@@ -2,10 +2,22 @@ from fastapi import APIRouter, HTTPException
 from src.services.sprint_service import get_sprint, close_forecast as do_close_forecast, close_sprint as do_close_sprint, get_sprint_status
 from src.services.snapshot_service import save_forecast_snapshot, record_daily_progress, detect_scope_changes, get_scope_changes, get_forecast_snapshot, get_daily_progress_history
 from src.services.trend_service import get_sprint_summary
+from src.services.team_service import get_team
 from src.clickup_client import ClickUpClient
 from src.config import get_clickup_api_key
 
 router = APIRouter(prefix="/sprints", tags=["sprints"])
+
+async def _fetch_tasks(sprint: dict):
+    """Fetch tasks for a sprint, including linked tasks via locations."""
+    team = get_team(sprint["team_id"])
+    client = ClickUpClient(get_clickup_api_key())
+    raw_tasks = await client.get_list_tasks(
+        sprint["clickup_list_id"],
+        space_id=team["clickup_space_id"],
+        workspace_id=team.get("clickup_workspace_id"),
+    )
+    return client, raw_tasks
 
 @router.get("/{sprint_id}")
 def sprint_detail(sprint_id: int):
@@ -26,8 +38,7 @@ async def close_forecast_route(sprint_id: int):
         raise HTTPException(404, "Sprint not found")
     if sprint.get("forecast_closed_at"):
         raise HTTPException(400, "Forecast already closed")
-    client = ClickUpClient(get_clickup_api_key())
-    raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
+    client, raw_tasks = await _fetch_tasks(sprint)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
     save_forecast_snapshot(sprint_id, tasks)
     updated = do_close_forecast(sprint_id)
@@ -43,8 +54,7 @@ async def close_forecast_route(sprint_id: int):
 async def close_sprint_route(sprint_id: int):
     await refresh_route(sprint_id)
     sprint = get_sprint(sprint_id)
-    client = ClickUpClient(get_clickup_api_key())
-    raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
+    client, raw_tasks = await _fetch_tasks(sprint)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
     snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint_id)}
     added_tasks = [t for t in tasks if t["task_id"] not in snapshot_ids]
@@ -65,8 +75,7 @@ async def refresh_route(sprint_id: int):
         raise HTTPException(400, "Forecast not yet closed")
     if sprint.get("closed_at"):
         raise HTTPException(400, "Sprint is closed")
-    client = ClickUpClient(get_clickup_api_key())
-    raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
+    client, raw_tasks = await _fetch_tasks(sprint)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
     new_changes = detect_scope_changes(sprint_id, tasks)
     completed = sum(1 for t in tasks if t["task_status"] in ("complete", "closed"))
@@ -95,8 +104,7 @@ async def sprint_tasks(sprint_id: int, filter: str = None):
             if c["change_type"] == "added":
                 tasks.append({**c, "scope_change": "added", "points": None, "hours": None})
     else:
-        client = ClickUpClient(get_clickup_api_key())
-        raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
+        client, raw_tasks = await _fetch_tasks(sprint)
         snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint_id)} if sprint.get("forecast_closed_at") else set()
         tasks = []
         for t in raw_tasks:

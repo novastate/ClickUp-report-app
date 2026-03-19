@@ -12,7 +12,7 @@ async def list_spaces():
     for ws in workspaces:
         spaces = await client.get_spaces(ws["id"])
         for space in spaces:
-            result.append({"workspace": ws["name"], "space_id": space["id"], "space_name": space["name"]})
+            result.append({"workspace": ws["name"], "workspace_id": ws["id"], "space_id": space["id"], "space_name": space["name"]})
     return result
 
 @router.get("/folders/{space_id}")

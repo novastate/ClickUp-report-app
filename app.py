@@ -25,7 +25,9 @@ async def daily_snapshot_job():
     client = ClickUpClient(get_clickup_api_key())
     for sprint in sprints:
         sprint = dict(sprint)
-        raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
+        from src.services.team_service import get_team
+        team = get_team(sprint["team_id"])
+        raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"], space_id=team["clickup_space_id"], workspace_id=team.get("clickup_workspace_id"))
         tasks = [client.extract_task_data(t) for t in raw_tasks]
         detect_scope_changes(sprint["id"], tasks)
         completed = sum(1 for t in tasks if t["task_status"] in ("complete", "closed"))

@@ -4,6 +4,7 @@ from datetime import datetime, date
 
 class TeamCreate(BaseModel):
     name: str
+    clickup_workspace_id: str = ""
     clickup_space_id: str
     clickup_folder_id: str
     metric_type: str = "task_count"

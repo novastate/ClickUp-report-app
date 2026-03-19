@@ -13,6 +13,7 @@ def init_db(db_path: str):
         CREATE TABLE IF NOT EXISTS teams (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
+            clickup_workspace_id TEXT NOT NULL DEFAULT '',
             clickup_space_id TEXT NOT NULL,
             clickup_folder_id TEXT NOT NULL,
             metric_type TEXT NOT NULL DEFAULT 'task_count',

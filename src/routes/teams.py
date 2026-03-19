@@ -14,7 +14,7 @@ def list_teams():
 
 @router.post("")
 def create_team(body: TeamCreate):
-    return team_service.create_team(body.name, body.clickup_space_id, body.clickup_folder_id, body.metric_type, body.sprint_length_days)
+    return team_service.create_team(body.name, body.clickup_workspace_id, body.clickup_space_id, body.clickup_folder_id, body.metric_type, body.sprint_length_days)
 
 @router.get("/{team_id}")
 def get_team(team_id: int):

@@ -93,6 +93,7 @@
       spaces.forEach(s => {
         const opt = document.createElement('option');
         opt.value = s.space_id;
+        opt.dataset.workspaceId = s.workspace_id;
         opt.textContent = `${s.workspace} / ${s.space_name}`;
         if (s.space_id === currentSpaceId) opt.selected = true;
         spaceSelect.appendChild(opt);
@@ -144,17 +145,19 @@
     btn.disabled = true;
     btn.textContent = 'Saving…';
 
+    const selectedSpace = spaceSelect.options[spaceSelect.selectedIndex];
     const data = {
       name: document.getElementById('name').value.trim(),
-      space_id: spaceSelect.value,
-      folder_id: folderSelect.value,
+      clickup_workspace_id: selectedSpace ? selectedSpace.dataset.workspaceId || '' : '',
+      clickup_space_id: spaceSelect.value,
+      clickup_folder_id: folderSelect.value,
       metric_type: document.querySelector('input[name="metric_type"]:checked').value,
       sprint_length_days: parseInt(document.getElementById('sprint-length').value, 10),
     };
 
     if (!data.name) { showError('Team name is required.'); reset(btn); return; }
-    if (!data.space_id) { showError('Please select a ClickUp space.'); reset(btn); return; }
-    if (!data.folder_id) { showError('Please select a ClickUp folder.'); reset(btn); return; }
+    if (!data.clickup_space_id) { showError('Please select a ClickUp space.'); reset(btn); return; }
+    if (!data.clickup_folder_id) { showError('Please select a ClickUp folder.'); reset(btn); return; }
 
     try {
       let resp;
@@ -176,7 +179,8 @@
         window.location.href = `/teams/${result.id || teamId}/sprints`;
       } else {
         const err = await resp.json();
-        showError('Error: ' + (err.detail || JSON.stringify(err)));
+        const detail = typeof err.detail === 'string' ? err.detail : JSON.stringify(err.detail || err);
+        showError('Error: ' + detail);
         reset(btn);
       }
     } catch (err) {

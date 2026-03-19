@@ -49,11 +49,13 @@ async def save_setup(request: Request):
     api_key = form.get("api_key", "").strip()
     if api_key:
         set_setting(DB_PATH, "clickup_api_key", api_key)
-    return RedirectResponse("/", status_code=303)
+    return RedirectResponse("/teams/new", status_code=303)
 
 
 @router.get("/teams/new", response_class=HTMLResponse)
 def new_team_page(request: Request):
+    if _needs_setup():
+        return RedirectResponse("/setup")
     return templates.TemplateResponse("team_settings.html", _ctx(request, team=None))
 
 
@@ -86,7 +88,7 @@ async def sprint_page(request: Request, sprint_id: int):
         from src.clickup_client import ClickUpClient
         from src.config import get_clickup_api_key
         client = ClickUpClient(get_clickup_api_key())
-        raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"])
+        raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"], space_id=team["clickup_space_id"], workspace_id=team.get("clickup_workspace_id"))
         tasks = [client.extract_task_data(t) for t in raw_tasks]
         # Mark scope changes for active sprints
         if status == "active":

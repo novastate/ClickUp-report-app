@@ -1,5 +1,4 @@
 import httpx
-from typing import Optional
 
 BASE_URL = "https://api.clickup.com/api/v2"
 
@@ -17,7 +16,7 @@ class ClickUpClient:
                 timeout=30.0,
             )
             response.raise_for_status()
-            return await response.json()
+            return response.json()
 
     async def get_workspaces(self) -> list[dict]:
         data = await self._get("/team")
@@ -35,20 +34,28 @@ class ClickUpClient:
         data = await self._get(f"/folder/{folder_id}/list")
         return data.get("lists", [])
 
-    async def get_list_tasks(self, list_id: str) -> list[dict]:
+    async def get_list_tasks(self, list_id: str, **_kwargs) -> list[dict]:
+        """Get all tasks in a list, including tasks in multiple lists (TIML)."""
         all_tasks = []
         page = 0
         while True:
             data = await self._get(
                 f"/list/{list_id}/task",
-                {"include_closed": "true", "subtasks": "true", "page": str(page)},
+                {
+                    "include_closed": "true",
+                    "subtasks": "true",
+                    "include_timl": "true",
+                    "page": str(page),
+                },
             )
             tasks = data.get("tasks", [])
             all_tasks.extend(tasks)
             if len(tasks) < 100:
                 break
             page += 1
-        return all_tasks
+        # Filter out subtasks whose parent is also in this list (avoid double-counting)
+        task_ids = {t["id"] for t in all_tasks}
+        return [t for t in all_tasks if not t.get("parent") or t["parent"] not in task_ids]
 
     def extract_task_data(self, raw_task: dict) -> dict:
         assignees = raw_task.get("assignees", [])
