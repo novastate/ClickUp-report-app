@@ -4,7 +4,8 @@
     <button class="btn btn-primary" style="font-size:12px; padding:4px 10px;" onclick="saveCapacity()" id="save-cap-btn">Save</button>
   </div>
   {% set metric = team.metric_type|default('hours') %}
-  {% set unit = 'pts' if metric == 'points' else 'h' %}
+  {% set unit = 'pts' if metric == 'points' else ('tasks' if metric == 'task_count' else 'h') %}
+  {% set cap_mode = team.capacity_mode|default('individual') %}
   <table class="task-table">
     <thead>
       <tr><th>Member</th><th style="width:120px;">Capacity ({{ unit }})</th><th style="width:120px;">Assigned ({{ unit }})</th><th style="width:120px;">Available ({{ unit }})</th></tr>
@@ -39,107 +40,163 @@
   const sprintId = {{ sprint.id }};
   const members = {{ team_members | tojson }};
   const capacity = {{ capacity | tojson }};
+  const metricType = {{ team.metric_type | tojson }};
+  const capacityMode = {{ cap_mode | tojson }};
+  const unit = {{ unit | tojson }};
   const capMap = {};
   capacity.forEach(c => { capMap[c.username] = c.capacity; });
 
-  // Calculate assigned hours per member from task data (always in hours)
+  const memberSet = new Set(members);
+
+  // Calculate assigned per member based on metric type
   const assignedMap = {};
   document.querySelectorAll('#task-tbody tr.task-row').forEach(row => {
     try {
       const ah = JSON.parse(row.dataset.assigneeHours || '[]');
-      ah.forEach(entry => {
-        assignedMap[entry.name] = (assignedMap[entry.name] || 0) + (entry.hours || 0);
-      });
+      if (metricType === 'hours') {
+        ah.forEach(entry => {
+          assignedMap[entry.name] = (assignedMap[entry.name] || 0) + (entry.hours || 0);
+        });
+      } else if (metricType === 'points') {
+        const points = parseFloat(row.dataset.points || 0);
+        if (ah.length > 0) {
+          const perPerson = points / ah.length;
+          ah.forEach(entry => {
+            assignedMap[entry.name] = (assignedMap[entry.name] || 0) + perPerson;
+          });
+        }
+      } else {
+        // task_count
+        if (ah.length > 0) {
+          ah.forEach(entry => {
+            assignedMap[entry.name] = (assignedMap[entry.name] || 0) + 1;
+          });
+        } else {
+          assignedMap['Unassigned'] = (assignedMap['Unassigned'] || 0) + 1;
+        }
+      }
     } catch(e) {}
   });
 
   const tbody = document.getElementById('capacity-tbody');
   let totalCap = 0, totalAssigned = 0;
+  const step = metricType === 'task_count' ? '1' : '0.5';
+  const decimals = metricType === 'task_count' ? 0 : 1;
 
-  const memberSet = new Set(members);
+  function fmt(v) { return v.toFixed(decimals); }
 
-  members.forEach(name => {
-    const cap = capMap[name] || 0;
-    const assigned = assignedMap[name] || 0;
-    const available = cap - assigned;
-    totalCap += cap;
-    totalAssigned += assigned;
+  if (capacityMode === 'individual') {
+    members.forEach(name => {
+      const cap = capMap[name] || 0;
+      const assigned = assignedMap[name] || 0;
+      const available = cap - assigned;
+      totalCap += cap;
+      totalAssigned += assigned;
 
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${name}</td>
-      <td><input type="number" class="cap-input" data-member="${name}" value="${cap}" min="0" step="0.5" style="width:80px; padding:4px 8px; border:1px solid #cbd5e0; border-radius:4px;"></td>
-      <td style="color:#718096;">${assigned.toFixed(1)}</td>
-      <td style="color:${available < 0 ? '#e53e3e' : '#38a169'}; font-weight:${available < 0 ? 'bold' : 'normal'};">${available.toFixed(1)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${name}</td>
+        <td><input type="number" class="cap-input" data-member="${name}" value="${cap}" min="0" step="${step}" style="width:80px; padding:4px 8px; border:1px solid #cbd5e0; border-radius:4px;"></td>
+        <td style="color:#718096;">${fmt(assigned)}</td>
+        <td style="color:${available < 0 ? '#e53e3e' : '#38a169'}; font-weight:${available < 0 ? 'bold' : 'normal'};">${fmt(available)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  } else {
+    // Team mode — single capacity input, still show per-member assigned
+    const teamCap = capMap['__team__'] || 0;
+    totalCap = teamCap;
 
-  // External hours row
-  let externalHours = 0;
-  Object.entries(assignedMap).forEach(([name, hours]) => {
-    if (!memberSet.has(name)) externalHours += hours;
-  });
-  if (externalHours > 0) {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td style="color:#718096; font-style:italic;">External</td>
+    members.forEach(name => {
+      const assigned = assignedMap[name] || 0;
+      totalAssigned += assigned;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${name}</td>
+        <td></td>
+        <td style="color:#718096;">${fmt(assigned)}</td>
+        <td></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Insert team capacity input row at the top
+    const capRow = document.createElement('tr');
+    capRow.style.background = '#f7fafc';
+    capRow.innerHTML = `
+      <td style="font-weight:bold;">Team Capacity</td>
+      <td><input type="number" class="cap-input" data-member="__team__" value="${teamCap}" min="0" step="${step}" style="width:80px; padding:4px 8px; border:1px solid #cbd5e0; border-radius:4px; font-weight:bold;"></td>
       <td></td>
-      <td style="color:#718096;">${externalHours.toFixed(1)}</td>
       <td></td>
     `;
-    tbody.appendChild(tr);
+    tbody.insertBefore(capRow, tbody.firstChild);
   }
 
-  document.getElementById('cap-total').textContent = totalCap.toFixed(1);
-  document.getElementById('cap-total-dup').textContent = totalCap.toFixed(1);
-  document.getElementById('cap-team-assigned').textContent = totalAssigned.toFixed(1);
-  document.getElementById('cap-assigned-total').textContent = (totalAssigned + externalHours).toFixed(1);
-  if (externalHours > 0) {
-    document.getElementById('cap-ext-assigned').textContent = externalHours.toFixed(1);
+  // External
+  let externalAssigned = 0;
+  Object.entries(assignedMap).forEach(([name, val]) => {
+    if (!memberSet.has(name) && name !== 'Unassigned') externalAssigned += val;
+  });
+
+  document.getElementById('cap-total').textContent = fmt(totalCap);
+  document.getElementById('cap-total-dup').textContent = fmt(totalCap);
+  document.getElementById('cap-team-assigned').textContent = fmt(totalAssigned);
+  document.getElementById('cap-assigned-total').textContent = fmt(totalAssigned + externalAssigned);
+  if (externalAssigned > 0) {
+    document.getElementById('cap-ext-assigned').textContent = fmt(externalAssigned);
   } else {
     document.getElementById('cap-ext-row').style.display = 'none';
   }
 
+  const totalAvail = totalCap - totalAssigned;
+  const availEl = document.getElementById('cap-available-total');
+  availEl.textContent = fmt(totalAvail);
+  availEl.style.color = totalAvail < 0 ? '#e53e3e' : '#38a169';
+
   // Update planning overview stats
   const planCapEl = document.getElementById('plan-cap-value');
   const planAvailEl = document.getElementById('plan-avail-value');
-  if (planCapEl) {
-    planCapEl.textContent = totalCap.toFixed(0) + 'h';
-    const avail = totalCap - totalAssigned;
-    planAvailEl.textContent = avail.toFixed(0) + 'h';
+  function updateOverview(cap, assigned) {
+    if (!planCapEl) return;
+    const avail = cap - assigned;
+    planCapEl.textContent = fmt(cap) + unit;
+    planAvailEl.textContent = fmt(avail) + unit;
     planAvailEl.style.color = avail < 0 ? '#e53e3e' : '#38a169';
   }
-  const totalAvail = totalCap - totalAssigned;
-  const availEl = document.getElementById('cap-available-total');
-  availEl.textContent = totalAvail.toFixed(1);
-  availEl.style.color = totalAvail < 0 ? '#e53e3e' : '#38a169';
+  updateOverview(totalCap, totalAssigned);
 
   // Recalculate on input change
   tbody.addEventListener('input', function() {
-    let tc = 0;
-    tbody.querySelectorAll('tr').forEach(row => {
-      const input = row.querySelector('.cap-input');
-      if (!input) return;
-      const name = input.dataset.member;
-      const cap = parseFloat(input.value) || 0;
-      const assigned = assignedMap[name] || 0;
-      const avail = cap - assigned;
-      tc += cap;
-      const cells = row.querySelectorAll('td');
-      cells[3].textContent = avail.toFixed(1);
-      cells[3].style.color = avail < 0 ? '#e53e3e' : '#38a169';
-      cells[3].style.fontWeight = avail < 0 ? 'bold' : 'normal';
-    });
-    document.getElementById('cap-total').textContent = tc.toFixed(1);
-    document.getElementById('cap-total-dup').textContent = tc.toFixed(1);
-    const ta = tc - totalAssigned;
-    availEl.textContent = ta.toFixed(1);
-    availEl.style.color = ta < 0 ? '#e53e3e' : '#38a169';
-    if (planCapEl) {
-      planCapEl.textContent = tc.toFixed(0) + 'h';
-      planAvailEl.textContent = ta.toFixed(0) + 'h';
-      planAvailEl.style.color = ta < 0 ? '#e53e3e' : '#38a169';
+    if (capacityMode === 'individual') {
+      let tc = 0;
+      tbody.querySelectorAll('tr').forEach(row => {
+        const input = row.querySelector('.cap-input');
+        if (!input) return;
+        const name = input.dataset.member;
+        const cap = parseFloat(input.value) || 0;
+        const assigned = assignedMap[name] || 0;
+        const avail = cap - assigned;
+        tc += cap;
+        const cells = row.querySelectorAll('td');
+        cells[3].textContent = fmt(avail);
+        cells[3].style.color = avail < 0 ? '#e53e3e' : '#38a169';
+        cells[3].style.fontWeight = avail < 0 ? 'bold' : 'normal';
+      });
+      document.getElementById('cap-total').textContent = fmt(tc);
+      document.getElementById('cap-total-dup').textContent = fmt(tc);
+      const ta = tc - totalAssigned;
+      availEl.textContent = fmt(ta);
+      availEl.style.color = ta < 0 ? '#e53e3e' : '#38a169';
+      updateOverview(tc, totalAssigned);
+    } else {
+      const input = tbody.querySelector('.cap-input[data-member="__team__"]');
+      const tc = parseFloat(input.value) || 0;
+      document.getElementById('cap-total').textContent = fmt(tc);
+      document.getElementById('cap-total-dup').textContent = fmt(tc);
+      const ta = tc - totalAssigned;
+      availEl.textContent = fmt(ta);
+      availEl.style.color = ta < 0 ? '#e53e3e' : '#38a169';
+      updateOverview(tc, totalAssigned);
     }
   });
 

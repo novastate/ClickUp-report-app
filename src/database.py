@@ -88,6 +88,12 @@ def init_db(db_path: str):
             assignee_name TEXT
         );
     """)
+    # Migrations for existing databases
+    try:
+        conn.execute("ALTER TABLE teams ADD COLUMN capacity_mode TEXT NOT NULL DEFAULT 'individual'")
+    except Exception:
+        pass  # Column already exists
+
     conn.commit()
     conn.close()
 

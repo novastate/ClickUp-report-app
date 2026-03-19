@@ -64,30 +64,51 @@
   if (!tbody) return;
   const rows = Array.from(tbody.querySelectorAll('tr.task-row'));
 
-  // Calculate total hours + team vs external breakdown
+  // Calculate totals + team vs external breakdown
   const teamMembers = new Set({{ team_members | default([]) | tojson }});
+  const metricType = {{ team.metric_type | default('hours') | tojson }};
   const totalHours = rows.reduce((sum, r) => sum + parseFloat(r.dataset.hours || 0), 0);
   const totalEl = document.getElementById('total-hours');
   if (totalEl) totalEl.textContent = totalHours ? totalHours.toFixed(1) : '—';
 
-  let teamHours = 0, extHours = 0;
+  let teamAssigned = 0, extAssigned = 0;
   rows.forEach(r => {
     try {
       const ah = JSON.parse(r.dataset.assigneeHours || '[]');
-      ah.forEach(entry => {
-        if (teamMembers.has(entry.name)) teamHours += (entry.hours || 0);
-        else extHours += (entry.hours || 0);
-      });
+      if (metricType === 'hours') {
+        ah.forEach(entry => {
+          if (teamMembers.has(entry.name)) teamAssigned += (entry.hours || 0);
+          else extAssigned += (entry.hours || 0);
+        });
+      } else if (metricType === 'points') {
+        const points = parseFloat(r.dataset.points || 0);
+        if (ah.length > 0) {
+          const perPerson = points / ah.length;
+          ah.forEach(entry => {
+            if (teamMembers.has(entry.name)) teamAssigned += perPerson;
+            else extAssigned += perPerson;
+          });
+        }
+      } else {
+        if (ah.length > 0) {
+          ah.forEach(entry => {
+            if (teamMembers.has(entry.name)) teamAssigned += 1;
+            else extAssigned += 1;
+          });
+        }
+      }
     } catch(e) {}
   });
+  const unit = metricType === 'points' ? 'pts' : (metricType === 'task_count' ? '' : 'h');
+  const dec = metricType === 'task_count' ? 0 : 1;
   const teamLabel = document.getElementById('team-hours-label');
   const extLabel = document.getElementById('ext-hours-label');
-  if (teamLabel) teamLabel.textContent = `Team: ${teamHours.toFixed(1)}h`;
-  if (extLabel && extHours > 0) extLabel.textContent = `External: ${extHours.toFixed(1)}h`;
+  if (teamLabel) teamLabel.textContent = `Team: ${teamAssigned.toFixed(dec)}${unit}`;
+  if (extLabel && extAssigned > 0) extLabel.textContent = `External: ${extAssigned.toFixed(dec)}${unit}`;
   const planTeamEl = document.getElementById('plan-team-hours');
   const planExtEl = document.getElementById('plan-ext-hours');
-  if (planTeamEl) planTeamEl.textContent = teamHours.toFixed(1);
-  if (planExtEl) planExtEl.textContent = extHours > 0 ? extHours.toFixed(1) : '0';
+  if (planTeamEl) planTeamEl.textContent = teamAssigned.toFixed(dec) + unit;
+  if (planExtEl) planExtEl.textContent = extAssigned > 0 ? extAssigned.toFixed(dec) + unit : '0';
 
   const statusOrder = ['in progress', 'to do', 'on hold', 'waiting internal', 'waiting external', 'accepted', 'complete', 'closed', 'cancelled'];
 

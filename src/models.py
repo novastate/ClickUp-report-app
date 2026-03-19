@@ -12,6 +12,7 @@ class TeamCreate(BaseModel):
     clickup_space_id: str
     clickup_folder_id: str
     metric_type: str = "task_count"
+    capacity_mode: str = "individual"
     sprint_length_days: int = 14
     members: list[TeamMember] = []
 
@@ -20,6 +21,7 @@ class TeamUpdate(BaseModel):
     clickup_space_id: Optional[str] = None
     clickup_folder_id: Optional[str] = None
     metric_type: Optional[str] = None
+    capacity_mode: Optional[str] = None
     sprint_length_days: Optional[int] = None
     members: Optional[list[TeamMember]] = None
 
