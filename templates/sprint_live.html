@@ -79,8 +79,9 @@ setInterval(async function() {
     const oldContent = document.querySelector('.content');
     if (newContent && oldContent) {
       oldContent.innerHTML = newContent.innerHTML;
-      // Re-execute inline scripts
-      oldContent.querySelectorAll('script').forEach(old => {
+      // Re-execute inline scripts (collect first to avoid mutation during iteration)
+      const scripts = Array.from(oldContent.querySelectorAll('script'));
+      scripts.forEach(old => {
         const s = document.createElement('script');
         s.textContent = old.textContent;
         old.replaceWith(s);

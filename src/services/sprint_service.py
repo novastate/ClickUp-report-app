@@ -12,7 +12,21 @@ def parse_iteration_dates(name: str, reference_year: int = None) -> tuple[date, 
     match = re.search(r"\((\d{1,2})/(\d{1,2})\s*-\s*(\d{1,2})/(\d{1,2})\)", name)
     if not match:
         return None, None
-    start_month, start_day, end_month, end_day = (int(g) for g in match.groups())
+    a, b, c, d = (int(g) for g in match.groups())
+    # Detect day/month vs month/day format:
+    # - If any first-position value > 12, it must be a day (day/month)
+    # - If any second-position value > 12, it must be a day (month/day)
+    # - If both dates share the same second value, it's likely day/month (same month)
+    # - Otherwise default to month/day
+    if a > 12 or c > 12:
+        start_day, start_month, end_day, end_month = a, b, c, d
+    elif b > 12 or d > 12:
+        start_month, start_day, end_month, end_day = a, b, c, d
+    elif b == d:
+        # Same second value = same month, so format is day/month
+        start_day, start_month, end_day, end_month = a, b, c, d
+    else:
+        start_month, start_day, end_month, end_day = a, b, c, d
     start = date(reference_year, start_month, start_day)
     end_year = reference_year + 1 if end_month < start_month else reference_year
     end = date(end_year, end_month, end_day)
