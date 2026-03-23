@@ -15,7 +15,7 @@
       {% for task in tasks %}
       <tr data-filter="{% if task.task_status in ['complete','closed'] %}completed forecasted{% elif task.scope_change == 'added' %}scope_changes{% elif task.scope_change == 'removed' %}scope_changes{% else %}not_completed forecasted{% endif %}"
           data-status="{{ task.task_status }}"
-          data-assignee-hours='{{ task.assignee_hours | tojson }}'
+          data-assignee-hours='{{ task.assignee_hours | default([], true) | tojson }}'
           data-hours="{{ task.hours or 0 }}"
           data-points="{{ task.points or 0 }}"
           class="task-row {% if task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">

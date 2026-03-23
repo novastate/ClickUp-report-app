@@ -61,10 +61,13 @@
               <span class="text-muted">—</span>
             {% endif %}
           </td>
-          <td>
+          <td style="display:flex; gap:4px; align-items:center;">
             <a href="/sprint/{{ sprint.id }}" class="btn {% if sprint.status == 'active' %}btn-primary{% else %}btn-light{% endif %}" style="font-size:11px; padding:4px 10px;">
               {% if sprint.status == 'active' %}Live View{% elif sprint.status == 'planning' %}Plan{% else %}Report{% endif %}
             </a>
+            {% if sprint.status == 'active' %}
+            <button class="btn btn-danger" style="font-size:11px; padding:4px 10px;" onclick="closeSprint({{ sprint.id }})">Close</button>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}

@@ -15,7 +15,10 @@ import asyncio
 app = FastAPI(title="Sprint Reporter")
 
 async def daily_snapshot_job():
+    from datetime import date
     from src.config import DB_PATH
+    from src.services.sprint_service import close_sprint as do_close_sprint
+    from src.services.snapshot_service import save_forecast_snapshot, get_forecast_snapshot
     conn = get_connection(DB_PATH)
     sprints = conn.execute(
         "SELECT * FROM sprints WHERE forecast_closed_at IS NOT NULL AND closed_at IS NULL"
@@ -36,6 +39,18 @@ async def daily_snapshot_job():
         total_hours = sum(t["hours"] or 0 for t in tasks)
         completed_hours = sum(t["hours"] or 0 for t in tasks if t["task_status"] in ("complete", "closed"))
         record_daily_progress(sprint["id"], len(tasks), completed, total_points, completed_points, total_hours, completed_hours)
+
+        # Auto-close sprint if end_date has passed
+        if sprint.get("end_date"):
+            end = sprint["end_date"]
+            if isinstance(end, str):
+                end = date.fromisoformat(end)
+            if date.today() > end:
+                snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint["id"])}
+                added_tasks = [t for t in tasks if t["task_id"] not in snapshot_ids]
+                if added_tasks:
+                    save_forecast_snapshot(sprint["id"], added_tasks)
+                do_close_sprint(sprint["id"])
 
 def run_daily_snapshot():
     asyncio.run(daily_snapshot_job())
