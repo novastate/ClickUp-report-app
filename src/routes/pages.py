@@ -129,6 +129,15 @@ async def sprint_page(request: Request, sprint_id: int):
     scope_changes = get_scope_changes(sprint_id) if status != "planning" else []
     progress = get_daily_progress_history(sprint_id) if status != "planning" else []
 
+    # For active sprints, update summary with live task data
+    if status == "active" and summary:
+        completed_live = sum(1 for t in tasks if t.get("task_status") in ("complete", "closed"))
+        summary["completed"] = completed_live
+        summary["total_current"] = len(tasks)
+        summary["completion_rate"] = completed_live / summary["forecasted"] if summary["forecasted"] > 0 else 0
+        summary["velocity"] = completed_live
+        summary["forecast_accuracy"] = completed_live / summary["forecasted"] if summary["forecasted"] > 0 else 0
+
     # Calculate sprint day and on_track status
     sprint_day = None
     on_track = None

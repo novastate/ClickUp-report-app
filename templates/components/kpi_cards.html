@@ -2,7 +2,7 @@
   <div class="kpi-card" data-filter="forecasted">
     <div class="label">Forecasted</div>
     <div class="value">{{ summary.forecasted|default(0) }}</div>
-    <div class="sub">{{ team.metric_type | replace('task_count', 'tasks') | replace('_', ' ') }}</div>
+    <div class="sub">stories</div>
   </div>
   <div class="kpi-card" data-filter="completed">
     <div class="value green">{{ summary.completed|default(0) }}</div>
@@ -17,7 +17,7 @@
   <div class="kpi-card" data-filter="not_completed">
     <div class="value purple">{{ (summary.completion_rate|default(0) * 100)|round|int }}%</div>
     <div class="label">Completion</div>
-    <div class="sub">{{ summary.completed|default(0) }} of {{ summary.forecasted|default(0) }} tasks</div>
+    <div class="sub">{{ summary.completed|default(0) }} of {{ summary.forecasted|default(0) }} stories</div>
   </div>
   {% if on_track is defined %}
   <div class="kpi-card">
