@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from src.services.sprint_service import get_sprint, close_forecast as do_close_forecast, close_sprint as do_close_sprint, get_sprint_status, get_sprint_capacity, set_sprint_capacity
 from pydantic import BaseModel
-from src.services.snapshot_service import save_forecast_snapshot, record_daily_progress, detect_scope_changes, get_scope_changes, get_forecast_snapshot, get_daily_progress_history
+from src.services.snapshot_service import save_forecast_snapshot, record_daily_progress, detect_scope_changes, get_scope_changes, get_forecast_snapshot, get_daily_progress_history, save_final_snapshot
 from src.services.trend_service import get_sprint_summary
 from src.services.team_service import get_team
 from src.clickup_client import ClickUpClient
@@ -57,6 +57,9 @@ async def close_sprint_route(sprint_id: int):
     sprint = get_sprint(sprint_id)
     client, raw_tasks = await _fetch_tasks(sprint)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
+    # Save final snapshot with current task states
+    save_final_snapshot(sprint_id, tasks)
+    # Capture any new scope additions to baseline
     snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint_id)}
     added_tasks = [t for t in tasks if t["task_id"] not in snapshot_ids]
     if added_tasks:

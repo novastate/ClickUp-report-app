@@ -18,7 +18,7 @@ async def daily_snapshot_job():
     from datetime import date
     from src.config import DB_PATH
     from src.services.sprint_service import close_sprint as do_close_sprint
-    from src.services.snapshot_service import save_forecast_snapshot, get_forecast_snapshot
+    from src.services.snapshot_service import save_forecast_snapshot, get_forecast_snapshot, save_final_snapshot
     conn = get_connection(DB_PATH)
     sprints = conn.execute(
         "SELECT * FROM sprints WHERE forecast_closed_at IS NOT NULL AND closed_at IS NULL"
@@ -46,6 +46,7 @@ async def daily_snapshot_job():
             if isinstance(end, str):
                 end = date.fromisoformat(end)
             if date.today() > end:
+                save_final_snapshot(sprint["id"], tasks)
                 snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint["id"])}
                 added_tasks = [t for t in tasks if t["task_id"] not in snapshot_ids]
                 if added_tasks:
