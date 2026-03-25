@@ -42,6 +42,29 @@ async def close_forecast_route(sprint_id: int):
     client, raw_tasks = await _fetch_tasks(sprint)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
     save_forecast_snapshot(sprint_id, tasks)
+    # Detect carry-overs from previous sprint
+    from src.services.sprint_service import get_team_sprints
+    team_sprints = get_team_sprints(sprint["team_id"])
+    prev_closed = None
+    for s in team_sprints:
+        if s["id"] != sprint_id and s.get("closed_at"):
+            if prev_closed is None or (s.get("start_date") or "") > (prev_closed.get("start_date") or ""):
+                prev_closed = s
+    if prev_closed:
+        from src.services.snapshot_service import get_final_snapshot
+        prev_final = get_final_snapshot(prev_closed["id"])
+        if prev_final:
+            unfinished_ids = {t["task_id"] for t in prev_final if t["task_status"] not in ("complete", "closed")}
+            current_ids = {t["task_id"] for t in tasks}
+            carried = unfinished_ids & current_ids
+            if carried:
+                from src.database import get_connection
+                from src.services.snapshot_service import _db
+                conn = get_connection(_db())
+                for tid in carried:
+                    conn.execute("UPDATE sprint_snapshots SET carried_over = 1 WHERE sprint_id = ? AND task_id = ?", (sprint_id, tid))
+                conn.commit()
+                conn.close()
     updated = do_close_forecast(sprint_id)
     completed = sum(1 for t in tasks if t["task_status"] in ("complete", "closed"))
     total_points = sum(t["points"] or 0 for t in tasks)

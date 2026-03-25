@@ -20,7 +20,7 @@
           data-points="{{ task.points or 0 }}"
           class="task-row {% if task.scope_change == 'unfinished' %}scope-unfinished{% elif task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">
         <td>{% if task.scope_change == 'unfinished' %}🟠{% elif task.task_status in ['complete','closed'] %}✅{% elif task.scope_change == 'added' %}➕{% elif task.scope_change == 'removed' %}➖{% elif task.task_status == 'in progress' %}🔵{% else %}⬜{% endif %}</td>
-        <td>{{ task.task_name }}{% if task.scope_change == 'added' %}<span class="scope-badge">(added)</span>{% endif %}</td>
+        <td>{{ task.task_name }}{% if task.scope_change == 'added' %}<span class="scope-badge">(added)</span>{% endif %}{% if task.carried_over %}<span class="scope-badge" style="background:#ebf4ff; color:#3182ce;">↩ carried over</span>{% endif %}</td>
         <td>
           {% if task.assignee_hours and task.assignee_hours|length > 1 %}
             {% for ah in task.assignee_hours %}
