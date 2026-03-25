@@ -16,12 +16,20 @@
 
 <div class="content" style="padding-top: 20px;">
 
-  {# Trend KPI cards #}
+  {# Trend KPI cards with deltas #}
+  {% set deltas = trends.deltas or {} %}
   <div class="kpi-row">
     <div class="kpi-card">
       <div class="label">Avg Velocity</div>
       <div class="value">{{ trends.avg_velocity | round(1) }}</div>
-      <div class="sub">{{ team.metric_type | replace('_', ' ') }} per sprint</div>
+      <div class="sub">
+        stories per sprint
+        {% if deltas.velocity is defined and deltas.velocity != 0 %}
+          <span class="{% if deltas.velocity > 0 %}green{% else %}red{% endif %}" style="font-weight:bold;">
+            {% if deltas.velocity > 0 %}▲{% else %}▼{% endif %} {{ deltas.velocity|abs }}%
+          </span>
+        {% endif %}
+      </div>
     </div>
     <div class="kpi-card">
       <div class="label">Avg Completion</div>
@@ -29,12 +37,26 @@
       <div class="value {% if comp_pct >= 90 %}green{% elif comp_pct >= 70 %}orange{% else %}red{% endif %}">
         {{ comp_pct }}%
       </div>
-      <div class="sub">completion rate</div>
+      <div class="sub">
+        completion rate
+        {% if deltas.completion_rate is defined and deltas.completion_rate != 0 %}
+          <span class="{% if deltas.completion_rate > 0 %}green{% else %}red{% endif %}" style="font-weight:bold;">
+            {% if deltas.completion_rate > 0 %}▲{% else %}▼{% endif %} {{ deltas.completion_rate|abs }}%
+          </span>
+        {% endif %}
+      </div>
     </div>
     <div class="kpi-card">
       <div class="label">Avg Scope Added</div>
       <div class="value orange">+{{ trends.avg_scope_added | round(1) }}</div>
-      <div class="sub">items per sprint</div>
+      <div class="sub">
+        items per sprint
+        {% if deltas.scope_added is defined and deltas.scope_added != 0 %}
+          <span class="{% if deltas.scope_added < 0 %}green{% else %}red{% endif %}" style="font-weight:bold;">
+            {% if deltas.scope_added > 0 %}▲{% else %}▼{% endif %} {{ deltas.scope_added|abs }}%
+          </span>
+        {% endif %}
+      </div>
     </div>
     <div class="kpi-card">
       <div class="label">Avg Forecast Accuracy</div>
@@ -42,7 +64,14 @@
       <div class="value {% if acc_pct >= 90 %}green{% elif acc_pct >= 70 %}orange{% else %}red{% endif %}">
         {{ acc_pct }}%
       </div>
-      <div class="sub">forecast accuracy</div>
+      <div class="sub">
+        forecast accuracy
+        {% if deltas.forecast_accuracy is defined and deltas.forecast_accuracy != 0 %}
+          <span class="{% if deltas.forecast_accuracy > 0 %}green{% else %}red{% endif %}" style="font-weight:bold;">
+            {% if deltas.forecast_accuracy > 0 %}▲{% else %}▼{% endif %} {{ deltas.forecast_accuracy|abs }}%
+          </span>
+        {% endif %}
+      </div>
     </div>
   </div>
 
@@ -63,11 +92,29 @@
       </div>
     </div>
 
+    {# Forecast accuracy trend line #}
+    <div class="panel">
+      <h3>Forecast Accuracy</h3>
+      <div class="chart-container">
+        <canvas id="accuracyChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
     {# Scope changes stacked bar chart #}
     <div class="panel">
       <h3>Scope Changes per Sprint</h3>
       <div class="chart-container">
         <canvas id="scopeChart"></canvas>
+      </div>
+    </div>
+
+    {# Unfinished & carry-over trend #}
+    <div class="panel">
+      <h3>Unfinished & Carry-Over</h3>
+      <div class="chart-container">
+        <canvas id="unfinishedChart"></canvas>
       </div>
     </div>
   </div>
@@ -83,8 +130,9 @@
           <th>Velocity</th>
           <th>Completion</th>
           <th>Scope Added</th>
-          <th>Scope Removed</th>
-          <th>Forecast Accuracy</th>
+          <th>Unfinished</th>
+          <th>Carried Over</th>
+          <th>Accuracy</th>
         </tr>
       </thead>
       <tbody>
@@ -110,8 +158,15 @@
             {% endif %}
           </td>
           <td>
-            {% if s.scope_removed > 0 %}
-              <span class="red">-{{ s.scope_removed }}</span>
+            {% if s.unfinished is defined and s.unfinished > 0 %}
+              <span class="red">{{ s.unfinished }}</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if s.carried_over is defined and s.carried_over > 0 %}
+              <span style="color:#3182ce;">↩ {{ s.carried_over }}</span>
             {% else %}
               <span class="text-muted">—</span>
             {% endif %}
@@ -126,7 +181,7 @@
         {% endfor %}
         {% if not trends.sprints %}
         <tr>
-          <td colspan="7" class="text-muted" style="text-align:center; padding: 20px;">No closed sprints found.</td>
+          <td colspan="8" class="text-muted" style="text-align:center; padding: 20px;">No closed sprints found.</td>
         </tr>
         {% endif %}
       </tbody>
@@ -211,6 +266,39 @@
     }
   });
 
+  // --- Forecast Accuracy Trend Line ---
+  new Chart(document.getElementById('accuracyChart'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Forecast Accuracy (%)',
+          data: sprints.map(s => Math.round(s.forecast_accuracy * 100)),
+          borderColor: '#4299e1',
+          backgroundColor: 'rgba(66, 153, 225, 0.15)',
+          borderWidth: 2,
+          pointRadius: 4,
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: '90% Target',
+          data: sprints.map(() => 90),
+          borderColor: '#68d391',
+          borderDash: [6, 4],
+          borderWidth: 2,
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: { y: { beginAtZero: true, max: 110, ticks: { callback: v => v + '%' } } }
+    }
+  });
+
   // --- Scope Changes Stacked Bar Chart ---
   new Chart(document.getElementById('scopeChart'), {
     type: 'bar',
@@ -238,6 +326,34 @@
     options: {
       ...chartDefaults,
       scales: { y: { beginAtZero: true, stacked: true }, x: { stacked: true } }
+    }
+  });
+
+  // --- Unfinished & Carry-Over Trend ---
+  new Chart(document.getElementById('unfinishedChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Unfinished',
+          data: sprints.map(s => s.unfinished || 0),
+          backgroundColor: 'rgba(237, 137, 54, 0.7)',
+          borderColor: '#ed8936',
+          borderWidth: 1,
+        },
+        {
+          label: 'Carried Over',
+          data: sprints.map(s => s.carried_over || 0),
+          backgroundColor: 'rgba(49, 130, 206, 0.7)',
+          borderColor: '#3182ce',
+          borderWidth: 1,
+        }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
     }
   });
 })();

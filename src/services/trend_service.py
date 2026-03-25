@@ -40,6 +40,9 @@ def get_sprint_summary(sprint_id: int) -> dict:
     else:
         unfinished = 0
 
+    # Count carry-overs
+    carried_over = sum(1 for t in snapshot if t.get("carried_over"))
+
     return {
         "forecasted": forecasted_count,
         "completed": completed,
@@ -48,6 +51,7 @@ def get_sprint_summary(sprint_id: int) -> dict:
         "scope_added": added,
         "scope_removed": removed,
         "unfinished": unfinished,
+        "carried_over": carried_over,
         "velocity": completed,
         "forecast_accuracy": completed / forecasted_count if forecasted_count > 0 else 0,
         "completed_points": latest["completed_points"] if latest else 0,
@@ -70,15 +74,37 @@ def get_team_trends(team_id: int, limit: int = None) -> dict:
         sprint_summaries.append(summary)
 
     if not sprint_summaries:
-        return {"sprints": [], "avg_velocity": 0, "avg_completion_rate": 0, "avg_scope_added": 0, "avg_forecast_accuracy": 0}
+        return {"sprints": [], "avg_velocity": 0, "avg_completion_rate": 0, "avg_scope_added": 0, "avg_forecast_accuracy": 0, "avg_unfinished": 0, "avg_carried_over": 0, "deltas": {}}
 
-    avg_velocity = sum(s["velocity"] for s in sprint_summaries) / len(sprint_summaries)
-    avg_completion = sum(s["completion_rate"] for s in sprint_summaries) / len(sprint_summaries)
-    avg_scope = sum(s["scope_added"] for s in sprint_summaries) / len(sprint_summaries)
+    n = len(sprint_summaries)
+    avg_velocity = sum(s["velocity"] for s in sprint_summaries) / n
+    avg_completion = sum(s["completion_rate"] for s in sprint_summaries) / n
+    avg_scope = sum(s["scope_added"] for s in sprint_summaries) / n
     avg_forecast_accuracy = sum(
         s["completed"] / s["forecasted"] if s["forecasted"] > 0 else 0
         for s in sprint_summaries
-    ) / len(sprint_summaries)
+    ) / n
+    avg_unfinished = sum(s.get("unfinished", 0) for s in sprint_summaries) / n
+    avg_carried_over = sum(s.get("carried_over", 0) for s in sprint_summaries) / n
+
+    # Sprint-over-sprint deltas: compare recent half vs older half
+    deltas = {}
+    if n >= 2:
+        mid = n // 2
+        recent = sprint_summaries[:mid]
+        older = sprint_summaries[mid:]
+        def _avg(lst, key):
+            return sum(s.get(key, 0) for s in lst) / len(lst) if lst else 0
+        def _pct_delta(recent_val, older_val):
+            if older_val == 0:
+                return 0
+            return round((recent_val - older_val) / abs(older_val) * 100)
+        deltas = {
+            "velocity": _pct_delta(_avg(recent, "velocity"), _avg(older, "velocity")),
+            "completion_rate": _pct_delta(_avg(recent, "completion_rate"), _avg(older, "completion_rate")),
+            "scope_added": _pct_delta(_avg(recent, "scope_added"), _avg(older, "scope_added")),
+            "forecast_accuracy": _pct_delta(_avg(recent, "forecast_accuracy"), _avg(older, "forecast_accuracy")),
+        }
 
     return {
         "sprints": sprint_summaries,
@@ -86,6 +112,9 @@ def get_team_trends(team_id: int, limit: int = None) -> dict:
         "avg_completion_rate": avg_completion,
         "avg_scope_added": avg_scope,
         "avg_forecast_accuracy": avg_forecast_accuracy,
+        "avg_unfinished": avg_unfinished,
+        "avg_carried_over": avg_carried_over,
+        "deltas": deltas,
     }
 
 
