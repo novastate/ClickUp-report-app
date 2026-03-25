@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from src.models import TeamCreate, TeamUpdate
 from src.services import team_service
-from src.services.sprint_service import create_sprint_from_list, get_team_sprints, get_sprint_status
+from src.services.sprint_service import create_sprint_from_list, get_team_sprints, get_sprint_status, parse_iteration_dates
 from src.services.trend_service import get_team_trends
 from src.clickup_client import ClickUpClient
 from src.config import get_clickup_api_key
@@ -70,6 +70,9 @@ async def sync_sprints(team_id: int):
     lists = await client.get_folder_lists(team["clickup_folder_id"])
     synced = []
     for lst in lists:
+        start, end = parse_iteration_dates(lst["name"])
+        if not start:
+            continue  # Skip non-sprint lists (e.g. Intake, Backlog)
         sprint = create_sprint_from_list(team["id"], lst["id"], lst["name"])
         synced.append(sprint)
     return {"synced": len(synced), "sprints": synced}

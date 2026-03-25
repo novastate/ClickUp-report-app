@@ -53,13 +53,19 @@ def get_sprint(sprint_id: int) -> dict | None:
     conn.close()
     return dict(row) if row else None
 
+def _sprint_number(name: str) -> int:
+    m = re.search(r"(?:Sprint|Iteration)\s+(\d+)", name, re.IGNORECASE)
+    return int(m.group(1)) if m else 0
+
 def get_team_sprints(team_id: int) -> list[dict]:
     conn = get_connection(_db_path())
     rows = conn.execute(
-        "SELECT * FROM sprints WHERE team_id = ? ORDER BY start_date DESC", (team_id,)
+        "SELECT * FROM sprints WHERE team_id = ?", (team_id,)
     ).fetchall()
     conn.close()
-    return [dict(r) for r in rows]
+    sprints = [dict(r) for r in rows]
+    sprints.sort(key=lambda s: _sprint_number(s["name"]), reverse=True)
+    return sprints
 
 def get_sprint_status(sprint: dict) -> str:
     if sprint.get("closed_at"):
