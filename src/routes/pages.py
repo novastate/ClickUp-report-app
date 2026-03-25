@@ -96,7 +96,7 @@ async def sprint_page(request: Request, sprint_id: int):
         # Detect and persist scope changes for active sprints
         if status == "active":
             from src.services.snapshot_service import detect_scope_changes
-            detect_scope_changes(sprint_id, tasks)
+            detect_scope_changes(sprint_id, tasks, sprint_start_date=sprint.get("start_date"))
             snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint_id)}
             for t in tasks:
                 if t["task_id"] not in snapshot_ids:

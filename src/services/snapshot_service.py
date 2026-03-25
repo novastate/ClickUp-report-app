@@ -77,7 +77,8 @@ def get_scope_changes(sprint_id: int) -> list[dict]:
     conn.close()
     return [dict(r) for r in rows]
 
-def detect_scope_changes(sprint_id: int, current_tasks: list[dict]) -> list[dict]:
+def detect_scope_changes(sprint_id: int, current_tasks: list[dict], sprint_start_date=None) -> list[dict]:
+    from datetime import date as date_type
     snapshot = get_forecast_snapshot(sprint_id)
     existing_changes = get_scope_changes(sprint_id)
 
@@ -95,6 +96,13 @@ def detect_scope_changes(sprint_id: int, current_tasks: list[dict]) -> list[dict
             already_removed.add(ch["task_id"])
             already_added.discard(ch["task_id"])
 
+    # Calculate sprint_day
+    sprint_day = None
+    if sprint_start_date:
+        if isinstance(sprint_start_date, str):
+            sprint_start_date = date_type.fromisoformat(sprint_start_date)
+        sprint_day = (date_type.today() - sprint_start_date).days + 1
+
     new_changes = []
     conn = get_connection(_db())
 
@@ -102,8 +110,8 @@ def detect_scope_changes(sprint_id: int, current_tasks: list[dict]) -> list[dict
         if tid not in already_added:
             task = current_by_id[tid]
             conn.execute(
-                "INSERT INTO scope_changes (sprint_id, task_id, task_name, change_type, assignee_name) VALUES (?, ?, ?, 'added', ?)",
-                (sprint_id, tid, task["task_name"], task.get("assignee_name")),
+                "INSERT INTO scope_changes (sprint_id, task_id, task_name, change_type, assignee_name, sprint_day) VALUES (?, ?, ?, 'added', ?, ?)",
+                (sprint_id, tid, task["task_name"], task.get("assignee_name"), sprint_day),
             )
             new_changes.append({"task_id": tid, "task_name": task["task_name"], "change_type": "added"})
 
@@ -111,8 +119,8 @@ def detect_scope_changes(sprint_id: int, current_tasks: list[dict]) -> list[dict
         if tid not in already_removed:
             snapshot_task = next(t for t in snapshot if t["task_id"] == tid)
             conn.execute(
-                "INSERT INTO scope_changes (sprint_id, task_id, task_name, change_type, assignee_name) VALUES (?, ?, ?, 'removed', ?)",
-                (sprint_id, tid, snapshot_task["task_name"], snapshot_task.get("assignee_name")),
+                "INSERT INTO scope_changes (sprint_id, task_id, task_name, change_type, assignee_name, sprint_day) VALUES (?, ?, ?, 'removed', ?, ?)",
+                (sprint_id, tid, snapshot_task["task_name"], snapshot_task.get("assignee_name"), sprint_day),
             )
             new_changes.append({"task_id": tid, "task_name": snapshot_task["task_name"], "change_type": "removed"})
 

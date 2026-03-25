@@ -32,7 +32,7 @@ async def daily_snapshot_job():
         team = get_team(sprint["team_id"])
         raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"], space_id=team["clickup_space_id"], workspace_id=team.get("clickup_workspace_id"))
         tasks = [client.extract_task_data(t) for t in raw_tasks]
-        detect_scope_changes(sprint["id"], tasks)
+        detect_scope_changes(sprint["id"], tasks, sprint_start_date=sprint.get("start_date"))
         completed = sum(1 for t in tasks if t["task_status"] in ("complete", "closed"))
         total_points = sum(t["points"] or 0 for t in tasks)
         completed_points = sum(t["points"] or 0 for t in tasks if t["task_status"] in ("complete", "closed"))

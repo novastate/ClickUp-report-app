@@ -81,7 +81,7 @@ async def refresh_route(sprint_id: int):
         raise HTTPException(400, "Sprint is closed")
     client, raw_tasks = await _fetch_tasks(sprint)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
-    new_changes = detect_scope_changes(sprint_id, tasks)
+    new_changes = detect_scope_changes(sprint_id, tasks, sprint_start_date=sprint.get("start_date"))
     completed = sum(1 for t in tasks if t["task_status"] in ("complete", "closed"))
     total_points = sum(t["points"] or 0 for t in tasks)
     completed_points = sum(t["points"] or 0 for t in tasks if t["task_status"] in ("complete", "closed"))
