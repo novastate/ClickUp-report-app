@@ -6,11 +6,13 @@ def _db():
     return os.environ.get("DB_PATH", "./sprint_data.db")
 
 def save_forecast_snapshot(sprint_id: int, tasks: list[dict]):
+    import json
     conn = get_connection(_db())
     for t in tasks:
+        ah = t.get("assignee_hours")
         conn.execute(
-            "INSERT INTO sprint_snapshots (sprint_id, task_id, task_name, task_status, assignee_name, points, hours) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (sprint_id, t["task_id"], t["task_name"], t["task_status"], t.get("assignee_name"), t.get("points"), t.get("hours")),
+            "INSERT INTO sprint_snapshots (sprint_id, task_id, task_name, task_status, assignee_name, points, hours, assignee_hours) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (sprint_id, t["task_id"], t["task_name"], t["task_status"], t.get("assignee_name"), t.get("points"), t.get("hours"), json.dumps(ah) if ah else None),
         )
     conn.commit()
     conn.close()
@@ -20,6 +22,33 @@ def get_forecast_snapshot(sprint_id: int) -> list[dict]:
     rows = conn.execute("SELECT * FROM sprint_snapshots WHERE sprint_id = ?", (sprint_id,)).fetchall()
     conn.close()
     return [dict(r) for r in rows]
+
+def save_final_snapshot(sprint_id: int, tasks: list[dict]):
+    import json
+    conn = get_connection(_db())
+    for t in tasks:
+        ah = t.get("assignee_hours")
+        conn.execute(
+            "INSERT INTO sprint_final_snapshots (sprint_id, task_id, task_name, task_status, assignee_name, assignee_hours, points, hours) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (sprint_id, t["task_id"], t["task_name"], t["task_status"], t.get("assignee_name"), json.dumps(ah) if ah else None, t.get("points"), t.get("hours")),
+        )
+    conn.commit()
+    conn.close()
+
+def get_final_snapshot(sprint_id: int) -> list[dict]:
+    import json
+    conn = get_connection(_db())
+    rows = conn.execute("SELECT * FROM sprint_final_snapshots WHERE sprint_id = ?", (sprint_id,)).fetchall()
+    conn.close()
+    result = []
+    for r in rows:
+        d = dict(r)
+        if d.get("assignee_hours"):
+            d["assignee_hours"] = json.loads(d["assignee_hours"])
+        else:
+            d["assignee_hours"] = []
+        result.append(d)
+    return result
 
 def record_daily_progress(sprint_id: int, total_tasks: int, completed_tasks: int,
                           total_points: float = None, completed_points: float = None,
