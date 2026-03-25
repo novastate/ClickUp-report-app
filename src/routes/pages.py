@@ -93,8 +93,10 @@ async def sprint_page(request: Request, sprint_id: int):
         client = ClickUpClient(get_clickup_api_key())
         raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"], space_id=team["clickup_space_id"], workspace_id=team.get("clickup_workspace_id"))
         tasks = [client.extract_task_data(t) for t in raw_tasks]
-        # Mark scope changes for active sprints
+        # Detect and persist scope changes for active sprints
         if status == "active":
+            from src.services.snapshot_service import detect_scope_changes
+            detect_scope_changes(sprint_id, tasks)
             snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint_id)}
             for t in tasks:
                 if t["task_id"] not in snapshot_ids:
