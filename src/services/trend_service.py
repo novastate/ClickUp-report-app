@@ -1,7 +1,7 @@
 import os
 from src.database import get_connection
 from src.services.sprint_service import get_team_sprints, get_sprint_status
-from src.services.snapshot_service import get_forecast_snapshot, get_daily_progress_history, get_scope_changes
+from src.services.snapshot_service import get_forecast_snapshot, get_daily_progress_history, get_scope_changes, get_final_snapshot
 
 def _db():
     return os.environ.get("DB_PATH", "./sprint_data.db")
@@ -31,6 +31,15 @@ def get_sprint_summary(sprint_id: int) -> dict:
     added = sum(1 for s in scope if s["change_type"] == "added")
     removed = sum(1 for s in scope if s["change_type"] == "removed")
 
+    # Count unfinished from final snapshot (baseline tasks not completed)
+    final = get_final_snapshot(sprint_id)
+    if final:
+        baseline_ids = {t["task_id"] for t in snapshot}
+        final_by_id = {t["task_id"]: t for t in final}
+        unfinished = sum(1 for tid in baseline_ids if tid in final_by_id and final_by_id[tid]["task_status"] not in ("complete", "closed"))
+    else:
+        unfinished = 0
+
     return {
         "forecasted": forecasted_count,
         "completed": completed,
@@ -38,6 +47,7 @@ def get_sprint_summary(sprint_id: int) -> dict:
         "completion_rate": completion_rate,
         "scope_added": added,
         "scope_removed": removed,
+        "unfinished": unfinished,
         "velocity": completed,
         "forecast_accuracy": completed / forecasted_count if forecasted_count > 0 else 0,
         "completed_points": latest["completed_points"] if latest else 0,

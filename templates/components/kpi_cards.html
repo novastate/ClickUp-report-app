@@ -14,6 +14,13 @@
     <div class="label">Scope Changes</div>
     <div class="sub">added / removed</div>
   </div>
+  {% if summary.unfinished is defined and summary.unfinished > 0 %}
+  <div class="kpi-card" data-filter="unfinished">
+    <div class="value orange">{{ summary.unfinished }}</div>
+    <div class="label">Unfinished</div>
+    <div class="sub">from forecast</div>
+  </div>
+  {% endif %}
   <div class="kpi-card" data-filter="not_completed">
     <div class="value purple">{{ (summary.completion_rate|default(0) * 100)|round|int }}%</div>
     <div class="label">Completion</div>

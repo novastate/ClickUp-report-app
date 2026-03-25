@@ -276,6 +276,7 @@ nav a:first-child {
 
 .task-table tr.filtered-out { display: none; }
 
+.task-table tr.scope-unfinished td { background: #fffaf0; border-left: 3px solid #ed8936; }
 .task-table tr.scope-added td { background: #f0fff4; }
 .task-table tr.scope-removed td {
   background: #fff5f5;

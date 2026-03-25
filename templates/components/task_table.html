@@ -13,13 +13,13 @@
     </thead>
     <tbody id="task-tbody">
       {% for task in tasks %}
-      <tr data-filter="{% if task.task_status in ['complete','closed'] %}completed forecasted{% elif task.scope_change == 'added' %}scope_changes{% elif task.scope_change == 'removed' %}scope_changes{% else %}not_completed forecasted{% endif %}"
+      <tr data-filter="{% if task.scope_change == 'unfinished' %}unfinished not_completed forecasted{% elif task.task_status in ['complete','closed'] %}completed forecasted{% elif task.scope_change == 'added' %}scope_changes{% elif task.scope_change == 'removed' %}scope_changes{% else %}not_completed forecasted{% endif %}"
           data-status="{{ task.task_status }}"
           data-assignee-hours='{{ task.assignee_hours | default([], true) | tojson }}'
           data-hours="{{ task.hours or 0 }}"
           data-points="{{ task.points or 0 }}"
-          class="task-row {% if task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">
-        <td>{% if task.task_status in ['complete','closed'] %}✅{% elif task.scope_change == 'added' %}➕{% elif task.scope_change == 'removed' %}➖{% elif task.task_status == 'in progress' %}🔵{% else %}⬜{% endif %}</td>
+          class="task-row {% if task.scope_change == 'unfinished' %}scope-unfinished{% elif task.scope_change == 'added' %}scope-added{% elif task.scope_change == 'removed' %}scope-removed{% endif %}">
+        <td>{% if task.scope_change == 'unfinished' %}🟠{% elif task.task_status in ['complete','closed'] %}✅{% elif task.scope_change == 'added' %}➕{% elif task.scope_change == 'removed' %}➖{% elif task.task_status == 'in progress' %}🔵{% else %}⬜{% endif %}</td>
         <td>{{ task.task_name }}{% if task.scope_change == 'added' %}<span class="scope-badge">(added)</span>{% endif %}</td>
         <td>
           {% if task.assignee_hours and task.assignee_hours|length > 1 %}

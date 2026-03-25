@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 from src.services.team_service import get_all_teams, get_team, get_team_members
 from src.services.sprint_service import get_team_sprints, get_sprint, get_sprint_status, get_sprint_capacity
 from src.services.trend_service import get_sprint_summary
-from src.services.snapshot_service import get_scope_changes, get_daily_progress_history, get_forecast_snapshot
+from src.services.snapshot_service import get_scope_changes, get_daily_progress_history, get_forecast_snapshot, get_final_snapshot
 from src.config import get_clickup_api_key, DB_PATH
 from src.database import set_setting
 from datetime import datetime, date
@@ -107,20 +107,42 @@ async def sprint_page(request: Request, sprint_id: int):
             for t in tasks:
                 t["scope_change"] = None
     else:
-        # For closed sprints, reconstruct task list from snapshot + scope changes
+        # For closed sprints, use final snapshot for accurate final status
         snapshot = get_forecast_snapshot(sprint_id)
+        final = get_final_snapshot(sprint_id)
         changes = get_scope_changes(sprint_id)
         added_ids = {c["task_id"] for c in changes if c["change_type"] == "added"}
         removed_ids = {c["task_id"] for c in changes if c["change_type"] == "removed"}
+        final_by_id = {t["task_id"]: t for t in final}
+
         tasks = []
         for t in snapshot:
-            t["scope_change"] = "removed" if t["task_id"] in removed_ids else None
+            if t["task_id"] in added_ids:
+                continue  # scope additions handled below
+            if t["task_id"] in removed_ids:
+                t["scope_change"] = "removed"
+            elif final and final_by_id.get(t["task_id"], {}).get("task_status") not in ("complete", "closed"):
+                t["scope_change"] = "unfinished"
+                if t["task_id"] in final_by_id:
+                    t["task_status"] = final_by_id[t["task_id"]]["task_status"]
+            else:
+                t["scope_change"] = None
+                if t["task_id"] in final_by_id:
+                    t["task_status"] = final_by_id[t["task_id"]]["task_status"]
             tasks.append(t)
+
+        # Sort: unfinished first, then completed, then removed
+        order = {"unfinished": 0, None: 1, "removed": 2}
+        tasks.sort(key=lambda t: order.get(t.get("scope_change"), 1))
+
+        # Scope additions at the end
         for c in changes:
             if c["change_type"] == "added":
+                final_status = final_by_id.get(c["task_id"], {}).get("task_status", c.get("task_status", "unknown"))
                 tasks.append({
                     **c,
                     "scope_change": "added",
+                    "task_status": final_status,
                     "points": None,
                     "hours": None,
                 })
