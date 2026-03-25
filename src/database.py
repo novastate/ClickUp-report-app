@@ -87,12 +87,48 @@ def init_db(db_path: str):
             detected_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             assignee_name TEXT
         );
+
+        CREATE TABLE IF NOT EXISTS sprint_final_snapshots (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            sprint_id INTEGER NOT NULL REFERENCES sprints(id) ON DELETE CASCADE,
+            task_id TEXT NOT NULL,
+            task_name TEXT NOT NULL,
+            task_status TEXT NOT NULL,
+            assignee_name TEXT,
+            assignee_hours TEXT,
+            points REAL,
+            hours REAL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
+        CREATE INDEX IF NOT EXISTS idx_final_snap_sprint ON sprint_final_snapshots(sprint_id);
     """)
     # Migrations for existing databases
     try:
         conn.execute("ALTER TABLE teams ADD COLUMN capacity_mode TEXT NOT NULL DEFAULT 'individual'")
     except Exception:
         pass  # Column already exists
+
+    try:
+        conn.execute("ALTER TABLE sprint_snapshots ADD COLUMN assignee_hours TEXT")
+    except Exception:
+        pass
+
+    try:
+        conn.execute("ALTER TABLE sprint_snapshots ADD COLUMN carried_over BOOLEAN DEFAULT 0")
+    except Exception:
+        pass
+
+    try:
+        conn.execute("ALTER TABLE scope_changes ADD COLUMN sprint_day INTEGER")
+    except Exception:
+        pass
+
+    conn.execute("""
+        UPDATE scope_changes SET sprint_day = CAST(
+            julianday(detected_at) - julianday((SELECT start_date FROM sprints WHERE id = scope_changes.sprint_id)) + 1
+        AS INTEGER)
+        WHERE sprint_day IS NULL AND EXISTS (SELECT 1 FROM sprints WHERE id = scope_changes.sprint_id AND start_date IS NOT NULL)
+    """)
 
     conn.commit()
     conn.close()
