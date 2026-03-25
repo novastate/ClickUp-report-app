@@ -175,6 +175,13 @@ async def sprint_page(request: Request, sprint_id: int):
         except (ValueError, TypeError):
             pass
 
+    workload = []
+    final_snapshot_data = []
+    if status == "closed":
+        from src.services.trend_service import get_workload_distribution
+        workload = get_workload_distribution(sprint_id, team.get("metric_type", "task_count"))
+        final_snapshot_data = get_final_snapshot(sprint_id)
+
     template = "sprint_live.html" if status != "closed" else "sprint_report.html"
     return templates.TemplateResponse(template, _ctx(
         request,
@@ -189,6 +196,8 @@ async def sprint_page(request: Request, sprint_id: int):
         on_track=on_track,
         team_members=[m["username"] for m in get_team_members(team["id"])],
         capacity=get_sprint_capacity(sprint["id"]),
+        workload=workload,
+        final_snapshot=final_snapshot_data,
     ))
 
 

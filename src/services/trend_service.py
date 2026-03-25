@@ -87,3 +87,52 @@ def get_team_trends(team_id: int, limit: int = None) -> dict:
         "avg_scope_added": avg_scope,
         "avg_forecast_accuracy": avg_forecast_accuracy,
     }
+
+
+def get_workload_distribution(sprint_id: int, metric_type: str = "task_count") -> list[dict]:
+    import json
+    snapshot = get_forecast_snapshot(sprint_id)
+    final = get_final_snapshot(sprint_id)
+    if not final:
+        return []
+
+    final_by_id = {t["task_id"]: t for t in final}
+
+    # Build per-assignee stats
+    assignee_stats = {}
+    for t in snapshot:
+        assignee = t.get("assignee_name") or "Unassigned"
+        names = [n.strip() for n in assignee.split(",")] if assignee != "Unassigned" else ["Unassigned"]
+        for name in names:
+            if name not in assignee_stats:
+                assignee_stats[name] = {"assigned": 0, "completed": 0, "hours": 0, "points": 0}
+            assignee_stats[name]["assigned"] += 1
+            final_task = final_by_id.get(t["task_id"])
+            if final_task and final_task["task_status"] in ("complete", "closed"):
+                assignee_stats[name]["completed"] += 1
+            assignee_stats[name]["hours"] += t.get("hours") or 0
+            assignee_stats[name]["points"] += t.get("points") or 0
+
+    if not assignee_stats:
+        return []
+
+    avg_assigned = sum(s["assigned"] for s in assignee_stats.values()) / len(assignee_stats)
+
+    result = []
+    for name, stats in sorted(assignee_stats.items(), key=lambda x: x[1]["assigned"], reverse=True):
+        pct = round(stats["completed"] / stats["assigned"] * 100) if stats["assigned"] > 0 else 0
+        metric_value = 0
+        if metric_type == "hours":
+            metric_value = round(stats["hours"], 1)
+        elif metric_type == "points":
+            metric_value = round(stats["points"], 1)
+        result.append({
+            "name": name,
+            "assigned": stats["assigned"],
+            "completed": stats["completed"],
+            "pct": pct,
+            "metric_value": metric_value,
+            "overloaded": stats["assigned"] > avg_assigned * 1.5,
+        })
+
+    return result

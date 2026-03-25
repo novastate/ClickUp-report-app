@@ -1,0 +1,36 @@
+{% if final_snapshot %}
+<div class="panel">
+  <h3>Workload Distribution</h3>
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th>Assignee</th>
+        <th>Stories</th>
+        <th>Completed</th>
+        <th>Completion %</th>
+        {% if team.metric_type == 'hours' %}<th>Hours</th>{% endif %}
+        {% if team.metric_type == 'points' %}<th>Points</th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for w in workload %}
+      <tr>
+        <td>
+          {% if team_members is defined and team_members and w.name not in team_members %}<span style="color:#e53e3e;" title="External">⊘</span> {% endif %}{{ w.name }}
+          {% if w.overloaded %}<span style="color:#e53e3e; font-size:11px;">(overloaded)</span>{% endif %}
+        </td>
+        <td>{{ w.assigned }}</td>
+        <td>{{ w.completed }}</td>
+        <td>
+          <span class="{% if w.pct >= 90 %}green{% elif w.pct < 60 %}red{% else %}orange{% endif %}">
+            {{ w.pct }}%
+          </span>
+        </td>
+        {% if team.metric_type == 'hours' %}<td>{{ w.metric_value }}h</td>{% endif %}
+        {% if team.metric_type == 'points' %}<td>{{ w.metric_value }}pts</td>{% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
