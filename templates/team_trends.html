@@ -196,7 +196,9 @@
 
 <script>
 (function() {
-  const sprints = {{ trends.sprints | tojson }};
+  // Reverse so charts plot oldest -> newest left-to-right
+  // (.slice() clones so we don't mutate the array used by the table elsewhere)
+  const sprints = ({{ trends.sprints | tojson }}).slice().reverse();
   const labels = sprints.map(s => (s.sprint_name || '').replace(/\s*\([^)]*\)\s*$/, '').trim());
   const avgVelocity = {{ trends.avg_velocity | float }};
 
