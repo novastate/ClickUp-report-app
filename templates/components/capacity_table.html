@@ -158,6 +158,12 @@
   const planAvailEl = document.getElementById('plan-avail-value');
   function updateOverview(cap, assigned) {
     if (!planCapEl) return;
+    if (cap === 0) {
+      planCapEl.textContent = '—';
+      planAvailEl.innerHTML = '<a href="#capacity-panel" style="font-size:13px; color:#4299e1; text-decoration:none;">Set capacity ↓</a>';
+      planAvailEl.style.color = '';
+      return;
+    }
     const avail = cap - assigned;
     planCapEl.textContent = fmt(cap) + unit;
     planAvailEl.textContent = fmt(avail) + unit;
