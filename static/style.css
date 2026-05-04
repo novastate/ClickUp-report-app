@@ -694,11 +694,18 @@ nav a:first-child {
     grid-template-columns: 1fr;
   }
 
-  /* Panels: tighter padding, ensure they never overflow their container */
+  /* Panels: tighter padding, individual horizontal scroll instead of
+     forcing the whole page to scroll */
   .panel {
     padding: 12px;
     width: 100%;
     box-sizing: border-box;
+    overflow-x: auto;
+  }
+
+  /* Safety net: prevent the document itself from scrolling horizontally */
+  body {
+    overflow-x: hidden;
   }
 
   /* Tasks table: hide HOURS column (lowest priority on mobile),
