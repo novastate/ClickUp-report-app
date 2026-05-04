@@ -269,11 +269,16 @@ def team_trends_page(request: Request, team_id: int, range: int = 8):
     team = get_team(team_id)
     from src.services.trend_service import get_team_trends
     trends = get_team_trends(team_id, limit=range if range > 0 else None)
+    # Always count ALL closed sprints (independent of the range filter) so we know
+    # which filter buttons to show
+    all_trends = get_team_trends(team_id, limit=None)
+    closed_count = len(all_trends.get("sprints", []))
     return templates.TemplateResponse("team_trends.html", _ctx(
         request,
         team=team,
         trends=trends,
         range=range,
+        closed_count=closed_count,
         breadcrumbs=_breadcrumbs(("Home", "/"), (team["name"], f"/teams/{team['id']}/sprints"), ("Trends", None)),
         team_sub_nav_active="trends",
     ))

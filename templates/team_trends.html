@@ -7,8 +7,12 @@
     <span class="meta">Performance Trends</span>
   </div>
   <div class="actions">
+    {% if closed_count > 4 %}
     <a href="?range=4" class="btn {% if range == 4 %}btn-primary{% else %}btn-secondary{% endif %}">Last 4</a>
+    {% endif %}
+    {% if closed_count > 8 %}
     <a href="?range=8" class="btn {% if range == 8 %}btn-primary{% else %}btn-secondary{% endif %}">Last 8</a>
+    {% endif %}
     <a href="?range=0" class="btn {% if range == 0 %}btn-primary{% else %}btn-secondary{% endif %}">All</a>
     <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary">← Sprint History</a>
   </div>
