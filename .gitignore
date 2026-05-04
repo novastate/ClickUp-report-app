@@ -7,3 +7,5 @@ __pycache__/
 .venv/
 .pid
 app.log
+deploy-bundle.zip
+sprint_data.db.before-deploy-*
