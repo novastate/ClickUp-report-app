@@ -4,17 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Sprint Reporter{% endblock %}</title>
-  <link rel="stylesheet" href="/static/style.css?v=3">
+  <link rel="stylesheet" href="/static/style.css?v=4">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 </head>
 <body>
-  <nav>
-    <a href="/">Home</a>
-    {% for t in nav_teams|default([]) %}
-    <a href="/teams/{{ t.id }}/sprints">{{ t.name }}</a>
-    {% endfor %}
-    <a href="/teams/new">+ New Team</a>
-  </nav>
+  <header class="identity-bar">
+    <a href="/" class="brand">Sprint Reporter</a>
+    <a href="/teams/new" class="btn btn-primary new-team-btn">+ New Team</a>
+  </header>
+  {% include "components/breadcrumbs.html" %}
+  {% include "components/team_sub_nav.html" %}
   {% block content %}{% endblock %}
   <script src="/static/dashboard.js"></script>
 </body>

@@ -1,0 +1,7 @@
+{% if team and team_sub_nav_active %}
+<nav class="team-sub-nav" aria-label="team sections">
+  <a href="/teams/{{ team.id }}/sprints" class="tab {% if team_sub_nav_active == 'sprints' %}active{% endif %}">Sprint History</a>
+  <a href="/teams/{{ team.id }}/trends" class="tab {% if team_sub_nav_active == 'trends' %}active{% endif %}">Trends</a>
+  <a href="/teams/{{ team.id }}/settings" class="tab {% if team_sub_nav_active == 'settings' %}active{% endif %}">Settings</a>
+</nav>
+{% endif %}

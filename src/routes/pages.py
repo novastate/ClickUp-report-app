@@ -22,10 +22,17 @@ templates.env.filters["display_name"] = _display_name
 router = APIRouter(tags=["pages"])
 
 
-def _ctx(request, **kwargs):
+def _ctx(request, breadcrumbs=None, team_sub_nav_active=None, **kwargs):
     kwargs["request"] = request
     kwargs["nav_teams"] = get_all_teams()
+    kwargs["breadcrumbs"] = breadcrumbs or []
+    kwargs["team_sub_nav_active"] = team_sub_nav_active
     return kwargs
+
+
+def _breadcrumbs(*pairs):
+    """Build a breadcrumbs list. Each pair is (label, href). Pass None as href for the last entry."""
+    return [{"label": label, "href": href} for label, href in pairs]
 
 
 def _needs_setup() -> bool:
