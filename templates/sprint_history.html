@@ -39,7 +39,7 @@
             {% if sprint.end_date %} &ndash; {{ sprint.end_date }}{% endif %}
           </td>
           <td>
-            <span class="badge-{{ sprint.status }}">{{ sprint.status | upper }}</span>
+            <span class="badge-{{ sprint.status }}">{{ sprint.status | status_label | upper }}</span>
           </td>
           <td>
             {% if sprint.status == 'closed' and sprint.summary %}
@@ -63,7 +63,7 @@
           </td>
           <td style="display:flex; gap:4px; align-items:center;">
             <a href="/sprint/{{ sprint.id }}" class="btn {% if sprint.status == 'active' %}btn-primary{% else %}btn-light{% endif %}" style="font-size:11px; padding:4px 10px;">
-              {% if sprint.status == 'active' %}Live View{% elif sprint.status == 'planning' %}Plan{% else %}Report{% endif %}
+              {% if sprint.status == 'active' %}Live View{% elif sprint.status == 'planning' %}Forecast{% else %}Report{% endif %}
             </a>
             {% if sprint.status == 'active' %}
             <button class="btn btn-danger" style="font-size:11px; padding:4px 10px;" onclick="closeSprint({{ sprint.id }})">Close</button>

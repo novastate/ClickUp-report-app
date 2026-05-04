@@ -19,6 +19,13 @@ def _display_name(name):
     return _re.sub(r"\s*\([^)]*\)\s*$", "", str(name)).strip()
 
 templates.env.filters["display_name"] = _display_name
+
+
+def _status_label(state):
+    return {"planning": "Forecast", "active": "Active", "closed": "Closed"}.get(state, state)
+
+
+templates.env.filters["status_label"] = _status_label
 router = APIRouter(tags=["pages"])
 
 

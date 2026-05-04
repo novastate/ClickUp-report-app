@@ -5,7 +5,7 @@
   <div>
     <h1 style="display:inline" data-sprint-id="{{ sprint.id }}">{{ sprint.name|display_name }}</h1>
     <span class="meta">{{ sprint.start_date }} — {{ sprint.end_date }}</span>
-    <span class="badge badge-{{ status }}">{{ status|upper }}</span>
+    <span class="badge badge-{{ status }}">{{ status|status_label|upper }}</span>
   </div>
   <div class="actions">
     <div class="sprint-nav">
