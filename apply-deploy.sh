@@ -16,7 +16,7 @@ echo ""
 # --- Pre-deploy DB backup ---
 if [ -f sprint_data.db ]; then
     BACKUP="sprint_data.db.before-deploy-$(date +%Y%m%d-%H%M%S)"
-    cp sprint_data.db "$BACKUP"
+    cp sprint_data.db "$BACKUP" || { echo "DB-backup misslyckades. Avbryter deploy."; exit 1; }
     echo "DB-backup: $BACKUP"
 fi
 
@@ -34,7 +34,7 @@ echo "Stoppar appen..."
 # --- Unpack the bundle ---
 echo ""
 echo "Packar upp $BUNDLE..."
-unzip -oq "$BUNDLE"
+unzip -oq "$BUNDLE" || { echo "Unzip misslyckades. Bundlen kan vara korrupt."; exit 1; }
 
 # --- Restore execute bits ---
 chmod +x start.sh stop.sh apply-deploy.sh 2>/dev/null
@@ -48,7 +48,7 @@ if [ "$OLD_REQ_HASH" != "$NEW_REQ_HASH" ]; then
     echo ""
     echo "requirements.txt har ändrats — installerar dependencies..."
     if [ -d .venv ]; then
-        .venv/bin/pip install -r requirements.txt
+        .venv/bin/pip install -r requirements.txt || { echo "pip install misslyckades."; exit 1; }
     else
         echo "Ingen .venv — start.sh skapar en ny och installerar."
     fi
