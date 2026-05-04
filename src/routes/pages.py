@@ -217,7 +217,6 @@ async def sprint_page(request: Request, sprint_id: int):
     template = "sprint_live.html" if status != "closed" else "sprint_report.html"
 
     # Compute prev/next sprint for navigation (by start_date within the same team)
-    from src.services.sprint_service import get_team_sprints
     team_sprints = sorted(
         [s for s in get_team_sprints(team["id"]) if s.get("start_date")],
         key=lambda s: str(s["start_date"]),
