@@ -215,6 +215,23 @@ async def sprint_page(request: Request, sprint_id: int):
         final_snapshot_data = get_final_snapshot(sprint_id)
 
     template = "sprint_live.html" if status != "closed" else "sprint_report.html"
+
+    # Compute prev/next sprint for navigation (by start_date within the same team)
+    from src.services.sprint_service import get_team_sprints
+    team_sprints = sorted(
+        [s for s in get_team_sprints(team["id"]) if s.get("start_date")],
+        key=lambda s: str(s["start_date"]),
+    )
+    prev_sprint = None
+    next_sprint = None
+    for i, s in enumerate(team_sprints):
+        if s["id"] == sprint["id"]:
+            if i > 0:
+                prev_sprint = team_sprints[i - 1]
+            if i < len(team_sprints) - 1:
+                next_sprint = team_sprints[i + 1]
+            break
+
     return templates.TemplateResponse(template, _ctx(
         request,
         sprint=sprint,
@@ -230,6 +247,8 @@ async def sprint_page(request: Request, sprint_id: int):
         capacity=get_sprint_capacity(sprint["id"]),
         workload=workload,
         final_snapshot=final_snapshot_data,
+        prev_sprint=prev_sprint,
+        next_sprint=next_sprint,
         breadcrumbs=_breadcrumbs(
             ("Home", "/"),
             (team["name"], f"/teams/{team['id']}/sprints"),

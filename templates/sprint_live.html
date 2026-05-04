@@ -8,6 +8,18 @@
     <span class="badge badge-{{ status }}">{{ status|upper }}</span>
   </div>
   <div class="actions">
+    <div class="sprint-nav">
+      {% if prev_sprint %}
+        <a href="/sprint/{{ prev_sprint.id }}" class="btn btn-secondary">← {{ prev_sprint.name|display_name }}</a>
+      {% else %}
+        <span class="btn btn-secondary disabled" aria-disabled="true">← Earlier</span>
+      {% endif %}
+      {% if next_sprint %}
+        <a href="/sprint/{{ next_sprint.id }}" class="btn btn-secondary">{{ next_sprint.name|display_name }} →</a>
+      {% else %}
+        <span class="btn btn-secondary disabled" aria-disabled="true">Later →</span>
+      {% endif %}
+    </div>
     {% if status == 'active' %}
     <button class="btn btn-secondary" id="refresh-btn" onclick="refreshSprint({{ sprint.id }})">🔄 Refresh Now</button>
     <button class="btn btn-danger" onclick="closeSprint({{ sprint.id }})">🔒 Close Sprint</button>
