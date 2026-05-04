@@ -10,6 +10,15 @@ from src.database import set_setting
 from datetime import datetime, date
 
 templates = Jinja2Templates(directory="templates")
+
+import re as _re
+
+def _display_name(name):
+    if not name:
+        return name
+    return _re.sub(r"\s*\([^)]*\)\s*$", "", str(name)).strip()
+
+templates.env.filters["display_name"] = _display_name
 router = APIRouter(tags=["pages"])
 
 

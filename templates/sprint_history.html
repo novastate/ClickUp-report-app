@@ -32,7 +32,7 @@
         {% for sprint in sprints %}
         <tr class="{% if sprint.status == 'active' %}active-sprint{% endif %}">
           <td>
-            <a href="/sprint/{{ sprint.id }}">{{ sprint.name }}</a>
+            <a href="/sprint/{{ sprint.id }}">{{ sprint.name|display_name }}</a>
           </td>
           <td class="text-muted text-small">
             {% if sprint.start_date %}{{ sprint.start_date }}{% else %}—{% endif %}

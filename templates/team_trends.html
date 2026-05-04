@@ -138,7 +138,7 @@
       <tbody>
         {% for s in trends.sprints %}
         <tr>
-          <td><a href="/sprint/{{ s.sprint_id }}">{{ s.sprint_name }}</a></td>
+          <td><a href="/sprint/{{ s.sprint_id }}">{{ s.sprint_name|display_name }}</a></td>
           <td class="text-muted text-small">
             {% if s.start_date %}{{ s.start_date }}{% else %}—{% endif %}
             {% if s.end_date %} &ndash; {{ s.end_date }}{% endif %}
@@ -193,7 +193,7 @@
 <script>
 (function() {
   const sprints = {{ trends.sprints | tojson }};
-  const labels = sprints.map(s => s.sprint_name);
+  const labels = sprints.map(s => (s.sprint_name || '').replace(/\s*\([^)]*\)\s*$/, '').trim());
   const avgVelocity = {{ trends.avg_velocity | float }};
 
   const chartDefaults = {

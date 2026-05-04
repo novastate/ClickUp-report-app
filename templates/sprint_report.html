@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ sprint.name }} — Report — Sprint Reporter{% endblock %}
+{% block title %}{{ sprint.name|display_name }} — Report — Sprint Reporter{% endblock %}
 {% block content %}
 <div class="top-bar">
   <div>
-    <h1 style="display:inline">{{ sprint.name }}</h1>
+    <h1 style="display:inline">{{ sprint.name|display_name }}</h1>
     <span class="meta">{{ sprint.start_date }} — {{ sprint.end_date }}</span>
     <span class="badge badge-closed">CLOSED</span>
   </div>

@@ -23,7 +23,7 @@
     {% if team.active_sprint %}
     <div style="display:flex; align-items:center; gap:24px; padding:14px 18px; background:#f7fafc; border-radius:8px; border:1px solid #edf2f7;">
       <div style="flex:1;">
-        <a href="/sprint/{{ team.active_sprint.id }}" style="font-size:16px; font-weight:600; text-decoration:none; color:#2d3748;">{{ team.active_sprint.name }}</a>
+        <a href="/sprint/{{ team.active_sprint.id }}" style="font-size:16px; font-weight:600; text-decoration:none; color:#2d3748;">{{ team.active_sprint.name|display_name }}</a>
         <div style="color:#718096; font-size:13px; margin-top:2px;">{{ team.active_sprint.start_date }} &mdash; {{ team.active_sprint.end_date }}</div>
       </div>
       <span class="badge-active">ACTIVE</span>

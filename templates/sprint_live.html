@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ sprint.name }} — Sprint Reporter{% endblock %}
+{% block title %}{{ sprint.name|display_name }} — Sprint Reporter{% endblock %}
 {% block content %}
 <div class="top-bar">
   <div>
-    <h1 style="display:inline" data-sprint-id="{{ sprint.id }}">{{ sprint.name }}</h1>
+    <h1 style="display:inline" data-sprint-id="{{ sprint.id }}">{{ sprint.name|display_name }}</h1>
     <span class="meta">{{ sprint.start_date }} — {{ sprint.end_date }}</span>
     <span class="badge badge-{{ status }}">{{ status|upper }}</span>
   </div>
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div id="forecast-modal" class="modal-overlay">
   <div class="modal-box">
     <h3 style="margin:0 0 16px;">Close Forecast</h3>
-    <p>You are about to lock the baseline snapshot for <strong>{{ sprint.name }}</strong>.</p>
+    <p>You are about to lock the baseline snapshot for <strong>{{ sprint.name|display_name }}</strong>.</p>
     <div class="alert alert-warning" style="margin:16px 0;">
       <strong>Sprint closes:</strong> {{ sprint.end_date }}
     </div>
