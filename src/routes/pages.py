@@ -74,14 +74,24 @@ async def save_setup(request: Request):
 def new_team_page(request: Request):
     if _needs_setup():
         return RedirectResponse("/setup")
-    return templates.TemplateResponse("team_settings.html", _ctx(request, team=None))
+    return templates.TemplateResponse("team_settings.html", _ctx(
+        request,
+        team=None,
+        breadcrumbs=_breadcrumbs(("Home", "/"), ("New Team", None)),
+    ))
 
 
 @router.get("/teams/{team_id}/settings", response_class=HTMLResponse)
 def team_settings_page(request: Request, team_id: int):
     team = get_team(team_id)
     members = get_team_members(team_id) if team else []
-    return templates.TemplateResponse("team_settings.html", _ctx(request, team=team, current_members=members))
+    return templates.TemplateResponse("team_settings.html", _ctx(
+        request,
+        team=team,
+        current_members=members,
+        breadcrumbs=_breadcrumbs(("Home", "/"), (team["name"], f"/teams/{team['id']}/sprints"), ("Settings", None)),
+        team_sub_nav_active="settings",
+    ))
 
 
 @router.get("/teams/{team_id}/sprints", response_class=HTMLResponse)
@@ -94,7 +104,13 @@ def sprint_history_page(request: Request, team_id: int):
         if s["status"] == "closed":
             s["summary"] = get_sprint_summary(s["id"])
         sprint_data.append(s)
-    return templates.TemplateResponse("sprint_history.html", _ctx(request, team=team, sprints=sprint_data))
+    return templates.TemplateResponse("sprint_history.html", _ctx(
+        request,
+        team=team,
+        sprints=sprint_data,
+        breadcrumbs=_breadcrumbs(("Home", "/"), (team["name"], None)),
+        team_sub_nav_active="sprints",
+    ))
 
 
 @router.get("/sprint/{sprint_id}", response_class=HTMLResponse)
@@ -214,6 +230,12 @@ async def sprint_page(request: Request, sprint_id: int):
         capacity=get_sprint_capacity(sprint["id"]),
         workload=workload,
         final_snapshot=final_snapshot_data,
+        breadcrumbs=_breadcrumbs(
+            ("Home", "/"),
+            (team["name"], f"/teams/{team['id']}/sprints"),
+            (_display_name(sprint["name"]), None),
+        ),
+        team_sub_nav_active="sprints",
     ))
 
 
@@ -222,4 +244,11 @@ def team_trends_page(request: Request, team_id: int, range: int = 8):
     team = get_team(team_id)
     from src.services.trend_service import get_team_trends
     trends = get_team_trends(team_id, limit=range if range > 0 else None)
-    return templates.TemplateResponse("team_trends.html", _ctx(request, team=team, trends=trends, range=range))
+    return templates.TemplateResponse("team_trends.html", _ctx(
+        request,
+        team=team,
+        trends=trends,
+        range=range,
+        breadcrumbs=_breadcrumbs(("Home", "/"), (team["name"], f"/teams/{team['id']}/sprints"), ("Trends", None)),
+        team_sub_nav_active="trends",
+    ))
