@@ -707,7 +707,7 @@ nav a:first-child {
   .task-table td:nth-last-child(1) {
     display: none;
   }
-  .task-table td:nth-child(2) {  /* assignee column */
+  .task-table td:nth-child(3) {  /* assignee column */
     max-width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
