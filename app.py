@@ -1,4 +1,5 @@
 import uvicorn
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from src.config import HOST, PORT, DB_PATH
@@ -12,7 +13,18 @@ from src.clickup_client import ClickUpClient
 from src.database import get_connection
 import asyncio
 
-app = FastAPI(title="Sprint Reporter")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # startup
+    init_db(DB_PATH)
+    scheduler.start()
+    yield
+    # shutdown
+    scheduler.shutdown()
+
+
+app = FastAPI(title="Sprint Reporter", lifespan=lifespan)
 
 async def daily_snapshot_job():
     from datetime import date
@@ -69,14 +81,6 @@ app.include_router(clickup_proxy.router)
 if os.path.isdir("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.on_event("startup")
-def startup():
-    init_db(DB_PATH)
-    scheduler.start()
-
-@app.on_event("shutdown")
-def shutdown():
-    scheduler.shutdown()
 
 @app.get("/health")
 def health():
