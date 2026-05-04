@@ -66,6 +66,25 @@ Running `./start.sh` when the app is already up prints the URL/port/PID line in 
 - **App takes longer than 5s to start** → exit 1 with log tail; user can re-run `./start.sh` (which will then see the running PID and exit cleanly). Tunable via constant at top of script if it ever becomes a problem.
 - **`lsof` not installed** → ships with macOS, so fine for the stated environment.
 
+## Distribution
+
+The user develops on one Mac and runs the app on a second Mac. Only two files change: `start.sh` and `stop.sh`. They are pure bash and depend only on tools that ship with macOS (`bash`, `kill`, `lsof`, `curl`, `grep`, `sed`, `python3`) — no new dependencies, nothing to install on the target machine.
+
+**Files to copy:** `start.sh`, `stop.sh` (and only these).
+
+**Transport options** (pick whichever is convenient):
+
+- **AirDrop** — Finder → right-click → Share → AirDrop. Preserves the executable bit.
+- **`scp`** — `scp start.sh stop.sh user@target-mac.local:~/path/to/ClickUp-report-app/`. May strip the executable bit depending on the receiving user's umask.
+- **iCloud Drive / Dropbox / USB** — drop the two files into the project directory on the target Mac.
+
+**Post-copy checklist on the target Mac** (run once, in the project directory):
+
+1. `chmod +x start.sh stop.sh` — restores execute bit if transport stripped it.
+2. (Optional but recommended) `cp sprint_data.db sprint_data.db.before-script-update` — local DB backup. The new scripts do not touch the DB, but a one-line backup costs nothing.
+3. If the app is currently running with the old `start.sh`: `./stop.sh` with the new script will still work (it only reads `.pid` + `kill`, behavior is compatible).
+4. `./start.sh` — should print the URL/port/PID line either way (whether it found the app already running or just started it). That output is the verification.
+
 ## Testing
 
 Manual verification on the user's Mac, since this is shell + a real running FastAPI process:
