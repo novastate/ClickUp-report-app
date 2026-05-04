@@ -875,3 +875,12 @@ nav a:first-child {
     gap: 6px;
   }
 }
+
+/* Form help text under labels */
+.help-text {
+  display: block;
+  color: #718096;
+  font-size: 12px;
+  margin: 4px 0 8px 0;
+  line-height: 1.4;
+}
