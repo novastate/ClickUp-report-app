@@ -3,6 +3,11 @@
   <div class="chart-container">
     <canvas id="burndownChart"></canvas>
   </div>
+  {% if sprint.closed_at and progress_history and progress_history|length < team.sprint_length_days %}
+    <div class="chart-caption" style="font-size:12px; color:#718096; margin-top:8px;">
+      Last snapshot: Day {{ progress_history|length - 1 }}. No data captured for the remaining days.
+    </div>
+  {% endif %}
 </div>
 <script>
 (function() {
@@ -19,7 +24,7 @@
   new Chart(document.getElementById('burndownChart'), {
     type: 'line',
     data: {
-      labels: idealLabels.slice(0, Math.max(actualData.length, 2)),
+      labels: idealLabels,
       datasets: [
         { label: 'Ideal', data: idealData, borderColor: '#cbd5e0', borderDash: [6, 4], borderWidth: 2, pointRadius: 0, fill: false },
         { label: 'Actual', data: actualData, borderColor: '#5f55ee', borderWidth: 3, pointRadius: 3, fill: false }
