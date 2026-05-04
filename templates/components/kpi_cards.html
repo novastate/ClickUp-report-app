@@ -30,7 +30,12 @@
   <div class="kpi-card">
     <div class="value {% if on_track == 'ahead' %}green{% elif on_track == 'on_track' %}green{% else %}orange{% endif %}">{% if on_track == 'ahead' %}Ahead{% elif on_track == 'on_track' %}On Track{% else %}Behind{% endif %}</div>
     <div class="label">Status</div>
-    <div class="sub">Day {{ sprint_day|default('?') }} of {{ team.sprint_length_days }}</div>
+    <div class="sub">
+      {% if sprint.closed_at %}Closed
+      {% elif sprint_day is none %}Not started
+      {% else %}Day {{ sprint_day }} of {{ team.sprint_length_days }}
+      {% endif %}
+    </div>
   </div>
   {% endif %}
 </div>
