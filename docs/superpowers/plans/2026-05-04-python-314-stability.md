@@ -10,6 +10,8 @@
 
 **Spec:** `docs/superpowers/specs/2026-05-04-python-314-stability-design.md`
 
+> **Implementation note:** During Task 1 we hit a Homebrew Python 3.14 system bug (`pyexpat` linked against the wrong `libexpat`), making `pip install` impossible. We rebuilt `.venv` with Python 3.12.12 instead; on Python 3.12, `pytest-asyncio==0.24.0` works correctly, so **Task 1 was reverted and is no longer in scope**. Task 2 (lifespan migration) and Task 3 (smoke) remain — they're orthogonal to the Python version and still net-positive.
+
 ---
 
 ## File Structure

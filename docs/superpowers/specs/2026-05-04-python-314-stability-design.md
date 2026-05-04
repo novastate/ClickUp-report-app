@@ -1,5 +1,7 @@
 # Python 3.14 Stability
 
+> **Implementation note (post-hoc):** During implementation we discovered that the Homebrew Python 3.14.4 build on this Mac has a broken `pyexpat` C extension (linked against an older system `libexpat`), which makes `pip install` fail and `venv` recreation unsafe. Rather than chase a system-level fix, we **downgraded `.venv` to Python 3.12.12** — pure Python, well-supported, no Homebrew bug. Consequence: the `pytest-asyncio` bump (Change 2 below) is no longer needed — 0.24.0 works fine on Python 3.12 — and was reverted. Only the `app.py` lifespan migration was actually applied. Test failures attributable to Python 3.14 are gone by virtue of not running Python 3.14. Pre-existing test failures from `src/ ↔ tests/` signature drift remain (separate workstream).
+
 ## Context
 
 The project's `.venv` is built with Python 3.14. Two things in the codebase produce deprecation warnings or outright failures on this Python version:
