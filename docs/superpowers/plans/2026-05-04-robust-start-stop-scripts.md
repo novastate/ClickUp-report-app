@@ -230,39 +230,83 @@ Write this exact content to `stop.sh`:
 #!/bin/bash
 cd "$(dirname "$0")"
 
-if [ ! -f .pid ]; then
-    echo "Sprint Reporter kör inte."
-    exit 0
-fi
-
-PID=$(cat .pid)
-
-if [ -z "$PID" ] || ! kill -0 "$PID" 2>/dev/null; then
-    echo "Städade stale .pid (PID $PID körde inte)."
-    rm -f .pid
-    exit 0
-fi
-
-# --- Graceful kill, then verify ---
-kill "$PID"
-
-ATTEMPTS=10
-i=0
-while [ "$i" -lt "$ATTEMPTS" ]; do
-    if ! kill -0 "$PID" 2>/dev/null; then
-        rm -f .pid
-        echo "Stoppade Sprint Reporter (PID $PID)."
-        exit 0
+# --- Read PORT from .env (fallback 8000) — same as start.sh ---
+PORT=8000
+if [ -f .env ]; then
+    ENV_PORT=$(grep -E '^PORT=' .env | head -n1 | cut -d= -f2- | tr -d '"' | tr -d "'" | tr -d ' ')
+    if [ -n "$ENV_PORT" ]; then
+        PORT=$ENV_PORT
     fi
-    sleep 0.5
-    i=$((i + 1))
-done
+fi
 
-# --- Still alive after 5s — escalate ---
-kill -9 "$PID" 2>/dev/null || true
-sleep 0.5
-rm -f .pid
-echo "Stoppade Sprint Reporter med SIGKILL (PID $PID)."
+# --- Helper: wait until a PID dies, escalate to SIGKILL after timeout ---
+wait_for_death() {
+    local pid="$1"
+    local attempts=10
+    local i=0
+    while [ "$i" -lt "$attempts" ]; do
+        if ! kill -0 "$pid" 2>/dev/null; then
+            return 0
+        fi
+        sleep 0.5
+        i=$((i + 1))
+    done
+    kill -9 "$pid" 2>/dev/null || true
+    sleep 0.5
+    return 1   # had to SIGKILL
+}
+
+KILLED_MAIN=""
+ESCALATED_MAIN=0
+
+# --- Step 1: handle .pid (supervisor process) ---
+if [ -f .pid ]; then
+    PID=$(cat .pid)
+    if [ -z "$PID" ] || ! kill -0 "$PID" 2>/dev/null; then
+        echo "Städade stale .pid (PID $PID körde inte)."
+        rm -f .pid
+    else
+        kill "$PID"
+        if wait_for_death "$PID"; then
+            :   # died gracefully
+        else
+            ESCALATED_MAIN=1
+        fi
+        rm -f .pid
+        KILLED_MAIN="$PID"
+    fi
+fi
+
+# --- Step 2: port backstop — catch orphan workers ---
+ORPHAN_PIDS=$(lsof -ti:"$PORT" 2>/dev/null)
+KILLED_ORPHANS=""
+if [ -n "$ORPHAN_PIDS" ]; then
+    # shellcheck disable=SC2086
+    kill $ORPHAN_PIDS 2>/dev/null || true
+    for pid in $ORPHAN_PIDS; do
+        wait_for_death "$pid" >/dev/null
+    done
+    KILLED_ORPHANS=$(echo "$ORPHAN_PIDS" | tr '\n' ',' | sed 's/,$//')
+fi
+
+# --- Step 3: report ---
+if [ -n "$KILLED_MAIN" ] && [ -n "$KILLED_ORPHANS" ]; then
+    if [ "$ESCALATED_MAIN" = "1" ]; then
+        echo "Stoppade Sprint Reporter med SIGKILL (PID $KILLED_MAIN). Städade även orphan(s) på port $PORT (PID $KILLED_ORPHANS)."
+    else
+        echo "Stoppade Sprint Reporter (PID $KILLED_MAIN). Städade även orphan(s) på port $PORT (PID $KILLED_ORPHANS)."
+    fi
+elif [ -n "$KILLED_MAIN" ]; then
+    if [ "$ESCALATED_MAIN" = "1" ]; then
+        echo "Stoppade Sprint Reporter med SIGKILL (PID $KILLED_MAIN)."
+    else
+        echo "Stoppade Sprint Reporter (PID $KILLED_MAIN)."
+    fi
+elif [ -n "$KILLED_ORPHANS" ]; then
+    echo "Städade orphan-process(er) på port $PORT (PID $KILLED_ORPHANS)."
+else
+    echo "Sprint Reporter kör inte."
+fi
 ```
 
 - [ ] **Step 3: Verify shell syntax is valid**
@@ -279,36 +323,42 @@ Expected: line begins with `-rwxr-xr-x`.
 
 - [ ] **Step 5: Manual scenario 5 — stop while running**
 
-Pre-state: start the app: `./start.sh`. Confirm `.pid` exists and process is up.
+Pre-state: start the app: `./start.sh`. Confirm `.pid` exists, process is up, and `lsof -ti:8000` returns at least one PID.
 
 Run: `./stop.sh`
 
-Expected:
+Expected one of:
 ```
 Stoppade Sprint Reporter (PID NNNNN).
 ```
-And: `ls .pid 2>/dev/null` prints nothing. `curl -s http://localhost:8000/health` fails (connection refused).
+or (if uvicorn's worker survives the supervisor's SIGTERM):
+```
+Stoppade Sprint Reporter (PID NNNNN). Städade även orphan(s) på port 8000 (PID MMMMM).
+```
+After: `ls .pid 2>/dev/null` prints nothing. `lsof -ti:8000` returns nothing. `curl -s http://localhost:8000/health` fails (connection refused).
 
-- [ ] **Step 6: Manual scenario 6 — stop with stale `.pid`**
+- [ ] **Step 6: Manual scenario 6 — stop with stale `.pid` + orphan worker**
 
-Pre-state: start the app: `./start.sh`. Then simulate a crash:
+Pre-state: start the app: `./start.sh`. Then simulate a crash that leaves the worker orphaned (this is the realistic failure mode with `reload=True`):
 ```
 kill -9 $(cat .pid)
 sleep 1
+lsof -ti:8000   # confirm a worker PID still listens
 ```
-The `.pid` file remains but the process is gone.
+The `.pid` file remains but its process is gone; an orphan worker still holds port 8000.
 
 Run: `./stop.sh`
 
 Expected:
 ```
 Städade stale .pid (PID NNNNN körde inte).
+Städade orphan-process(er) på port 8000 (PID MMMMM).
 ```
-And: `ls .pid 2>/dev/null` prints nothing.
+After: `ls .pid 2>/dev/null` prints nothing. `lsof -ti:8000` returns nothing.
 
 - [ ] **Step 7: Manual scenario 7 — stop when nothing running**
 
-Pre-state: no `.pid` file. (After step 6 you should already be here.) Verify: `ls .pid 2>/dev/null` prints nothing.
+Pre-state: no `.pid` file, nothing on port 8000. Verify: `ls .pid 2>/dev/null` prints nothing AND `lsof -ti:8000` prints nothing.
 
 Run: `./stop.sh`
 
@@ -318,16 +368,40 @@ Sprint Reporter kör inte.
 ```
 Exit code 0.
 
+- [ ] **Step 7b: Manual scenario 8 — orphan on port without `.pid`**
+
+Pre-state: simulate the case where someone manually deleted `.pid` but a worker is still alive on port 8000:
+```
+./start.sh
+kill -9 $(cat .pid)
+rm .pid
+sleep 1
+lsof -ti:8000   # worker PID still holds the port
+```
+
+Run: `./stop.sh`
+
+Expected:
+```
+Städade orphan-process(er) på port 8000 (PID MMMMM).
+```
+After: `lsof -ti:8000` returns nothing.
+
 - [ ] **Step 8: Commit**
 
 ```bash
 git add stop.sh
 git commit -m "$(cat <<'EOF'
-fix(scripts): make stop.sh idempotent and self-cleaning
+fix(scripts): make stop.sh idempotent, self-cleaning, and worker-aware
 
-Detects stale .pid (kill -0) and just cleans it instead of failing.
-On a live process, sends SIGTERM and polls for up to 5s before
-escalating to SIGKILL, so a wedged process can't leave .pid behind.
+Detects stale .pid (kill -0) and cleans it instead of failing. On a
+live process, sends SIGTERM and polls for up to 5s before escalating
+to SIGKILL.
+
+Adds a port-based backstop: after handling .pid, checks lsof -ti:PORT
+and kills anything still listening. Catches uvicorn's reload-mode
+worker process, which survives SIGTERM to the supervisor and would
+otherwise block the next ./start.sh.
 
 Refs spec: docs/superpowers/specs/2026-05-04-robust-start-stop-scripts-design.md
 EOF

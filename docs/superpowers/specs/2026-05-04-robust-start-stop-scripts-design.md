@@ -48,11 +48,22 @@ Two scripts, no new dependencies, no new tooling. After this change:
 
 ### `stop.sh`
 
+**Why this is more than `kill $PID`:** `app.py:86` runs `uvicorn.run(..., reload=True)`. Uvicorn in reload mode spawns a worker process via `multiprocessing.spawn`. Killing only the supervisor (the PID we wrote to `.pid`) leaves the worker alive — it gets adopted by `init` (PPID=1) and continues holding the port. This was a latent issue with the original `stop.sh` too; the new design must handle it.
+
+The fix: use the **port** as a backstop. After killing the PID we know about, check whether anything is still listening on `PORT`. If yes, that's the orphan worker — kill it too.
+
 1. `cd` to the script's directory.
-2. If `.pid` does not exist → print `Sprint Reporter kör inte.` and exit 0.
-3. Read `PID=$(cat .pid)`.
-4. If `kill -0 $PID` fails → print `Städade stale .pid (PID X körde inte).`, `rm .pid`, exit 0.
-5. Otherwise → `kill $PID`. Poll `kill -0 $PID` every ~0.5s for up to ~5s. Once it stops responding (or after timeout, send `kill -9` and wait briefly), `rm .pid`. Print `Stoppade Sprint Reporter (PID X).`.
+2. Read `PORT` the same way `start.sh` does (from `.env`, fallback 8000).
+3. If `.pid` does not exist → fall through to the port-only cleanup at step 6 (so `stop.sh` still cleans up an orphan even when `.pid` is missing).
+4. If `.pid` exists, read `PID=$(cat .pid)`.
+   - If `kill -0 $PID` fails → print `Städade stale .pid (PID X körde inte).`, `rm .pid`, fall through to step 6.
+   - Otherwise → `kill $PID`. Poll `kill -0 $PID` every ~0.5s for up to ~5s. If still alive after timeout, `kill -9 $PID`, wait briefly. `rm .pid`.
+5. Remember whether we killed something at step 4 (for the final message).
+6. **Port backstop:** check `lsof -ti:PORT`. If any PIDs come back, send `kill` to all of them, poll for up to ~5s, escalate to `kill -9` if needed. This catches orphan workers regardless of whether they came from this run or a previous one.
+7. Final message:
+   - Killed something at step 4 → `Stoppade Sprint Reporter (PID X).` (mention SIGKILL if we had to escalate).
+   - Killed only at step 6 (orphan, no `.pid`) → `Städade orphan-process(er) på port PORT (PID Y[, Z, ...]).`
+   - Did nothing → `Sprint Reporter kör inte.`
 
 ### Status as a side effect
 
@@ -93,6 +104,7 @@ Manual verification on the user's Mac, since this is shell + a real running Fast
 2. **Already running:** run `./start.sh` again → reports "kör redan" with same PID, no new process.
 3. **Stale `.pid`:** simulate by `kill -9 $(cat .pid)` directly, leaving `.pid` behind → `./start.sh` reports "städade stale" and starts cleanly.
 4. **Port hijacked:** `python3 -m http.server PORT` in another shell → `./start.sh` reports the conflict and exits 1 without overwriting `.pid`.
-5. **Stop while running:** `./stop.sh` → process gone, `.pid` gone, "Stoppade…" message.
-6. **Stop with stale `.pid`:** `kill -9 $(cat .pid)`, then `./stop.sh` → "Städade stale…", `.pid` gone.
-7. **Stop when nothing running:** `./stop.sh` with no `.pid` → "Sprint Reporter kör inte."
+5. **Stop while running:** `./stop.sh` → both supervisor and worker gone, port 8000 free, `.pid` gone, "Stoppade…" message.
+6. **Stop with stale `.pid`:** `kill -9 $(cat .pid)` (supervisor only — worker becomes orphan holding the port), then `./stop.sh` → "Städade stale…" + "Städade orphan-process(er) på port 8000…", port free, `.pid` gone.
+7. **Stop when nothing running:** `./stop.sh` with no `.pid` and nothing on port → "Sprint Reporter kör inte."
+8. **Stop with no `.pid` but orphan on port:** simulate by manually killing supervisor and removing `.pid` while leaving worker alive — `./stop.sh` should still clean the port and report it.
