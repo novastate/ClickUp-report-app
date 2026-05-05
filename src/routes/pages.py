@@ -57,6 +57,18 @@ def _breadcrumbs(*pairs):
     return [{"label": label, "href": href} for label, href in pairs]
 
 
+def _area_crumb(team: dict | None) -> tuple[str, str | None] | None:
+    """Build the (label, href) tuple for the Product Area breadcrumb segment.
+    Returns None if the team has no space metadata (skips the crumb)."""
+    if not team:
+        return None
+    name = team.get("space_name")
+    sid = team.get("clickup_space_id")
+    if not name or not sid:
+        return None
+    return (name, f"/areas/{sid}")
+
+
 def _needs_setup() -> bool:
     """Setup is needed only if no service key is configured anywhere.
     OAuth users don't trigger this; this is for the cron job."""
@@ -155,7 +167,7 @@ def team_settings_page(request: Request, team_id: int, user=Depends(get_current_
         request,
         team=team,
         current_members=members,
-        breadcrumbs=_breadcrumbs(("Home", "/"), (team["name"], f"/teams/{team['id']}/sprints"), ("Settings", None)),
+        breadcrumbs=_breadcrumbs(*([("Home", "/")] + ([_area_crumb(team)] if _area_crumb(team) else []) + [(team["name"], f"/teams/{team['id']}/sprints"), ("Settings", None)])),
         team_sub_nav_active="settings",
     ))
 
@@ -176,7 +188,7 @@ async def sprint_history_page(request: Request, team_id: int, user=Depends(get_c
         request,
         team=team,
         sprints=sprint_data,
-        breadcrumbs=_breadcrumbs(("Home", "/"), (team["name"], None)),
+        breadcrumbs=_breadcrumbs(*([("Home", "/")] + ([_area_crumb(team)] if _area_crumb(team) else []) + [(team["name"], None)])),
         team_sub_nav_active="sprints",
     ))
 
@@ -314,11 +326,7 @@ async def sprint_page(request: Request, sprint_id: int, user=Depends(get_current
         final_snapshot=final_snapshot_data,
         prev_sprint=prev_sprint,
         next_sprint=next_sprint,
-        breadcrumbs=_breadcrumbs(
-            ("Home", "/"),
-            (team["name"], f"/teams/{team['id']}/sprints"),
-            (_display_name(sprint["name"]), None),
-        ),
+        breadcrumbs=_breadcrumbs(*([("Home", "/")] + ([_area_crumb(team)] if _area_crumb(team) else []) + [(team["name"], f"/teams/{team['id']}/sprints"), (_display_name(sprint["name"]), None)])),
         team_sub_nav_active="sprints",
     ))
 
@@ -338,6 +346,6 @@ def team_trends_page(request: Request, team_id: int, range: int = 8, user=Depend
         trends=trends,
         range=range,
         closed_count=closed_count,
-        breadcrumbs=_breadcrumbs(("Home", "/"), (team["name"], f"/teams/{team['id']}/sprints"), ("Trends", None)),
+        breadcrumbs=_breadcrumbs(*([("Home", "/")] + ([_area_crumb(team)] if _area_crumb(team) else []) + [(team["name"], f"/teams/{team['id']}/sprints"), ("Trends", None)])),
         team_sub_nav_active="trends",
     ))
