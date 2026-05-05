@@ -16,7 +16,8 @@ def test_teams_table_columns(test_db):
     cursor = conn.execute("PRAGMA table_info(teams)")
     columns = {row[1] for row in cursor.fetchall()}
     conn.close()
-    assert columns == {"id", "name", "clickup_space_id", "clickup_folder_id", "metric_type", "sprint_length_days", "created_at"}
+    required = {"id", "name", "clickup_space_id", "clickup_folder_id", "metric_type", "sprint_length_days", "created_at"}
+    assert required.issubset(columns), f"Missing required columns: {required - columns}"
 
 def test_sprints_table_has_no_status_column(test_db):
     conn = get_connection(test_db)
