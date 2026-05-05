@@ -64,3 +64,21 @@ async def test_extract_task_data():
     assert extracted["assignee_name"] == "Anna"
     assert extracted["points"] == 3.0
     assert extracted["hours"] == 2.0  # 7200000ms = 2h
+
+
+def test_get_system_client_uses_service_key(monkeypatch):
+    monkeypatch.setenv("CLICKUP_SERVICE_API_KEY", "pk_service_key")
+    monkeypatch.delenv("CLICKUP_API_KEY", raising=False)
+    import importlib
+    import src.config as cfg
+    import src.clickup_client as cu
+    importlib.reload(cfg)
+    importlib.reload(cu)
+    client = cu.get_system_client()
+    assert client.headers["Authorization"] == "pk_service_key"
+
+
+def test_get_user_client_uses_passed_token():
+    from src.clickup_client import get_user_client
+    client = get_user_client("oauth_token_abc")
+    assert client.headers["Authorization"] == "oauth_token_abc"

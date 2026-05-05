@@ -151,3 +151,16 @@ class ClickUpClient:
             "points": raw_task.get("points"),
             "hours": round(time_estimate / 3_600_000, 2) if time_estimate else None,
         }
+
+
+def get_system_client() -> ClickUpClient:
+    """Build a client for the impersonal background-job 'service account'.
+    Reads CLICKUP_SERVICE_API_KEY (with legacy fallback to CLICKUP_API_KEY)."""
+    from src.config import get_service_api_key
+    return ClickUpClient(api_key=get_service_api_key())
+
+
+def get_user_client(access_token: str) -> ClickUpClient:
+    """Build a client for an authenticated user's request, using their OAuth token.
+    The Authorization header format is identical to API keys for ClickUp."""
+    return ClickUpClient(api_key=access_token)
