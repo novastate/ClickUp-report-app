@@ -3,6 +3,7 @@
 {% block content %}
 
 {% if product_areas %}
+<div class="home-wrap">
 <section class="workspace-banner">
   <div class="banner-stat"><strong>{{ workspace.total_areas }}</strong> product area{{ 's' if workspace.total_areas != 1 else '' }}</div>
   <div class="banner-stat"><strong>{{ workspace.total_teams }}</strong> team{{ 's' if workspace.total_teams != 1 else '' }}</div>
@@ -58,6 +59,7 @@
   </div>
 </section>
 {% endfor %}
+</div>
 
 {% else %}
 <div class="content-narrow" style="padding-top: 60px;">

@@ -130,7 +130,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let points;
     try { points = JSON.parse(canvas.dataset.points || '[]'); }
     catch (e) { return; }
-    if (!Array.isArray(points) || points.length === 0) return;
+    // Need at least 2 points for a meaningful line. Single-point Chart.js
+    // renders an awkward dot that breaks card height alignment.
+    if (!Array.isArray(points) || points.length < 2) return;
     new Chart(canvas, {
       type: 'line',
       data: {

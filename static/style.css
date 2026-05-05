@@ -497,43 +497,8 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
   margin-bottom: 24px;
 }
 
-.team-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-  padding: 24px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.team-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  border: 2px solid transparent;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.team-card:hover {
-  border-color: #3182ce;
-  box-shadow: 0 2px 8px rgba(95,85,238,0.15);
-}
-
-.team-card h3 {
-  margin-bottom: 0;
-  font-size: 1rem;
-}
-
-.team-card .team-links {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 4px;
-}
+/* Legacy .team-cards / .team-card rules removed — superseded by .team-grid /
+   .team-card defined further down (home page Product Area layout). */
 
 /* ---- Empty / info states ---- */
 .empty-state {
@@ -976,62 +941,78 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
 }
 
 /* === Home page: workspace banner === */
+/* === Home page: outer wrap for consistent gutters === */
+.home-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* === Home page: workspace summary banner === */
 .workspace-banner {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
-  padding: 16px 24px;
-  margin: 16px 0 24px;
+  align-items: center;
+  gap: 32px;
+  padding: 18px 22px;
+  margin: 0 0 24px;
   background: var(--surface-1, #ffffff);
   border: 1px solid var(--border, #e2e8f0);
-  border-radius: 10px;
+  border-radius: 12px;
 }
 .workspace-banner .banner-stat {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  gap: 2px;
+  font-size: 11px;
   color: var(--text-muted, #64748b);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
 }
 .workspace-banner .banner-stat strong {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--text, #1a202c);
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
   text-transform: none;
 }
 .workspace-banner .banner-meta {
   margin-left: auto;
-  align-self: center;
+  font-size: 12px;
+  color: var(--text-muted, #64748b);
   text-transform: none;
   letter-spacing: 0;
 }
 
 /* === Home page: Product Area sections === */
 .product-area {
-  margin: 24px 0 36px;
+  margin: 28px 0 0;
+}
+.product-area + .product-area {
+  margin-top: 36px;
 }
 .pa-header {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border, #e2e8f0);
 }
 .pa-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 .pa-badge {
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 2px 8px;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
   background: var(--accent-tint, rgba(123, 104, 238, 0.12));
   color: var(--accent, #7b68ee);
   border-radius: 4px;
@@ -1039,8 +1020,8 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
 .pa-stats {
   margin-left: auto;
   display: flex;
-  gap: 18px;
-  font-size: 13px;
+  gap: 20px;
+  font-size: 12px;
   color: var(--text-muted, #64748b);
 }
 .pa-stats .pa-stat strong {
@@ -1051,8 +1032,11 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
 /* === Home page: team cards grid === */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
+  /* 440px min keeps a 2x2 grid at our 1280px max-width, which feels balanced
+     for the typical 4-team workspace. Wider screens still get 3+ columns
+     once viewport exceeds the wrap, but only when there are enough teams. */
+  grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  gap: 14px;
 }
 .team-card {
   background: var(--surface-1, #ffffff);
@@ -1062,21 +1046,25 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  min-height: 168px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 .team-card:hover {
   border-color: var(--accent, #7b68ee);
-  box-shadow: 0 2px 8px rgba(123, 104, 238, 0.08);
+  box-shadow: 0 4px 16px rgba(123, 104, 238, 0.10);
+  transform: translateY(-1px);
 }
 .team-card-title {
   margin: 0;
   font-size: 1.05rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 .team-card-status {
   margin: 0;
   font-size: 13px;
   color: var(--text, #1a202c);
+  line-height: 1.5;
 }
 .team-card-status a {
   color: var(--accent, #7b68ee);
@@ -1086,12 +1074,15 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
   text-decoration: underline;
 }
 .sparkline-wrap {
-  height: 32px;
+  height: 36px;
   width: 100%;
+  flex-grow: 1; /* fills remaining vertical space so buttons sit at the bottom */
+  min-height: 36px;
 }
 canvas.sparkline {
   width: 100% !important;
-  height: 32px !important;
+  height: 36px !important;
+  display: block;
 }
 .team-card-actions {
   display: flex;
@@ -1104,14 +1095,18 @@ canvas.sparkline {
   padding: 5px 12px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 720px) {
   .pa-stats {
     width: 100%;
     margin-left: 0;
     flex-wrap: wrap;
-    gap: 8px 14px;
+    gap: 8px 16px;
   }
   .workspace-banner .banner-meta {
     margin-left: 0;
+    width: 100%;
+  }
+  .home-wrap {
+    padding: 16px;
   }
 }
