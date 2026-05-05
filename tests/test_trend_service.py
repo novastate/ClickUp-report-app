@@ -19,7 +19,7 @@ def _setup_closed_sprint(team_id, list_id, name, forecast_count, completed_count
     return sprint
 
 def test_get_team_trends(test_db):
-    team = create_team("T", "s", "f")
+    team = create_team("T", "ws_test", "s", "f")
     _setup_closed_sprint(team["id"], "l1", "Iteration 1 (1/1 - 14/1)", 10, 8, 20, 16)
     _setup_closed_sprint(team["id"], "l2", "Iteration 2 (15/1 - 28/1)", 12, 10, 24, 20)
     trends = get_team_trends(team["id"])
