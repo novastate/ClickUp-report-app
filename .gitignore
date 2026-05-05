@@ -9,3 +9,4 @@ __pycache__/
 app.log
 deploy-bundle.zip
 sprint_data.db.before-deploy-*
+.DS_Store
