@@ -13,7 +13,24 @@
 <body>
   <header class="identity-bar">
     <a href="/" class="brand">Sprint Reporter</a>
-    <a href="/teams/new" class="btn btn-primary new-team-btn">+ New Team</a>
+    <div class="identity-actions">
+      {% if current_user %}
+        {% if user_workspaces and user_workspaces|length > 1 %}
+        <form method="post" action="/auth/workspace" class="workspace-switcher">
+          <select name="workspace_id" onchange="this.form.submit()">
+            {% for ws in user_workspaces %}
+            <option value="{{ ws.id }}" {% if ws.id == active_workspace_id %}selected{% endif %}>{{ ws.name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+        {% endif %}
+        <span class="user-chip">{{ current_user.username or current_user.email }}</span>
+        <form method="post" action="/auth/logout" class="logout-form">
+          <button type="submit" class="btn btn-secondary">Sign out</button>
+        </form>
+      {% endif %}
+      <a href="/teams/new" class="btn btn-primary new-team-btn">+ New Team</a>
+    </div>
   </header>
   {% include "components/breadcrumbs.html" %}
   {% include "components/team_sub_nav.html" %}
