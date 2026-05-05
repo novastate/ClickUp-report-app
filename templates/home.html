@@ -1,35 +1,64 @@
 {% extends "base.html" %}
 {% block title %}Sprint Reporter — Home{% endblock %}
 {% block content %}
-{% if teams %}
-<div class="content" style="padding-top: 24px;">
-  {% for team in teams %}
-  <div class="panel">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-      <h3 style="margin:0; font-size:1.15rem;">{{ team.name }}</h3>
-      <div style="display:flex; gap:6px;">
-        <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">Sprint History</a>
-        <a href="/teams/{{ team.id }}/trends" class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">Trends</a>
-        <a href="/teams/{{ team.id }}/settings" class="btn btn-secondary" style="font-size:12px; padding:5px 12px;">Settings</a>
-      </div>
-    </div>
 
-    {% if team.active_sprint %}
-    <div style="display:flex; align-items:center; gap:24px; padding:14px 18px; background:#f7fafc; border-radius:8px; border:1px solid #edf2f7;">
-      <div style="flex:1;">
-        <a href="/sprint/{{ team.active_sprint.id }}" style="font-size:16px; font-weight:600; text-decoration:none; color:#2d3748;">{{ team.active_sprint.name|display_name }}</a>
-        <div style="color:#718096; font-size:13px; margin-top:2px;">{{ team.active_sprint.start_date }} &mdash; {{ team.active_sprint.end_date }}</div>
-      </div>
-      <span class="badge-active">ACTIVE</span>
-      <a href="/sprint/{{ team.active_sprint.id }}" class="btn btn-primary" style="font-size:12px; padding:5px 14px;">View Sprint</a>
+{% if product_areas %}
+<section class="workspace-banner">
+  <div class="banner-stat"><strong>{{ workspace.total_areas }}</strong> product area{{ 's' if workspace.total_areas != 1 else '' }}</div>
+  <div class="banner-stat"><strong>{{ workspace.total_teams }}</strong> team{{ 's' if workspace.total_teams != 1 else '' }}</div>
+  <div class="banner-stat"><strong>{{ workspace.total_closed_sprints }}</strong> closed sprint{{ 's' if workspace.total_closed_sprints != 1 else '' }}</div>
+  <div class="banner-stat"><strong>{{ (workspace.avg_completion * 100) | round | int }}%</strong> avg completion</div>
+  <div class="banner-stat banner-meta">last activity: {{ workspace.last_activity }}</div>
+</section>
+
+{% for pa in product_areas %}
+<section class="product-area">
+  <header class="pa-header">
+    <h2 class="pa-title">{{ pa.space_name }}</h2>
+    <span class="pa-badge">{{ pa.teams | length }} team{{ 's' if pa.teams|length != 1 else '' }}</span>
+    <div class="pa-stats">
+      <span class="pa-stat">active: <strong>{{ pa.stats.active_sprints }}</strong></span>
+      <span class="pa-stat">closed: <strong>{{ pa.stats.closed_sprints }}</strong></span>
+      <span class="pa-stat">avg velocity: <strong>{{ pa.stats.avg_velocity }}</strong></span>
+      <span class="pa-stat">avg completion: <strong>{{ (pa.stats.avg_completion * 100) | round | int }}%</strong></span>
     </div>
-    {% else %}
-    <div style="color:#a0aec0; font-size:14px; padding:12px 0;">No active sprint</div>
-    {% endif %}
+  </header>
+
+  <div class="team-grid">
+    {% for team in pa.teams %}
+    <article class="team-card">
+      <h3 class="team-card-title">{{ team.name }}</h3>
+
+      {% if team.active_sprint %}
+      <p class="team-card-status">
+        <span class="badge-active">ACTIVE</span>
+        <a href="/sprint/{{ team.active_sprint.id }}">{{ team.active_sprint.name | display_name }}</a>
+      </p>
+      {% elif team.last_closed %}
+      <p class="team-card-status">
+        Last sprint: <strong>{{ team.last_closed.name | display_name }}</strong>
+        · {{ (team.last_closed.completion * 100) | round | int }}%
+        · <span class="text-muted">{{ team.last_closed.ago }}</span>
+      </p>
+      {% else %}
+      <p class="team-card-status text-muted">No sprints yet</p>
+      {% endif %}
+
+      <div class="sparkline-wrap">
+        <canvas class="sparkline" data-points="{{ team.velocity_sparkline | tojson }}"></canvas>
+      </div>
+
+      <div class="team-card-actions">
+        <a class="btn btn-secondary" href="/teams/{{ team.id }}/sprints">Sprint History</a>
+        <a class="btn btn-secondary" href="/teams/{{ team.id }}/trends">Trends</a>
+        <a class="btn btn-secondary" href="/teams/{{ team.id }}/settings">Settings</a>
+      </div>
+    </article>
+    {% endfor %}
   </div>
-  {% endfor %}
+</section>
+{% endfor %}
 
-</div>
 {% else %}
 <div class="content-narrow" style="padding-top: 60px;">
   <div class="empty-state">
@@ -40,4 +69,5 @@
   </div>
 </div>
 {% endif %}
+
 {% endblock %}

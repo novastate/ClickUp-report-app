@@ -122,3 +122,35 @@ async function syncSprints(teamId) {
     btn.disabled = false; btn.textContent = 'Sync from ClickUp';
   }
 }
+
+// === Home page: render velocity sparklines on each team card ===
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof Chart === 'undefined') return;
+  document.querySelectorAll('canvas.sparkline').forEach(canvas => {
+    let points;
+    try { points = JSON.parse(canvas.dataset.points || '[]'); }
+    catch (e) { return; }
+    if (!Array.isArray(points) || points.length === 0) return;
+    new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: points.map((_, i) => i + 1),
+        datasets: [{
+          data: points,
+          borderColor: 'rgba(123, 104, 238, 0.9)',
+          backgroundColor: 'rgba(123, 104, 238, 0.12)',
+          borderWidth: 2,
+          tension: 0.3,
+          pointRadius: 0,
+          fill: true,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { x: { display: false }, y: { display: false, beginAtZero: true } },
+      },
+    });
+  });
+});

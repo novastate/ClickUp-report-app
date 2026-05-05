@@ -942,3 +942,144 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
   gap: 8px;
   align-items: center;
 }
+
+/* === Home page: workspace banner === */
+.workspace-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 16px 24px;
+  margin: 16px 0 24px;
+  background: var(--surface-1, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 10px;
+}
+.workspace-banner .banner-stat {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: var(--text-muted, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+.workspace-banner .banner-stat strong {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text, #1a202c);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.workspace-banner .banner-meta {
+  margin-left: auto;
+  align-self: center;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* === Home page: Product Area sections === */
+.product-area {
+  margin: 24px 0 36px;
+}
+.pa-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border, #e2e8f0);
+}
+.pa-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.pa-badge {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  background: var(--accent-tint, rgba(123, 104, 238, 0.12));
+  color: var(--accent, #7b68ee);
+  border-radius: 4px;
+}
+.pa-stats {
+  margin-left: auto;
+  display: flex;
+  gap: 18px;
+  font-size: 13px;
+  color: var(--text-muted, #64748b);
+}
+.pa-stats .pa-stat strong {
+  color: var(--text, #1a202c);
+  font-weight: 600;
+}
+
+/* === Home page: team cards grid === */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.team-card {
+  background: var(--surface-1, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.team-card:hover {
+  border-color: var(--accent, #7b68ee);
+  box-shadow: 0 2px 8px rgba(123, 104, 238, 0.08);
+}
+.team-card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.team-card-status {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text, #1a202c);
+}
+.team-card-status a {
+  color: var(--accent, #7b68ee);
+  text-decoration: none;
+}
+.team-card-status a:hover {
+  text-decoration: underline;
+}
+.sparkline-wrap {
+  height: 32px;
+  width: 100%;
+}
+canvas.sparkline {
+  width: 100% !important;
+  height: 32px !important;
+}
+.team-card-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+.team-card-actions .btn {
+  font-size: 12px;
+  padding: 5px 12px;
+}
+
+@media (max-width: 480px) {
+  .pa-stats {
+    width: 100%;
+    margin-left: 0;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+  }
+  .workspace-banner .banner-meta {
+    margin-left: 0;
+  }
+}
