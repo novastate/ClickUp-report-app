@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from src.services.team_service import get_all_teams, get_team, get_team_members
@@ -7,6 +7,9 @@ from src.services.trend_service import get_sprint_summary
 from src.services.snapshot_service import get_scope_changes, get_daily_progress_history, get_forecast_snapshot, get_final_snapshot
 from src.config import get_clickup_api_key, DB_PATH
 from src.database import set_setting
+from src.auth.middleware import get_current_user
+from src.auth.oauth import fetch_workspaces as oauth_fetch_workspaces
+from src.auth.users import get_user_token
 from datetime import datetime, date
 
 templates = Jinja2Templates(directory="templates")
@@ -31,10 +34,22 @@ router = APIRouter(tags=["pages"])
 
 def _ctx(request, breadcrumbs=None, team_sub_nav_active=None, **kwargs):
     kwargs["request"] = request
-    kwargs["nav_teams"] = get_all_teams()
+    kwargs["nav_teams"] = _scoped_teams(request)
     kwargs["breadcrumbs"] = breadcrumbs or []
     kwargs["team_sub_nav_active"] = team_sub_nav_active
+    kwargs["current_user"] = getattr(request.state, "user", None)
+    kwargs["active_workspace_id"] = getattr(request.state, "active_workspace_id", None)
+    kwargs["user_workspaces"] = getattr(request.state, "user_workspaces", [])
     return kwargs
+
+
+def _scoped_teams(request):
+    """Return teams filtered to the active workspace (if set)."""
+    ws = getattr(request.state, "active_workspace_id", None)
+    all_teams = get_all_teams()
+    if not ws:
+        return all_teams
+    return [t for t in all_teams if t.get("workspace_id") in (ws, None)]
 
 
 def _breadcrumbs(*pairs):
@@ -43,14 +58,19 @@ def _breadcrumbs(*pairs):
 
 
 def _needs_setup() -> bool:
-    return not get_clickup_api_key()
+    """Setup is needed only if no service key is configured anywhere.
+    OAuth users don't trigger this; this is for the cron job."""
+    from src.config import get_service_api_key
+    return not get_service_api_key()
 
 
 @router.get("/", response_class=HTMLResponse)
-def home(request: Request):
+async def home(request: Request, user=Depends(get_current_user)):
     if _needs_setup():
         return RedirectResponse("/setup")
-    teams = get_all_teams()
+    token = get_user_token(user["id"])
+    request.state.user_workspaces = await oauth_fetch_workspaces(token) if token else []
+    teams = _scoped_teams(request)
     for team in teams:
         team["sprints"] = get_team_sprints(team["id"])
         team["active_sprint"] = None
@@ -78,7 +98,7 @@ async def save_setup(request: Request):
 
 
 @router.get("/teams/new", response_class=HTMLResponse)
-def new_team_page(request: Request):
+def new_team_page(request: Request, user=Depends(get_current_user)):
     if _needs_setup():
         return RedirectResponse("/setup")
     return templates.TemplateResponse("team_settings.html", _ctx(
@@ -89,7 +109,7 @@ def new_team_page(request: Request):
 
 
 @router.get("/teams/{team_id}/settings", response_class=HTMLResponse)
-def team_settings_page(request: Request, team_id: int):
+def team_settings_page(request: Request, team_id: int, user=Depends(get_current_user)):
     team = get_team(team_id)
     members = get_team_members(team_id) if team else []
     return templates.TemplateResponse("team_settings.html", _ctx(
@@ -102,7 +122,9 @@ def team_settings_page(request: Request, team_id: int):
 
 
 @router.get("/teams/{team_id}/sprints", response_class=HTMLResponse)
-def sprint_history_page(request: Request, team_id: int):
+async def sprint_history_page(request: Request, team_id: int, user=Depends(get_current_user)):
+    token = get_user_token(user["id"])
+    request.state.user_workspaces = await oauth_fetch_workspaces(token) if token else []
     team = get_team(team_id)
     sprints = get_team_sprints(team_id)
     sprint_data = []
@@ -121,15 +143,13 @@ def sprint_history_page(request: Request, team_id: int):
 
 
 @router.get("/sprint/{sprint_id}", response_class=HTMLResponse)
-async def sprint_page(request: Request, sprint_id: int):
+async def sprint_page(request: Request, sprint_id: int, user=Depends(get_current_user)):
     sprint = get_sprint(sprint_id)
     status = get_sprint_status(sprint)
     team = get_team(sprint["team_id"])
 
     if status != "closed":
-        from src.clickup_client import ClickUpClient
-        from src.config import get_clickup_api_key
-        client = ClickUpClient(get_clickup_api_key())
+        client = request.state.user_client
         raw_tasks = await client.get_list_tasks(sprint["clickup_list_id"], space_id=team["clickup_space_id"], workspace_id=team.get("clickup_workspace_id"))
         tasks = [client.extract_task_data(t) for t in raw_tasks]
         # Detect and persist scope changes for active sprints
@@ -265,7 +285,7 @@ async def sprint_page(request: Request, sprint_id: int):
 
 
 @router.get("/teams/{team_id}/trends", response_class=HTMLResponse)
-def team_trends_page(request: Request, team_id: int, range: int = 8):
+def team_trends_page(request: Request, team_id: int, range: int = 8, user=Depends(get_current_user)):
     team = get_team(team_id)
     from src.services.trend_service import get_team_trends
     trends = get_team_trends(team_id, limit=range if range > 0 else None)
