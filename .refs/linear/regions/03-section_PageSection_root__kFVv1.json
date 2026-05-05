@@ -1,0 +1,260 @@
+{
+  "index": 3,
+  "role": "section.PageSection_root__kFVv1",
+  "source": "main-section",
+  "tag": "section",
+  "id": null,
+  "classes": "PageSection_root__kFVv1 PageSection_rootHomepage__2x22W",
+  "marker": "[data-scry-region=\"3\"]",
+  "bbox": {
+    "x": 48,
+    "y": 3699,
+    "w": 1344,
+    "h": 1199
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1344px",
+    "height": "1198.72px",
+    "minHeight": "0px",
+    "padding": "96px 0px 128px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(247, 248, 248)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Define the product direction\nPlan and navigate from idea to launch. Align your team with product initiatives, strategic roadmaps, and clear, up-to-date PRDs.\n2.0 Plan →\nFEB\nMAR\nAPR\nMAY\nJUN\nJUL\nAUG\nSEP\n2\n9\n16\n23\n2\n9\n16\n23\n30\n6\n13\n20\n27\n4\n11",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_header__3JdVh",
+      "text": "Define the product direction\nPlan and navigate from idea to launch. Align your t"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_illustration__P1Yb9",
+      "text": "FEB\nMAR\nAPR\nMAY\nJUN\nJUL\nAUG\nSEP\n2\n9\n16\n23\n2\n9\n16\n23\n30\n6\n13\n20\n27\n4\n11\n18\n25\n1\n8"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_footer__e0E0p hide-mobile",
+      "text": "2 . 1\nProjects +\n2 . 2\nDocuments +\n2 . 3\nInitiatives +\n2 . 4\nVisual planning +"
+    }
+  ],
+  "imagePath": "regions/03-section_PageSection_root__kFVv1.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "Define the product direction",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 78,
+          "y": 136,
+          "w": 542,
+          "h": 96
+        }
+      },
+      {
+        "level": 3,
+        "text": "Plan and navigate from idea to launch. Align your team with product initiatives, strategic roadmaps, and clear, up-to-date PRDs.",
+        "fontSize": 24,
+        "source": "inferred",
+        "bbox": {
+          "x": 752,
+          "y": 136,
+          "w": 608,
+          "h": 96
+        }
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Plan and navigate from idea to launch. Align your team with product initiatives, strategic roadmaps, and clear, up-to-date PRDs.",
+        "fontSize": 24
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Core Product99",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 78,
+          "y": 570,
+          "w": 356,
+          "h": 24
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "APAC Expansion21",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 78,
+          "y": 798,
+          "w": 356,
+          "h": 24
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "2.1Projects +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 752,
+          "y": 1054,
+          "w": 111,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "2.2Documents +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1112,
+          "y": 1054,
+          "w": 134,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "2.3Initiatives +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 752,
+          "y": 1082,
+          "w": 119,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "2.4Visual planning +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1112,
+          "y": 1082,
+          "w": 159,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "2.0Plan→",
+        "href": "/plan"
+      }
+    ],
+    "lists": [],
+    "images": []
+  },
+  "gradients": [
+    {
+      "gradient": "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 100%)",
+      "bbox": {
+        "x": 267,
+        "y": -975,
+        "w": 800,
+        "h": 320
+      },
+      "area": 256000
+    },
+    {
+      "gradient": "radial-gradient(50% 50%, rgb(255, 255, 255) 0px, rgba(255, 255, 255, 0) 90%)",
+      "bbox": {
+        "x": 336,
+        "y": -1044,
+        "w": 400,
+        "h": 400
+      },
+      "area": 160000
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "index": 7,
+  "role": "section#customers",
+  "source": "main-section",
+  "tag": "section",
+  "id": "customers",
+  "classes": "CustomerQuotes_container__Grlfj hide-laptop",
+  "marker": "[data-scry-region=\"7\"]",
+  "bbox": {
+    "x": 48,
+    "y": 9077,
+    "w": 1344,
+    "h": 564
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1344px",
+    "height": "564px",
+    "minHeight": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(247, 248, 248)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "You just have to use it and you will see, you will just feel it.\nGabriel Peal\nOpenAI\nOur speed is intense and Linear helps us be action biased.\nNik Koblov\nHead of Engineering, Ramp\nLinear powers over 25,000 product teams. From ambitious sta",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "CustomerQuotes_customerCards__Mmq26",
+      "text": "You just have to use it and you will see, you will just feel it.\nGabriel Peal\nOp"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "Spacer_root__uoSvA",
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "CustomerQuotes_footer__Eq55g hide-laptop Flex_root__DOQCW Flex_align-baseline__V",
+      "text": "Linear powers over 25,000 product teams. From ambitious startups to major enterp"
+    }
+  ],
+  "imagePath": "regions/07-section_customers.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "You just have to use it and you will see, you will just feel it.",
+        "fontSize": 32,
+        "source": "inferred",
+        "bbox": {
+          "x": 92,
+          "y": 76,
+          "w": 393,
+          "h": 108
+        }
+      },
+      {
+        "level": 2,
+        "text": "Our speed is intense and Linear helps us be action biased.",
+        "fontSize": 32,
+        "source": "inferred",
+        "bbox": {
+          "x": 980,
+          "y": 76,
+          "w": 368,
+          "h": 108
+        }
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "You just have to use it and you will see, you will just feel it.",
+        "fontSize": 32
+      },
+      {
+        "text": "Our speed is intense and Linear helps us be action biased.",
+        "fontSize": 32
+      },
+      {
+        "text": "Linear powers over 25,000 product teams. From ambitious startups to major enterprises.",
+        "fontSize": 15
+      }
+    ],
+    "buttons": [],
+    "links": [
+      {
+        "text": "Customer stories→",
+        "href": "/customers"
+      }
+    ],
+    "lists": [],
+    "images": []
+  },
+  "gradients": [
+    {
+      "gradient": "linear-gradient(0deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%), linear-gradient(rgb(178, 213, 255) 0%, rgb(223, 209, 255) 100%)",
+      "bbox": {
+        "x": 60,
+        "y": 52,
+        "w": 880,
+        "h": 480
+      },
+      "area": 422400
+    }
+  ]
+}

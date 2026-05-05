@@ -1,0 +1,301 @@
+{
+  "index": 4,
+  "role": "section.PageSection_root__kFVv1",
+  "source": "main-section",
+  "tag": "section",
+  "id": null,
+  "classes": "PageSection_root__kFVv1 PageSection_rootHomepage__2x22W",
+  "marker": "[data-scry-region=\"4\"]",
+  "bbox": {
+    "x": 48,
+    "y": 4907,
+    "w": 1344,
+    "h": 1155
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1344px",
+    "height": "1154.72px",
+    "minHeight": "0px",
+    "padding": "96px 0px 128px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(247, 248, 248)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Move work forward across teams and agents\nBuild and deploy AI agents that work alongside your team. Work on complex tasks together or delegate entire issues end-to-end.\n3.0 Build →\nCodex\nOn it! I've received your request.\nKicked off a task ",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_header__3JdVh",
+      "text": "Move work forward across teams and agents\nBuild and deploy AI agents that work a"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_illustration__P1Yb9",
+      "text": "Codex\nOn it! I've received your request.\nKicked off a task in\nkinetic/kinetic-iO"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_footer__e0E0p hide-mobile",
+      "text": "3 . 1\nIssues +\n3 . 2\nAgents +\n3 . 3\nLinear MCP +\n3 . 4\nGit automations +\n3 . 5\nC"
+    }
+  ],
+  "imagePath": "regions/04-section_PageSection_root__kFVv1.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "Move work forward across teams and agents",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 78,
+          "y": 136,
+          "w": 542,
+          "h": 96
+        }
+      },
+      {
+        "level": 3,
+        "text": "Build and deploy AI agents that work alongside your team. Work on complex tasks together or delegate entire issues end-to-end.",
+        "fontSize": 24,
+        "source": "inferred",
+        "bbox": {
+          "x": 752,
+          "y": 136,
+          "w": 608,
+          "h": 96
+        }
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Build and deploy AI agents that work alongside your team. Work on complex tasks together or delegate entire issues end-to-end.",
+        "fontSize": 24
+      }
+    ],
+    "buttons": [
+      {
+        "text": "3.1Issues +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 752,
+          "y": 983,
+          "w": 99,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "3.2Agents +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1112,
+          "y": 983,
+          "w": 103,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "3.3Linear MCP +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 752,
+          "y": 1011,
+          "w": 135,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "3.4Git automations +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1112,
+          "y": 1011,
+          "w": 163,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "3.5Cycles +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 752,
+          "y": 1039,
+          "w": 101,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "3.0Build→",
+        "href": "/build"
+      }
+    ],
+    "lists": [],
+    "images": [
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/13a0909f-186f-4d83-3fd3-d04883ec2d00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "Codex",
+        "bbox": {
+          "x": 86,
+          "y": 431,
+          "w": 20,
+          "h": 20
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/13a0909f-186f-4d83-3fd3-d04883ec2d00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "Codex",
+        "bbox": {
+          "x": 756,
+          "y": 534,
+          "w": 24,
+          "h": 24
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/e408d7c9-e3a3-4802-e4d4-51ed197c3a00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "Steven",
+        "bbox": {
+          "x": 756,
+          "y": 590,
+          "w": 24,
+          "h": 24
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/a482eab9-69d1-412f-f2ce-8f72444fcb00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "Ema",
+        "bbox": {
+          "x": 756,
+          "y": 646,
+          "w": 24,
+          "h": 24
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/f9ed2721-1966-4abc-129b-93aaac1a6200/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "GitHub Copilot",
+        "bbox": {
+          "x": 756,
+          "y": 702,
+          "w": 24,
+          "h": 24
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/5a228df7-2423-4807-6105-cd32ddddde00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "Cursor",
+        "bbox": {
+          "x": 756,
+          "y": 758,
+          "w": 24,
+          "h": 24
+        }
+      }
+    ]
+  },
+  "gradients": [
+    {
+      "gradient": "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 100%)",
+      "bbox": {
+        "x": 267,
+        "y": -2183,
+        "w": 800,
+        "h": 320
+      },
+      "area": 256000
+    },
+    {
+      "gradient": "radial-gradient(50% 50%, rgb(255, 255, 255) 0px, rgba(255, 255, 255, 0) 90%)",
+      "bbox": {
+        "x": 336,
+        "y": -2252,
+        "w": 400,
+        "h": 400
+      },
+      "area": 160000
+    }
+  ]
+}

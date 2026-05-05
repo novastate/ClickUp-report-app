@@ -1,0 +1,518 @@
+{
+  "index": 1,
+  "role": "main",
+  "source": "landmark",
+  "tag": "main",
+  "id": null,
+  "classes": "Layout_content__PrPCk",
+  "marker": "[data-scry-region=\"1\"]",
+  "bbox": {
+    "x": 0,
+    "y": 0,
+    "w": 1440,
+    "h": 10317
+  },
+  "styles": {
+    "display": "flex",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "column",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1440px",
+    "height": "10317.4px",
+    "minHeight": "900px",
+    "padding": "72px 0px 0px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(247, 248, 248)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "The product development system for teams and agents The product development system for teams and agents\nThe product development system for teams and agents\nPurpose-built for planning and building products. Designed for the AI era.\nIssue tra",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": "skip-nav",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "LayoutContent_root__ZBUya LayoutContent_homepage__alayp",
+      "text": "The product development system for teams and agents The product development syst"
+    }
+  ],
+  "imagePath": "regions/01-main.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "Built for the future. Available today.",
+        "fontSize": 72,
+        "source": "explicit",
+        "bbox": {
+          "x": 359,
+          "y": 9865,
+          "w": 722,
+          "h": 144
+        }
+      },
+      {
+        "level": 1,
+        "text": "The productdevelopmentsystem for teamsand agentsThe product developmentsystem for teams and agentsThe product development system for teams and agents",
+        "fontSize": 64,
+        "source": "explicit",
+        "lines": [
+          "The productdevelopmentsystem for teamsand agentsThe product development",
+          "system for teams",
+          "and agents",
+          "The product development system for teams and agents"
+        ],
+        "bbox": {
+          "x": 78,
+          "y": 272,
+          "w": 1282,
+          "h": 128
+        }
+      },
+      {
+        "level": 1,
+        "text": "The product development",
+        "fontSize": 64,
+        "source": "inferred",
+        "bbox": {
+          "x": 78,
+          "y": 272,
+          "w": 703,
+          "h": 64
+        }
+      },
+      {
+        "level": 1,
+        "text": "system for teams and agents",
+        "fontSize": 64,
+        "source": "inferred",
+        "bbox": {
+          "x": 78,
+          "y": 336,
+          "w": 784,
+          "h": 64
+        }
+      },
+      {
+        "level": 2,
+        "text": "A new species of product tool. Purpose-built for modern teams with AI workflows at its core, Linear sets a new standard for planning and building products.",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 46,
+          "y": 1532,
+          "w": 1250,
+          "h": 144
+        }
+      },
+      {
+        "level": 2,
+        "text": "Make product operations self-driving",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 78,
+          "y": 2578,
+          "w": 542,
+          "h": 96
+        }
+      },
+      {
+        "level": 2,
+        "text": "Define the product direction",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 78,
+          "y": 3795,
+          "w": 542,
+          "h": 96
+        }
+      },
+      {
+        "level": 2,
+        "text": "Move work forward across teams and agents",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 78,
+          "y": 5003,
+          "w": 542,
+          "h": 96
+        }
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Purpose-built for planning and building products. Designed for the AI era.",
+        "fontSize": 15
+      },
+      {
+        "text": "Render UI before vehicle_state sync when minimum required state is present, instead of blocking on full refresh during iOS startup.",
+        "fontSize": 14
+      },
+      {
+        "text": "Linear is shaped by the practices and principles of world-class product teams.",
+        "fontSize": 15
+      },
+      {
+        "text": "Designed for workflows shared by humans and agents. From drafting PRDs to pushing PRs.",
+        "fontSize": 15
+      },
+      {
+        "text": "Reduces noise and restores momentum to help teams ship with high velocity and focus.",
+        "fontSize": 15
+      },
+      {
+        "text": "Turn conversations and customer feedback into actionable issues that are routed, labeled, and prioritized for the right team.",
+        "fontSize": 24
+      },
+      {
+        "text": "Plan and navigate from idea to launch. Align your team with product initiatives, strategic roadmaps, and clear, up-to-date PRDs.",
+        "fontSize": 24
+      },
+      {
+        "text": "Build and deploy AI agents that work alongside your team. Work on complex tasks together or delegate entire issues end-to-end.",
+        "fontSize": 24
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Linear",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 544,
+          "w": 97,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 4px 0px 4px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 4,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "Inbox",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 584,
+          "w": 210,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 6px 0px 6px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 6,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "My issues",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 614,
+          "w": 210,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 6px 0px 6px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 6,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "Reviews",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 644,
+          "w": 210,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 6px 0px 6px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 6,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "Pulse",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 674,
+          "w": 210,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 6px 0px 6px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 6,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "Workspace",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 714,
+          "w": 210,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 4px 0px 6px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 6,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "Initiatives",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 742,
+          "w": 210,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 6px 0px 6px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 6,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "Projects",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 76,
+          "y": 772,
+          "w": 210,
+          "h": 28
+        },
+        "shape": {
+          "padding": "0px 6px 0px 6px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 6,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "Issue tracking is deadlinear.app/next →",
+        "href": "/next"
+      },
+      {
+        "text": "1.0Intake→",
+        "href": "/intake"
+      },
+      {
+        "text": "2.0Plan→",
+        "href": "/plan"
+      },
+      {
+        "text": "3.0Build→",
+        "href": "/build"
+      },
+      {
+        "text": "4.0Diffs→",
+        "href": "/diffs"
+      },
+      {
+        "text": "5.0Monitor→",
+        "href": "/monitor"
+      },
+      {
+        "text": "View all→",
+        "href": "/changelog"
+      },
+      {
+        "text": "Customer stories→",
+        "href": "/customers"
+      }
+    ],
+    "lists": [
+      [
+        "iOS implementation is mostly complete, but Android updates are still work in progress",
+        "Risk of timeline slip if remaining design decisions aren’t finalized soon"
+      ],
+      [
+        "Localization efforts have been completed",
+        "Everything else on track for launch in early September"
+      ]
+    ],
+    "images": [
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/c7b144b7-4ef0-4991-9bcb-617c6a37d200/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 12,
+          "y": 528,
+          "w": 1416,
+          "h": 768
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/c7fa8f5f-d439-4329-6a65-de549b51e300/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 0,
+          "y": 492,
+          "w": 1440,
+          "h": 804
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/5a228df7-2423-4807-6105-cd32ddddde00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 980,
+          "y": 797,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/f28b59f4-538c-4517-cfd7-510913015200/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 1082,
+          "y": 677,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/5a228df7-2423-4807-6105-cd32ddddde00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "Cursor",
+        "bbox": {
+          "x": 1102,
+          "y": 709,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/086b510a-f5da-414b-bc9d-228afb968600/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 913,
+          "y": 2929,
+          "w": 16,
+          "h": 16
+        }
+      }
+    ]
+  },
+  "gradients": [
+    {
+      "gradient": "radial-gradient(52.53% 57.5% at 50% 100%, rgba(8, 9, 10, 0) 0px, rgba(8, 9, 10, 0.5) 100%), linear-gradient(rgb(8, 9, 10) 10%, rgb(208, 214, 224) 100%)",
+      "bbox": {
+        "x": 12,
+        "y": 528,
+        "w": 1416,
+        "h": 768
+      },
+      "area": 1087488
+    },
+    {
+      "gradient": "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 100%)",
+      "bbox": {
+        "x": 267,
+        "y": 2684,
+        "w": 800,
+        "h": 320
+      },
+      "area": 256000
+    },
+    {
+      "gradient": "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 90%)",
+      "bbox": {
+        "x": 101,
+        "y": 337,
+        "w": 400,
+        "h": 400
+      },
+      "area": 160000
+    },
+    {
+      "gradient": "radial-gradient(50% 50%, rgb(255, 255, 255) 0px, rgba(255, 255, 255, 0) 90%)",
+      "bbox": {
+        "x": 336,
+        "y": 2615,
+        "w": 400,
+        "h": 400
+      },
+      "area": 160000
+    }
+  ]
+}

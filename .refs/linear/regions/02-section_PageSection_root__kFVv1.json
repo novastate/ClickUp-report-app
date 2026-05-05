@@ -1,0 +1,281 @@
+{
+  "index": 2,
+  "role": "section.PageSection_root__kFVv1",
+  "source": "main-section",
+  "tag": "section",
+  "id": null,
+  "classes": "PageSection_root__kFVv1 PageSection_rootHomepage__2x22W",
+  "marker": "[data-scry-region=\"2\"]",
+  "bbox": {
+    "x": 48,
+    "y": 2482,
+    "w": 1344,
+    "h": 1207
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1344px",
+    "height": "1206.72px",
+    "minHeight": "0px",
+    "padding": "96px 0px 128px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(247, 248, 248)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Make product operations self-driving\nTurn conversations and customer feedback into actionable issues that are routed, labeled, and prioritized for the right team.\n1.0 Intake →\nBacklog\n8\nENG-2085\nReduce UI flicker during autonomy...\nENG-2094",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_header__3JdVh",
+      "text": "Make product operations self-driving\nTurn conversations and customer feedback in"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_illustration__P1Yb9",
+      "text": "Backlog\n8\nENG-2085\nReduce UI flicker during autonomy...\nENG-2094\nAdd buffering f"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_footer__e0E0p hide-mobile",
+      "text": "1 . 1\nLinear Agent +\n1 . 2\nTriage +\n1 . 3\nCustomer Requests +\n1 . 4\nLinear Asks "
+    }
+  ],
+  "imagePath": "regions/02-section_PageSection_root__kFVv1.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "Make product operations self-driving",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 78,
+          "y": 136,
+          "w": 542,
+          "h": 96
+        }
+      },
+      {
+        "level": 3,
+        "text": "Turn conversations and customer feedback into actionable issues that are routed, labeled, and prioritized for the right team.",
+        "fontSize": 24,
+        "source": "inferred",
+        "bbox": {
+          "x": 752,
+          "y": 136,
+          "w": 608,
+          "h": 96
+        }
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Turn conversations and customer feedback into actionable issues that are routed, labeled, and prioritized for the right team.",
+        "fontSize": 24
+      }
+    ],
+    "buttons": [
+      {
+        "text": "1.1Linear Agent +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 752,
+          "y": 1062,
+          "w": 142,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "1.2Triage +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1112,
+          "y": 1062,
+          "w": 98,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "1.3Customer Requests +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 752,
+          "y": 1090,
+          "w": 190,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      },
+      {
+        "text": "1.4Linear Asks +",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1112,
+          "y": 1090,
+          "w": 135,
+          "h": 29
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 13,
+          "fontWeight": 400,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": null
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "1.0Intake→",
+        "href": "/intake"
+      }
+    ],
+    "lists": [],
+    "images": [
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/086b510a-f5da-414b-bc9d-228afb968600/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 913,
+          "y": 487,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/302b16a5-f9ca-42f2-dbae-3c76f19b2d00/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 913,
+          "y": 591,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/1eb8f8b2-3593-473f-ba8a-acac99aa0300/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 913,
+          "y": 695,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/6550520e-9e50-441d-b9e8-579be321f900/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 1229,
+          "y": 487,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/4d3381aa-fb2f-4d3d-1a06-957fc616d400/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 1229,
+          "y": 591,
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "src": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/7ea107e7-c1a0-4c99-756d-5837fd91f200/f=auto,dpr=2,q=95,fit=scale-down,metadata=none",
+        "alt": "",
+        "bbox": {
+          "x": 1229,
+          "y": 695,
+          "w": 16,
+          "h": 16
+        }
+      }
+    ]
+  },
+  "gradients": [
+    {
+      "gradient": "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 100%)",
+      "bbox": {
+        "x": 267,
+        "y": 242,
+        "w": 800,
+        "h": 320
+      },
+      "area": 256000
+    },
+    {
+      "gradient": "radial-gradient(50% 50%, rgb(255, 255, 255) 0px, rgba(255, 255, 255, 0) 90%)",
+      "bbox": {
+        "x": 336,
+        "y": 173,
+        "w": 400,
+        "h": 400
+      },
+      "area": 160000
+    }
+  ]
+}

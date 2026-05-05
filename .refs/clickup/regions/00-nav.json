@@ -1,0 +1,238 @@
+{
+  "index": 0,
+  "role": "nav",
+  "source": "landmark",
+  "tag": "nav",
+  "id": null,
+  "classes": "CuNavigation_navigation__zryLb",
+  "marker": "[data-scry-region=\"0\"]",
+  "bbox": {
+    "x": 0,
+    "y": 0,
+    "w": 1440,
+    "h": 60
+  },
+  "styles": {
+    "display": "block",
+    "position": "sticky",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1440px",
+    "height": "60px",
+    "minHeight": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(41, 45, 52)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(41, 45, 52)",
+    "fontFamily": "\"Plus Jakarta Sans\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "10000",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Brain AI\nProduct\nSolutions\nLearn\nPricing\nEnterprise\nGet a Demo\nLogin\nSign Up",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "CuNavigation_backdrop___14e_",
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "CuNavigation_container__rChM8",
+      "text": "Brain AI\nProduct\nSolutions\nLearn\nPricing\nEnterprise\nGet a Demo\nLogin\nSign Up"
+    }
+  ],
+  "imagePath": "regions/00-nav.png",
+  "content": {
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "text": "Brain AI",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 300,
+          "y": 14,
+          "w": 89,
+          "h": 32
+        },
+        "shape": {
+          "padding": "4px 10px 4px 10px",
+          "fontSize": 16,
+          "fontWeight": 400,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "24px"
+        }
+      },
+      {
+        "text": "Product",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 397,
+          "y": 14,
+          "w": 89,
+          "h": 32
+        },
+        "shape": {
+          "padding": "4px 10px 4px 10px",
+          "fontSize": 16,
+          "fontWeight": 400,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "24px"
+        }
+      },
+      {
+        "text": "Solutions",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 494,
+          "y": 14,
+          "w": 99,
+          "h": 32
+        },
+        "shape": {
+          "padding": "4px 10px 4px 10px",
+          "fontSize": 16,
+          "fontWeight": 400,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "24px"
+        }
+      },
+      {
+        "text": "Learn",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 601,
+          "y": 14,
+          "w": 76,
+          "h": 32
+        },
+        "shape": {
+          "padding": "4px 10px 4px 10px",
+          "fontSize": 16,
+          "fontWeight": 400,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "24px"
+        }
+      },
+      {
+        "text": "Pricing",
+        "isPrimary": false,
+        "isPill": false,
+        "href": "/pricing",
+        "bbox": {
+          "x": 685,
+          "y": 14,
+          "w": 66,
+          "h": 32
+        },
+        "shape": {
+          "padding": "8px 10px 8px 10px",
+          "fontSize": 14,
+          "fontWeight": 500,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "20px"
+        }
+      },
+      {
+        "text": "Enterprise",
+        "isPrimary": false,
+        "isPill": false,
+        "href": "/plans/enterprise",
+        "bbox": {
+          "x": 758,
+          "y": 14,
+          "w": 87,
+          "h": 32
+        },
+        "shape": {
+          "padding": "8px 10px 8px 10px",
+          "fontSize": 14,
+          "fontWeight": 500,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "20px"
+        }
+      },
+      {
+        "text": "Get a Demo",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1007,
+          "y": 14,
+          "w": 97,
+          "h": 32
+        },
+        "shape": {
+          "padding": "8px 10px 8px 10px",
+          "fontSize": 14,
+          "fontWeight": 500,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "20px"
+        }
+      },
+      {
+        "text": "Login",
+        "isPrimary": false,
+        "isPill": false,
+        "href": "https://app.clickup.com/login",
+        "bbox": {
+          "x": 1114,
+          "y": 14,
+          "w": 61,
+          "h": 32
+        },
+        "shape": {
+          "padding": "8px 12px 8px 12px",
+          "fontSize": 14,
+          "fontWeight": 600,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "16px"
+        }
+      }
+    ],
+    "links": [],
+    "lists": [],
+    "images": []
+  },
+  "gradients": []
+}

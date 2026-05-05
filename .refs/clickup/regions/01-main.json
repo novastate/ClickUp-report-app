@@ -1,0 +1,574 @@
+{
+  "index": 1,
+  "role": "main",
+  "source": "landmark",
+  "tag": "main",
+  "id": null,
+  "classes": "CuHome_mainWrapper__QDbpa",
+  "marker": "[data-scry-region=\"1\"]",
+  "bbox": {
+    "x": 0,
+    "y": 60,
+    "w": 1440,
+    "h": 11082
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1440px",
+    "height": "11082.5px",
+    "minHeight": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(41, 45, 52)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgb(255, 255, 255)",
+    "backgroundImage": "none",
+    "color": "rgb(41, 45, 52)",
+    "fontFamily": "\"Plus Jakarta Sans\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "clip visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "NEW AI Super Agents\nSoftware to replace all software\nSave money. All Apps, AI, Projects, Chat + 20 more.\nSave time. All humans working together with perfect context.\nCreate infinite productivity. AI Agents & Workflows.\nGet started. It's FRE",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "HomeHero4o_wrapper__nN0BX home-hero-long-title-control",
+      "text": "NEW AI Super Agents\nSoftware to replace all software\nSave money. All Apps, AI, P"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "CuHome_homeHeroContent__4gF1G home-hero-long-title-variant",
+      "text": "New! Introducing Super Agents\nAI that actually showed up to work.\nAcross every t"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "CuHome_mainContent__xfnhR",
+      "text": "Trusted by the best\n60% of work is lost in context  – and AI is lost without it"
+    }
+  ],
+  "imagePath": "regions/01-main.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "A new era of humans, with Super Agents",
+        "fontSize": 76,
+        "source": "explicit",
+        "bbox": {
+          "x": 340,
+          "y": 2817,
+          "w": 760,
+          "h": 248
+        }
+      },
+      {
+        "level": 2,
+        "text": "The only AI that works where you work",
+        "fontSize": 76,
+        "source": "explicit",
+        "bbox": {
+          "x": 343,
+          "y": 4718,
+          "w": 754,
+          "h": 168
+        }
+      },
+      {
+        "level": 2,
+        "text": "All your work, all your people, all powered by AI",
+        "fontSize": 60,
+        "source": "explicit",
+        "lines": [
+          "All your work, all your people,",
+          "all powered by AI"
+        ],
+        "bbox": {
+          "x": 325,
+          "y": 10442,
+          "w": 789,
+          "h": 132
+        }
+      },
+      {
+        "level": 1,
+        "text": "Software toreplace all software",
+        "fontSize": 52,
+        "source": "explicit",
+        "lines": [
+          "Software to",
+          "replace all software"
+        ],
+        "bbox": {
+          "x": 180,
+          "y": 164,
+          "w": 481,
+          "h": 135
+        }
+      },
+      {
+        "level": 1,
+        "text": "Software to",
+        "fontSize": 52,
+        "source": "inferred",
+        "bbox": {
+          "x": 180,
+          "y": 164,
+          "w": 481,
+          "h": 62
+        }
+      },
+      {
+        "level": 1,
+        "text": "replace all software",
+        "fontSize": 52,
+        "source": "inferred",
+        "bbox": {
+          "x": 180,
+          "y": 226,
+          "w": 481,
+          "h": 62
+        }
+      },
+      {
+        "level": 2,
+        "text": "60% of work is lost in context – and AI is lost without it",
+        "fontSize": 48,
+        "source": "explicit",
+        "lines": [
+          "60% of work is lost in context",
+          "– and AI is lost without it"
+        ],
+        "bbox": {
+          "x": 406,
+          "y": 941,
+          "w": 628,
+          "h": 120
+        }
+      },
+      {
+        "level": 2,
+        "text": "All apps, AI Agents, and humans in ClickUp",
+        "fontSize": 48,
+        "source": "explicit",
+        "lines": [
+          "All apps, AI Agents,",
+          "and humans in ClickUp"
+        ],
+        "bbox": {
+          "x": 478,
+          "y": 1672,
+          "w": 484,
+          "h": 120
+        }
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Work Sprawl is killing context and destroying productivity.",
+        "fontSize": 18
+      },
+      {
+        "text": "100+ products to replace fragmented software & maximize human productivity.",
+        "fontSize": 18
+      },
+      {
+        "text": "Replaces",
+        "fontSize": 16
+      },
+      {
+        "text": "Save 2 hours every day, guaranteed.",
+        "fontSize": 18
+      },
+      {
+        "text": "Product Hunt",
+        "fontSize": 9
+      },
+      {
+        "text": "#1 Product of the Week",
+        "fontSize": 17
+      },
+      {
+        "text": "A superhuman brain built for you and your team.",
+        "fontSize": 16
+      },
+      {
+        "text": "Superpowers to complete 500+ human tasks.",
+        "fontSize": 16
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Introducing ClickUp",
+        "isPrimary": false,
+        "isPill": true,
+        "href": "/v4",
+        "bbox": {
+          "x": 180,
+          "y": 120,
+          "w": 197,
+          "h": 28
+        },
+        "shape": {
+          "padding": "4px 12px 4px 8px",
+          "fontSize": 14,
+          "fontWeight": 600,
+          "radius": 54,
+          "minHeight": null,
+          "lineHeight": "20px"
+        }
+      },
+      {
+        "text": "Get started. It's FREE!",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 180,
+          "y": 433,
+          "w": 219,
+          "h": 52
+        },
+        "shape": {
+          "padding": "14px 20px 14px 20px",
+          "fontSize": 18,
+          "fontWeight": 650,
+          "radius": 14,
+          "minHeight": null,
+          "lineHeight": "24px"
+        }
+      },
+      {
+        "text": "Play Video",
+        "isPrimary": false,
+        "isPill": true,
+        "href": null,
+        "bbox": {
+          "x": 108,
+          "y": 1162,
+          "w": 1224,
+          "h": 350
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 16,
+          "fontWeight": 400,
+          "radius": 16,
+          "minHeight": null,
+          "lineHeight": "24px"
+        }
+      },
+      {
+        "text": "Dependencies",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 29,
+          "y": 1909,
+          "w": 138,
+          "h": 127
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 14,
+          "fontWeight": 700,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": "21px"
+        }
+      },
+      {
+        "text": "Connected Search",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 168,
+          "y": 1909,
+          "w": 138,
+          "h": 127
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 14,
+          "fontWeight": 700,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": "21px"
+        }
+      },
+      {
+        "text": "Tasks",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 306,
+          "y": 1909,
+          "w": 138,
+          "h": 127
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 14,
+          "fontWeight": 700,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": "21px"
+        }
+      },
+      {
+        "text": "Mind Maps",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 444,
+          "y": 1909,
+          "w": 138,
+          "h": 127
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 14,
+          "fontWeight": 700,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": "21px"
+        }
+      },
+      {
+        "text": "Wikis",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 582,
+          "y": 1909,
+          "w": 138,
+          "h": 127
+        },
+        "shape": {
+          "padding": "0px 0px 0px 0px",
+          "fontSize": 14,
+          "fontWeight": 700,
+          "radius": 0,
+          "minHeight": null,
+          "lineHeight": "21px"
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "Projects",
+        "href": "/teams/project-management"
+      },
+      {
+        "text": "Docs",
+        "href": "/features/docs"
+      },
+      {
+        "text": "Brain",
+        "href": "/brain"
+      },
+      {
+        "text": "Chat",
+        "href": "/features/chat"
+      },
+      {
+        "text": "Get the report",
+        "href": "https://clickup.com/general-resources/forrester-report-total-economic-impact-of-clickup"
+      },
+      {
+        "text": "1",
+        "href": "#footnote"
+      }
+    ],
+    "lists": [
+      [
+        "Save money. All Apps, AI, Projects, Chat + 20 more.",
+        "Save time. All humans working together with perfect context.",
+        "Create infinite productivity. AI Agents & Workflows."
+      ],
+      [
+        "Manage complex projects at scale",
+        "Bring strategic initiatives to life",
+        "Detect and mitigate project risks"
+      ],
+      [
+        "Intake Agent standardizes project kickoff",
+        "Assign Agent determines task owners",
+        "PM Agent tracks deliverables + timelines",
+        "Live Answers Agent keeps everyone informed"
+      ]
+    ],
+    "images": [
+      {
+        "src": "https://clickup.com/assets/home_2026/hero_projects.png",
+        "alt": "Projects",
+        "bbox": {
+          "x": 761,
+          "y": 120,
+          "w": 920,
+          "h": 539
+        }
+      },
+      {
+        "src": "https://clickup.com/assets/home_2026/context-sprawl-placeholder.webp",
+        "alt": "Work sprawl placeholder",
+        "bbox": {
+          "x": 108,
+          "y": 1162,
+          "w": 1224,
+          "h": 350
+        }
+      },
+      {
+        "src": "https://clickup.com/assets/home_2026/feature-projects.webp",
+        "alt": "Projects",
+        "bbox": {
+          "x": 453,
+          "y": 2092,
+          "w": 256,
+          "h": 109
+        }
+      },
+      {
+        "src": "https://clickup.com/assets/home_2026/feature-docs.png",
+        "alt": "Docs",
+        "bbox": {
+          "x": 720,
+          "y": 2063,
+          "w": 275,
+          "h": 168
+        }
+      },
+      {
+        "src": "https://clickup.com/assets/home_2026/feature-brain.webp",
+        "alt": "Brain",
+        "bbox": {
+          "x": 472,
+          "y": 2323,
+          "w": 219,
+          "h": 156
+        }
+      },
+      {
+        "src": "https://clickup.com/assets/home_2026/feature-chat.webp",
+        "alt": "Chat",
+        "bbox": {
+          "x": 759,
+          "y": 2330,
+          "w": 198,
+          "h": 141
+        }
+      }
+    ]
+  },
+  "gradients": [
+    {
+      "gradient": "linear-gradient(90deg, rgb(32, 32, 32), rgb(143, 143, 143))",
+      "bbox": {
+        "x": 340,
+        "y": 2817,
+        "w": 760,
+        "h": 248
+      },
+      "area": 188171.25
+    },
+    {
+      "gradient": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 360deg)",
+      "bbox": {
+        "x": 124,
+        "y": 268,
+        "w": 332,
+        "h": 381
+      },
+      "area": 126520.06777164526
+    },
+    {
+      "gradient": "linear-gradient(97deg, rgb(32, 32, 32) 43.17%, rgb(143, 143, 143) 110.86%)",
+      "bbox": {
+        "x": 406,
+        "y": 941,
+        "w": 628,
+        "h": 120
+      },
+      "area": 75322.5
+    },
+    {
+      "gradient": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 360deg)",
+      "bbox": {
+        "x": 151,
+        "y": 7,
+        "w": 255,
+        "h": 255
+      },
+      "area": 64791.50926675671
+    },
+    {
+      "gradient": "linear-gradient(97deg, rgb(32, 32, 32) 43.17%, rgb(143, 143, 143) 110.86%)",
+      "bbox": {
+        "x": 478,
+        "y": 1672,
+        "w": 484,
+        "h": 120
+      },
+      "area": 58104.375
+    },
+    {
+      "gradient": "linear-gradient(90deg, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(50% - 150px), rgba(255, 255, 255, 0.4) 50%, rgba(0, 0, 0, 0) calc(50% + 150px), rgba(0, 0, 0, 0) 100%), linear-gradient(rgb(32, 32, 32), rgb(32, 32, 32))",
+      "bbox": {
+        "x": 180,
+        "y": 164,
+        "w": 481,
+        "h": 62
+      },
+      "area": 30019.91796875
+    },
+    {
+      "gradient": "linear-gradient(90deg, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(50% - 150px), rgba(255, 255, 255, 0.4) 50%, rgba(0, 0, 0, 0) calc(50% + 150px), rgba(0, 0, 0, 0) 100%), linear-gradient(rgb(32, 32, 32), rgb(32, 32, 32))",
+      "bbox": {
+        "x": 180,
+        "y": 226,
+        "w": 481,
+        "h": 62
+      },
+      "area": 30019.91796875
+    },
+    {
+      "gradient": "conic-gradient(from 90deg, rgb(0, 145, 255) 0deg, rgb(255, 2, 240) 134.673deg, rgb(255, 128, 43) 187.2deg, rgb(179, 140, 255) 269.007deg, rgb(0, 145, 255) 360deg)",
+      "bbox": {
+        "x": 507,
+        "y": 2454,
+        "w": 86,
+        "h": 86
+      },
+      "area": 7357.5884256362915
+    }
+  ]
+}

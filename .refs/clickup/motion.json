@@ -1,0 +1,1262 @@
+{
+  "keyframes": [
+    {
+      "name": "_progressBarHeight_1kq03_1",
+      "cssText": "@keyframes _progressBarHeight_1kq03_1 { \n  0% { block-size: 0px; }\n  100% { block-size: 100%; }\n}"
+    },
+    {
+      "name": "_slideDown_1kq03_1",
+      "cssText": "@keyframes _slideDown_1kq03_1 { \n  0% { max-block-size: 0px; opacity: 0; }\n  50% { opacity: 0; }\n  100% { max-block-size: var(--radix-accordion-content-height); opacity: 1; }\n}"
+    },
+    {
+      "name": "_slideUp_1kq03_1",
+      "cssText": "@keyframes _slideUp_1kq03_1 { \n  0% { max-block-size: var(--radix-accordion-content-height); opacity: 1; }\n  20% { opacity: 0; }\n  100% { max-block-size: 0px; opacity: 0; }\n}"
+    },
+    {
+      "name": "_slideDown_jxed5_1",
+      "cssText": "@keyframes _slideDown_jxed5_1 { \n  0% { block-size: 0px; }\n  100% { block-size: var(--radix-accordion-content-height); }\n}"
+    },
+    {
+      "name": "_slideUp_jxed5_1",
+      "cssText": "@keyframes _slideUp_jxed5_1 { \n  0% { block-size: var(--radix-accordion-content-height); }\n  100% { block-size: 0px; }\n}"
+    },
+    {
+      "name": "_banner_10pd0_1",
+      "cssText": "@keyframes _banner_10pd0_1 { \n  75% { transform: translate(-300%); }\n  75.01% { transform: translate(100%); }\n}"
+    },
+    {
+      "name": "_moveLogos_1ojqd_1",
+      "cssText": "@keyframes _moveLogos_1ojqd_1 { \n  0% { transform: translate(0px); }\n  100% { transform: translate(calc(var(--numLogos) / 2 * -180px)); }\n}"
+    },
+    {
+      "name": "_slide-translate_1s4xh_1",
+      "cssText": "@keyframes _slide-translate_1s4xh_1 { \n  100% { transform: translate(-100%); }\n}"
+    },
+    {
+      "name": "_slide-translate-reverse_1s4xh_1",
+      "cssText": "@keyframes _slide-translate-reverse_1s4xh_1 { \n  0% { transform: translate(-100%); }\n  100% { transform: translate(0px); }\n}"
+    },
+    {
+      "name": "_full-translate_1fno9_1",
+      "cssText": "@keyframes _full-translate_1fno9_1 { \n  100% { transform: translate(-100%); }\n}"
+    },
+    {
+      "name": "_full-translate-right_1fno9_1",
+      "cssText": "@keyframes _full-translate-right_1fno9_1 { \n  0% { transform: translate(-50%); }\n  100% { transform: translate(0px); }\n}"
+    },
+    {
+      "name": "_rotatingGradientBorder_10iw9_1",
+      "cssText": "@keyframes _rotatingGradientBorder_10iw9_1 { \n  0% { transform: translate(-50%, -50%) rotate(0deg); }\n  100% { transform: translate(-50%, -50%) rotate(1turn); }\n}"
+    },
+    {
+      "name": "_rotateGradientAngle_10iw9_1",
+      "cssText": "@keyframes _rotateGradientAngle_10iw9_1 { \n  0% { --gradient-angle: 45deg; opacity: 0; }\n  5% { --gradient-angle: 45deg; opacity: 1; }\n  45% { --gradient-angle: 405deg; opacity: 1; }\n  50% { --gradient-angle: 405deg; opacity: 0; }\n  100% { --gradient-angle: 405deg; opacity: 0; }\n}"
+    },
+    {
+      "name": "_scroll_5q1ej_1",
+      "cssText": "@keyframes _scroll_5q1ej_1 { \n  0% { transform: translate(0px); }\n  100% { transform: translate(calc(-50% - 32px)); }\n}"
+    },
+    {
+      "name": "_mediaFadeUpOut_36zu8_1",
+      "cssText": "@keyframes _mediaFadeUpOut_36zu8_1 { \n  0% { transform: translateY(0px); opacity: 1; }\n  100% { transform: translateY(-30px); opacity: 0; }\n}"
+    },
+    {
+      "name": "_mediaFadeUpIn_36zu8_1",
+      "cssText": "@keyframes _mediaFadeUpIn_36zu8_1 { \n  0% { transform: translateY(10px); opacity: 0; }\n  100% { transform: translateY(0px); opacity: 1; }\n}"
+    },
+    {
+      "name": "_pillExpandFromCorner_36zu8_1",
+      "cssText": "@keyframes _pillExpandFromCorner_36zu8_1 { \n  0% { transform: scale(0.92); opacity: 0.65; }\n  100% { transform: scale(1); opacity: 1; }\n}"
+    },
+    {
+      "name": "_textFadeIn_36zu8_1",
+      "cssText": "@keyframes _textFadeIn_36zu8_1 { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "_banner_g4vua_1",
+      "cssText": "@keyframes _banner_g4vua_1 { \n  75% { transform: translate(-300%); }\n  75.01% { transform: translate(100%); }\n}"
+    },
+    {
+      "name": "_borderPulse_12c7p_1",
+      "cssText": "@keyframes _borderPulse_12c7p_1 { \n  0% { box-shadow: rgba(0, 145, 255, 0.3) 0px 0px; }\n  50% { box-shadow: rgba(0, 145, 255, 0.1) 0px 0px 0px 4px; }\n  100% { box-shadow: rgba(0, 145, 255, 0) 0px 0px; }\n}"
+    },
+    {
+      "name": "_logoEnter_10zz2_1",
+      "cssText": "@keyframes _logoEnter_10zz2_1 { \n  0% { opacity: 0; filter: blur(5px); transform: scale(0.8) translateZ(0px); }\n  100% { opacity: 1; filter: blur(0px); transform: scale(1) translateZ(0px); }\n}"
+    },
+    {
+      "name": "_logoExit_10zz2_1",
+      "cssText": "@keyframes _logoExit_10zz2_1 { \n  0% { opacity: 1; filter: blur(0px); transform: scale(1) translateZ(0px); }\n  100% { opacity: 0; filter: blur(5px); transform: scale(0.8) translateZ(0px); }\n}"
+    },
+    {
+      "name": "_shimmerStream_ywfkq_1",
+      "cssText": "@keyframes _shimmerStream_ywfkq_1 { \n  0% { background-position: 200% 0px; }\n  100% { background-position: -200% 0px; }\n}"
+    },
+    {
+      "name": "_curtainDown_l0952_66",
+      "cssText": "@keyframes _curtainDown_l0952_66 { \n  0% { block-size: 0px; padding-block-end: 0px; opacity: 0; }\n  100% { block-size: var(--current-height); padding-block-end: var(--padding-block-end); opacity: 1; }\n}"
+    },
+    {
+      "name": "_curtainUp_l0952_70",
+      "cssText": "@keyframes _curtainUp_l0952_70 { \n  0% { block-size: var(--previous-height); padding-block-end: var(--padding-block-end); opacity: 1; }\n  30% { block-size: var(--previous-height); padding-block-end: var(--padding-block-end); opacity: 1; }\n  100% { block-size: 0px; padding-block-end: 0px; opacity: 0; }\n}"
+    },
+    {
+      "name": "_curtainExpandDown_l0952_74",
+      "cssText": "@keyframes _curtainExpandDown_l0952_74 { \n  0% { block-size: var(--previous-height); }\n  100% { block-size: var(--current-height); }\n}"
+    },
+    {
+      "name": "_curtainContractUp_l0952_78",
+      "cssText": "@keyframes _curtainContractUp_l0952_78 { \n  0% { block-size: var(--previous-height); }\n  30% { block-size: var(--previous-height); }\n  100% { block-size: var(--current-height); }\n}"
+    },
+    {
+      "name": "_columnCurtainDrop_l0952_1",
+      "cssText": "@keyframes _columnCurtainDrop_l0952_1 { \n  0% { max-block-size: 0px; }\n  50% { max-block-size: 300px; }\n  100% { max-block-size: 500px; }\n}"
+    },
+    {
+      "name": "_columnContentReveal_l0952_1",
+      "cssText": "@keyframes _columnContentReveal_l0952_1 { \n  0% { opacity: 0; transform: translateY(-10px); }\n  100% { opacity: 1; transform: translateY(0px); }\n}"
+    },
+    {
+      "name": "_columnContentFadeOut_l0952_1",
+      "cssText": "@keyframes _columnContentFadeOut_l0952_1 { \n  0% { opacity: 1; transform: translateY(0px); }\n  100% { opacity: 0; transform: translateY(-5px); }\n}"
+    },
+    {
+      "name": "_columnContentFadeIn_l0952_1",
+      "cssText": "@keyframes _columnContentFadeIn_l0952_1 { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "_slide-translate_1f636_1",
+      "cssText": "@keyframes _slide-translate_1f636_1 { \n  100% { transform: translate(-100%); }\n}"
+    }
+  ],
+  "transitionRules": [
+    {
+      "selector": "._itemCard_u6vhf_105",
+      "value": "0.2s"
+    },
+    {
+      "selector": "._linkCard_87z29_44",
+      "value": "0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    {
+      "selector": "._linkCardDomain_87z29_133",
+      "value": "0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    {
+      "selector": "._link_14a7t_1",
+      "value": "opacity 0.2s ease-in-out"
+    },
+    {
+      "selector": "._content_1kq03_68",
+      "value": "max-block-size 0.25s ease-out"
+    },
+    {
+      "selector": "._accordionTrigger_jxed5_71::after",
+      "value": "transform 0.2s"
+    },
+    {
+      "selector": "._button_1j67a_67::before",
+      "value": "transform 0.15s, background 0.15s"
+    },
+    {
+      "selector": "._link_ik9rq_1",
+      "value": "opacity 0.2s ease-in-out"
+    },
+    {
+      "selector": "._nav-button_112tp_80",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._card_1fno9_53",
+      "value": "transform 0.3s ease-in-out"
+    },
+    {
+      "selector": "._rainbowHighlight_10iw9_160",
+      "value": "inset 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+    },
+    {
+      "selector": "._button_sazky_38",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._dot_3c9vk_69",
+      "value": "transform var(--proximity-duration,.45s) cubic-bezier(.33,1,.68,1),opacity var(--proximity-duration,.45s) cubic-bezier(.33,1,.68,1)"
+    },
+    {
+      "selector": "._carouselButton_8kj1w_212",
+      "value": "background-color 0.2s, color 0.2s"
+    },
+    {
+      "selector": "._columnList_14o0y_210",
+      "value": "display 0.8s"
+    },
+    {
+      "selector": "._hasLink_1jb4w_14",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._carouselButton_1d8bs_106",
+      "value": "background-color 0.15s, border-color 0.15s, color 0.15s"
+    },
+    {
+      "selector": "._closeButton_vbnbh_38",
+      "value": "background 0.2s"
+    },
+    {
+      "selector": "._closeIcon_vbnbh_61",
+      "value": "color 0.2s"
+    },
+    {
+      "selector": "._section_36zu8_246",
+      "value": "opacity .18s ease-out,box-shadow .18s ease-out,border-radius var(--animation-duration) cubic-bezier(.2,0,.2,1),background-color var(--animation-duration) cubic-bezier(.2,0,.2,1),transform-origin var(--animation-duration) cubic-bezier(.2,0,.2,1),transform var(--animation-duration) cubic-bezier(.2,0,.2,1)"
+    },
+    {
+      "selector": "._section_36zu8_246::after",
+      "value": "opacity 0.18s ease-out"
+    },
+    {
+      "selector": "._pressed_36zu8_288",
+      "value": "transform 80ms ease-out"
+    },
+    {
+      "selector": "._carouselTrack_111qc_79",
+      "value": "transform 0.5s ease-in-out"
+    },
+    {
+      "selector": "._wrapper_1rp3x_41",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._hasVideo_1rp3x_131 ._mediaWrapper_1rp3x_119::after",
+      "value": "opacity 0.2s"
+    },
+    {
+      "selector": "._playButton_1rp3x_126",
+      "value": "0.2s"
+    },
+    {
+      "selector": "._accordionTrigger_1aucs_67::after",
+      "value": "transform 0.2s"
+    },
+    {
+      "selector": "._accordionContent_1aucs_93",
+      "value": "grid-template-rows 0.2s ease-out"
+    },
+    {
+      "selector": "._hdyhauOption_12c7p_16",
+      "value": "border-color 0.3s, background-color 0.3s"
+    },
+    {
+      "selector": "._checkmark_12c7p_43",
+      "value": "opacity 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)"
+    },
+    {
+      "selector": "._colorfulLogo_10zz2_206",
+      "value": "opacity 0.3s"
+    },
+    {
+      "selector": "._backdrop_1x06k_52",
+      "value": "background-color 0.3s"
+    },
+    {
+      "selector": "._contactSalesButton_1x06k_112, ._loginButton_1x06k_113, ._navLink_1x06k_100",
+      "value": "background-color 0.2s, color 0.2s"
+    },
+    {
+      "selector": "._downloadButton_1x06k_170, ._loginButton_1x06k_113, ._signupButton_1x06k_168",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._hamburgerLine_1x06k_247",
+      "value": "0.3s"
+    },
+    {
+      "selector": "._mobileCloseButton_1x06k_299",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileMenuItem_1x06k_328",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileLoginButton_1x06k_375",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileSignupButton_1x06k_399",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._platformItem_1x06k_465",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._featureItem_1x06k_568",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._productItem_1x06k_623",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._solutionsSimpleItem_1x06k_675",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._templateItem_1x06k_710",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._browseTemplatesItem_1x06k_770",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._resourcesSimpleItem_1x06k_809",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobilePlatformItem_1x06k_947",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileFeatureItem_1x06k_1030",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileProductItem_1x06k_1063",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileSolutionsItem_1x06k_1096",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileTemplateItem_1x06k_1116",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileResourcesItem_1x06k_1177",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._dropdownButton_ywfkq_4",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._chevron_ywfkq_85",
+      "value": "transform 0.2s"
+    },
+    {
+      "selector": "._mobileMenuItem_mr6lh_4",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._mobileMenuArrow_mr6lh_30",
+      "value": "transform 0.2s"
+    },
+    {
+      "selector": "._mobileBackButton_netdx_4",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._platformItem_l0952_172",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._featureItem_l0952_312",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._productItem_l0952_343",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._simpleItem_l0952_376",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._browseTemplatesItem_l0952_395",
+      "value": "background-color 0.2s"
+    },
+    {
+      "selector": "._seeAllLink_l0952_414",
+      "value": "background-color 0.2s, color 0.2s"
+    },
+    {
+      "selector": "._mobilePlatformItem_19ptv_43",
+      "value": "background-color 0.2s"
+    }
+  ],
+  "animationRules": [
+    {
+      "selector": "._content_1kq03_68[data-state=\"open\"]",
+      "value": "0.3s ease-out 0s 1 normal forwards running _slideDown_1kq03_1"
+    },
+    {
+      "selector": "._content_1kq03_68[data-state=\"closed\"]",
+      "value": "0.3s ease-out 0s 1 normal forwards running _slideUp_1kq03_1",
+      "baseState": {
+        "opacity": "0"
+      }
+    },
+    {
+      "selector": "._accordionContent_jxed5_97[data-state=\"open\"]",
+      "value": "0.2s ease-out 0s 1 normal none running _slideDown_jxed5_1"
+    },
+    {
+      "selector": "._accordionContent_jxed5_97[data-state=\"closed\"]",
+      "value": "0.2s ease-out 0s 1 normal none running _slideUp_jxed5_1"
+    },
+    {
+      "selector": "._slider--animate_1fno9_70 ._cardContainer_1fno9_53._forward_1fno9_70",
+      "value": "30s linear 0s infinite normal none running _full-translate_1fno9_1"
+    },
+    {
+      "selector": "._slider--animate_1fno9_70 ._cardContainer_1fno9_53._reverse_1fno9_73",
+      "value": "30s linear 0s infinite normal none running _full-translate-right_1fno9_1"
+    },
+    {
+      "selector": "._eyebrowLinkPill_10iw9_111::after",
+      "value": "7s linear 0s infinite normal none running _rotateGradientAngle_10iw9_1",
+      "baseState": {
+        "background-color": "rgb(232, 232, 232)",
+        "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+      }
+    },
+    {
+      "selector": "._rainbowGradient_10iw9_221",
+      "value": "1.5s linear 0s infinite normal none running _rotatingGradientBorder_10iw9_1",
+      "baseState": {
+        "transform": "translate(-50%, -50%)",
+        "position": "absolute",
+        "background-color": "initial",
+        "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+        "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+      }
+    },
+    {
+      "selector": "._sliderTrack_5q1ej_284",
+      "value": "60s linear 0s infinite normal none running _scroll_5q1ej_1",
+      "baseState": {
+        "display": "flex"
+      }
+    },
+    {
+      "selector": "._hdyhauOption_12c7p_16._selected_12c7p_36",
+      "value": "0.4s ease 0s 1 normal none running _borderPulse_12c7p_1",
+      "baseState": {
+        "color": "rgb(0, 145, 255)",
+        "background-color": "rgb(237, 246, 253)"
+      }
+    },
+    {
+      "selector": "._dropdownButton_ywfkq_4._shimmer_ywfkq_48._shimmerLoad_ywfkq_58 ._dropdownText_ywfkq_48",
+      "value": "3s ease-out 2s 1 normal forwards running _shimmerStream_ywfkq_1"
+    },
+    {
+      "selector": "._slider--animate_gxvs6_118 ._cardContainer_gxvs6_100._forward_gxvs6_118",
+      "value": "30s linear 0s infinite normal none running _full-translate_gxvs6_1"
+    },
+    {
+      "selector": "._slider--animate_gxvs6_118 ._cardContainer_gxvs6_100._reverse_gxvs6_121",
+      "value": "30s linear 0s infinite normal none running _full-translate-right_gxvs6_1"
+    },
+    {
+      "selector": "._modalOverlay_qx9ft_42",
+      "value": "0.2s ease-out 0s 1 normal forwards running _fadeInOverlay_qx9ft_1",
+      "baseState": {
+        "opacity": "0",
+        "display": "flex",
+        "background-image": "url(\"https://cdn.web.clickup.com/assets/ui/v5/overlay/overlay-desktop-2026.jpg\")",
+        "filter": "blur(7px)"
+      }
+    },
+    {
+      "selector": "._modalContent_qx9ft_71",
+      "value": "0.2s ease-out 0s 1 normal forwards running _fadeInOverlay_qx9ft_1",
+      "baseState": {
+        "opacity": "0",
+        "background-color": "transparent",
+        "background-image": "initial",
+        "background": "transparent"
+      }
+    },
+    {
+      "selector": "._modalOverlayDark_qx9ft_404",
+      "value": "0.2s ease-out 0s 1 normal forwards running _fadeInOverlay_qx9ft_1",
+      "baseState": {
+        "opacity": "0",
+        "background-color": "rgb(0, 0, 0)",
+        "background-image": "url(\"https://cdn.web.clickup.com/assets/ui/v5/overlay/overlay-desktop-dark-2026.jpg\")"
+      }
+    },
+    {
+      "selector": "._bounce1_1jqav_143, ._bounce2_1jqav_144, ._bounce3_1jqav_145",
+      "value": "1.4s ease-in-out 0s infinite normal both running _bounce_1jqav_143",
+      "baseState": {
+        "background": "var(--Core-Background-Main,#fff)"
+      }
+    },
+    {
+      "selector": "._successText_1jqav_185",
+      "value": "2s ease-in-out 0s 1 normal none running _fadeIn_1jqav_1"
+    },
+    {
+      "selector": "._tabsTrigger_1oq8r_193._isActive_1oq8r_219",
+      "value": "0.4s ease 0s 1 normal none running _borderPulse_1oq8r_1",
+      "baseState": {
+        "color": "rgb(0, 145, 255)",
+        "background-color": "rgb(237, 246, 254)"
+      }
+    },
+    {
+      "selector": "._tabNavigationButtonActive_1wm9k_117",
+      "value": "0.4s ease 0s 1 normal none running _borderPulse_1wm9k_1",
+      "baseState": {
+        "color": "rgb(0, 145, 255)",
+        "background-color": "rgb(237, 246, 253)"
+      }
+    },
+    {
+      "selector": ".btn-spinner > div",
+      "value": "1.4s ease-in-out 0s infinite normal both running cu-bouncedelay",
+      "baseState": {
+        "display": "inline-block",
+        "background-color": "rgb(var(--color-white))"
+      }
+    },
+    {
+      "selector": ".ExperimentLoader_loader__EJBeb",
+      "value": "ExperimentLoader_loader__EJBeb var(--duration,2s) forwards ease 1",
+      "baseState": {
+        "opacity": "1",
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px",
+        "background-color": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "selector": ".CuContactSalesModal_modalOverlay__D_mVk",
+      "value": "0.2s ease-out 0s 1 normal forwards running CuContactSalesModal_fadeIn___C_oj",
+      "baseState": {
+        "opacity": "0",
+        "display": "flex",
+        "background-image": "url(\"/assets/images/overlay-desktop-2026.jpg\")",
+        "filter": "blur(7px)"
+      }
+    },
+    {
+      "selector": ".CuContactSalesModal_modalContent__nIsdI",
+      "value": "0.2s ease-out 0s 1 normal forwards running CuContactSalesModal_fadeIn___C_oj",
+      "baseState": {
+        "opacity": "0",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "background-image": "initial",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "selector": ".CuContactSalesModal_formWrapper__tw4pg > div",
+      "value": "0.8s ease-in 0s 1 normal forwards running CuContactSalesModal_fadeIn___C_oj"
+    },
+    {
+      "selector": ".CuSignUpOverlay_modalOverlay__vVgBH",
+      "value": "0.2s ease-out 0s 1 normal forwards running CuSignUpOverlay_fadeInOverlay__Ip0Ao",
+      "baseState": {
+        "opacity": "0",
+        "display": "flex",
+        "background-image": "url(\"/assets/images/overlay-desktop-2026.jpg\")",
+        "filter": "blur(7px)"
+      }
+    },
+    {
+      "selector": ".CuSignUpOverlay_modalContent__vVAlA",
+      "value": "0.2s ease-out 0s 1 normal forwards running CuSignUpOverlay_fadeInOverlay__Ip0Ao",
+      "baseState": {
+        "opacity": "0",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "background-image": "initial",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "selector": ".CuSignUpOverlay_modalOverlayDark__mboJ4",
+      "value": "0.2s ease-out 0s 1 normal forwards running CuSignUpOverlay_fadeInOverlay__Ip0Ao",
+      "baseState": {
+        "opacity": "0",
+        "background-color": "rgb(0, 0, 0)",
+        "background-image": "url(\"/assets/images/overlay-desktop-dark-2026.jpg\")"
+      }
+    },
+    {
+      "selector": ".DesktopDropdownButton_dropdownButton__lHQ78.DesktopDropdownButton_shimmer__f8kYx.DesktopDropdownButton_shimmerLoad__FuHYJ .DesktopDropdownButton_dropdownText__m2Uhr",
+      "value": "3s ease-out 2s 1 normal forwards running DesktopDropdownButton_shimmerStream__08BiB"
+    },
+    {
+      "selector": ".CuTitle_wrapper__w1NUA.v5 .CuTitle_eyebrowLink4oPill__bmOa_::after",
+      "value": "7s linear 0s infinite normal none running CuTitle_rotateGradientAngle__7Lvm1",
+      "baseState": {
+        "position": "absolute",
+        "display": "inline-block",
+        "background-color": "rgb(232, 232, 232)",
+        "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+      }
+    },
+    {
+      "selector": ".CuTitle_wrapper__w1NUA.v5 .CuTitle_rainbowGradient__8X2hx",
+      "value": "1.5s linear 0s infinite normal none running CuTitle_rotatingGradientBorder__iTjhD",
+      "baseState": {
+        "transform": "translate(-50%, -50%)",
+        "position": "absolute",
+        "background-color": "initial",
+        "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+        "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+      }
+    },
+    {
+      "selector": ".CuLightBox_modalOverlay__i3CVQ",
+      "value": "0.2s ease-out 0s 1 normal none running CuLightBox_overlayEntrance__zoQrp",
+      "baseState": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px",
+        "background-color": "rgba(0, 0, 0, 0.7)",
+        "background-image": "initial",
+        "background": "rgba(0, 0, 0, 0.7)"
+      }
+    },
+    {
+      "selector": ".CuLightBox_modalContent__WiCcp",
+      "value": "0.3s cubic-bezier(0.7, 0.2, 0.5, 1) 0s 1 normal both running CuLightBox_catcherEntrance__9AIlB"
+    },
+    {
+      "selector": ".CuHomeTeamsTab4o_tabNavigationButtonActive__Orb2g",
+      "value": "0.4s ease 0s 1 normal none running CuHomeTeamsTab4o_borderPulse__aALOZ",
+      "baseState": {
+        "color": "rgb(0, 145, 255)",
+        "background-color": "rgb(237, 246, 253)"
+      }
+    },
+    {
+      "selector": ".Lp4ComingSoon_eyebrow__Vucl6::after",
+      "value": "7s linear 0s infinite normal none running Lp4ComingSoon_rotateGradientAngle__u03ro",
+      "baseState": {
+        "background-color": "rgb(232, 232, 232)",
+        "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+      }
+    },
+    {
+      "selector": ".Lp4ComingSoon_rainbowGradient__rFtGi",
+      "value": "1.5s linear 0s infinite normal none running Lp4ComingSoon_rotatingGradientBorder__VRSd3",
+      "baseState": {
+        "transform": "translate(-50%, -50%)",
+        "position": "absolute",
+        "background-color": "initial",
+        "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+        "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+      }
+    },
+    {
+      "selector": ".Lp4BrainSection_audioWave__l19pM path",
+      "value": "2s ease-in-out 0s infinite normal none running Lp4BrainSection_audioBar__nWZ_C"
+    },
+    {
+      "selector": ".GradientPill_rainbowGradient__xL1u4",
+      "value": "1.5s linear 0s infinite normal none running GradientPill_rotatingGradientBorder__Dp7_X",
+      "baseState": {
+        "transform": "translate(-50%, -50%)",
+        "position": "absolute",
+        "background-color": "initial",
+        "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+        "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+      }
+    },
+    {
+      "selector": ".HomeHeroLongTitle_ctaButton__A7WFO .HomeHeroLongTitle_rainbowGradient__QFJ0W",
+      "value": "1.5s linear 0s infinite normal none running HomeHeroLongTitle_rainbowCtaRotatingBorder__6Vv3B",
+      "baseState": {
+        "position": "absolute",
+        "background-color": "initial",
+        "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+        "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+      }
+    },
+    {
+      "selector": ".HomeHeroTabs0226_activateWrapper__HZjit::before",
+      "value": "2s ease-out 0s infinite normal none running HomeHeroTabs0226_pulseRing__EOgbo",
+      "baseState": {
+        "position": "absolute",
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
+    {
+      "selector": ".HomeHeroTabs0226_previewMediaInner__0Gy_y",
+      "value": "0.42s ease-out 0s 1 normal forwards running HomeHeroTabs0226_previewFadeIn__1HRTa",
+      "baseState": {
+        "opacity": "0",
+        "display": "flex"
+      }
+    },
+    {
+      "selector": ".HomeHeroTabs0226_superAgentCard__YuwB3",
+      "value": "0.5s ease 0.12s 1 normal forwards running HomeHeroTabs0226_superAgentCardFadeIn__LILyr",
+      "baseState": {
+        "opacity": "0",
+        "transform": "translateY(10px)",
+        "position": "absolute",
+        "display": "grid",
+        "background": "var(--card-bg)",
+        "backdrop-filter": "blur(3px)",
+        "--card-bg": "color-mix(in srgb,var(--super-agent-primary,#ffede5) 92%,#fff 8%)"
+      }
+    },
+    {
+      "selector": ".HeroEyebrow4o_eyebrow__8a00q::after",
+      "value": "7s linear 0s infinite normal none running HeroEyebrow4o_rotateGradientAngle__n9aRK",
+      "baseState": {
+        "background-color": "rgb(232, 232, 232)",
+        "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+      }
+    },
+    {
+      "selector": ".HeroEyebrow4o_rainbowGradient__qyi6H",
+      "value": "1.5s linear 0s infinite normal none running HeroEyebrow4o_rotatingGradientBorder__toc6a",
+      "baseState": {
+        "transform": "translate(-50%, -50%)",
+        "position": "absolute",
+        "background-color": "initial",
+        "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+        "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+      }
+    },
+    {
+      "selector": ".CuHomeHero4_1_v4Cta__q_LAe",
+      "value": "2s linear 0s infinite normal none running CuHomeHero4_1_rainbow__ChMsu",
+      "baseState": {
+        "transform": "unset",
+        "position": "relative"
+      }
+    },
+    {
+      "selector": ".HomeHero4o_v4CtaButtonVariant__UoLms",
+      "value": "2s linear 0s infinite normal none running HomeHero4o_rainbow__HqbOe",
+      "baseState": {
+        "transform": "unset",
+        "position": "relative"
+      }
+    },
+    {
+      "selector": ".HomeHero4o_rainbowGradient__D2ZLR",
+      "value": "1.5s linear 0s infinite normal none running HomeHero4o_rainbowCtaRotatingBorder__ZRkHK",
+      "baseState": {
+        "position": "absolute",
+        "background-color": "initial",
+        "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+        "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+      }
+    },
+    {
+      "selector": ".HomeHero4o_workspaceBuilderFeature__um7iP.HomeHero4o_selected__BdTPJ",
+      "value": "0.4s ease 0s 1 normal none running HomeHero4o_borderPulse__qF2ma",
+      "baseState": {
+        "color": "rgb(0, 145, 255)",
+        "background-color": "rgb(237, 246, 253)"
+      }
+    },
+    {
+      "selector": ".HomeHero4o_workspaceBuilderCTAWrapper__qg0Bd::before",
+      "value": "2s ease-out 0s infinite normal none running HomeHero4o_pulseRing__ctI77",
+      "baseState": {
+        "position": "absolute",
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
+    {
+      "selector": ".HomeHero4o_heroImageAnimated__h8zui",
+      "value": "0.2s ease-out 0s 1 normal forwards running HomeHero4o_crossFade__SZVBk"
+    }
+  ],
+  "keyframeNames": [
+    "_progressBarHeight_1kq03_1",
+    "_slideDown_1kq03_1",
+    "_slideUp_1kq03_1",
+    "_slideDown_jxed5_1",
+    "_slideUp_jxed5_1",
+    "_banner_10pd0_1",
+    "_moveLogos_1ojqd_1",
+    "_slide-translate_1s4xh_1",
+    "_slide-translate-reverse_1s4xh_1",
+    "_full-translate_1fno9_1",
+    "_full-translate-right_1fno9_1",
+    "_rotatingGradientBorder_10iw9_1",
+    "_rotateGradientAngle_10iw9_1",
+    "_scroll_5q1ej_1",
+    "_mediaFadeUpOut_36zu8_1",
+    "_mediaFadeUpIn_36zu8_1",
+    "_pillExpandFromCorner_36zu8_1",
+    "_textFadeIn_36zu8_1",
+    "_banner_g4vua_1",
+    "_borderPulse_12c7p_1",
+    "_logoEnter_10zz2_1",
+    "_logoExit_10zz2_1",
+    "_shimmerStream_ywfkq_1",
+    "_curtainDown_l0952_66",
+    "_curtainUp_l0952_70",
+    "_curtainExpandDown_l0952_74",
+    "_curtainContractUp_l0952_78",
+    "_columnCurtainDrop_l0952_1",
+    "_columnContentReveal_l0952_1",
+    "_columnContentFadeOut_l0952_1",
+    "_columnContentFadeIn_l0952_1",
+    "_slide-translate_1f636_1"
+  ],
+  "transitionStyles": [
+    {
+      "value": "box-shadow 0.25s cubic-bezier(0.5, 0, 0.5, 1)",
+      "count": 68
+    },
+    {
+      "value": "border-color 0.3s, background-color 0.3s",
+      "count": 12
+    },
+    {
+      "value": "background-color 0.2s",
+      "count": 10
+    },
+    {
+      "value": "0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      "count": 7
+    },
+    {
+      "value": "transform 0.2s",
+      "count": 5
+    },
+    {
+      "value": "transform 0.25s cubic-bezier(0.5, 0, 0.5, 1)",
+      "count": 4
+    },
+    {
+      "value": "background-color 0.2s, color 0.2s",
+      "count": 3
+    },
+    {
+      "value": "0.25s cubic-bezier(0.5, 0, 0.5, 1)",
+      "count": 2
+    },
+    {
+      "value": "opacity 0.1s, background 0.2s",
+      "count": 1
+    },
+    {
+      "value": "background-color 0.3s",
+      "count": 1
+    },
+    {
+      "value": "inset 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 1
+    },
+    {
+      "value": "opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), inset 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 1
+    },
+    {
+      "value": "opacity 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+      "count": 1
+    }
+  ],
+  "animationStyles": [
+    {
+      "value": "0.4s CuHomeTeamsTab4o_borderPulse__aALOZ",
+      "count": 1
+    },
+    {
+      "value": "1.5s linear infinite HeroEyebrow4o_rotatingGradientBorder__toc6a",
+      "count": 1
+    },
+    {
+      "value": "10s linear 3s HomeHero4o_shimmer1__rcAXE",
+      "count": 1
+    },
+    {
+      "value": "10s linear 3s HomeHero4o_shimmer2__G6Fni",
+      "count": 1
+    },
+    {
+      "value": "1.5s linear infinite HomeHero4o_rainbowCtaRotatingBorder__ZRkHK",
+      "count": 1
+    },
+    {
+      "value": "0.4s HomeHero4o_borderPulse__qF2ma",
+      "count": 1
+    },
+    {
+      "value": "0.2s ease-out forwards HomeHero4o_crossFade__SZVBk",
+      "count": 1
+    }
+  ],
+  "baseStates": {
+    "_slideUp_1kq03_1": {
+      "opacity": "0"
+    },
+    "_rotateGradientAngle_10iw9_1": {
+      "background-color": "rgb(232, 232, 232)",
+      "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+    },
+    "_rotatingGradientBorder_10iw9_1": {
+      "transform": "translate(-50%, -50%)",
+      "position": "absolute",
+      "background-color": "initial",
+      "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+      "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+    },
+    "_scroll_5q1ej_1": {
+      "display": "flex"
+    },
+    "_borderPulse_12c7p_1": {
+      "color": "rgb(0, 145, 255)",
+      "background-color": "rgb(237, 246, 253)"
+    },
+    "_fadeInOverlay_qx9ft_1": {
+      "opacity": "0",
+      "display": "flex",
+      "background-image": "url(\"https://cdn.web.clickup.com/assets/ui/v5/overlay/overlay-desktop-2026.jpg\")",
+      "filter": "blur(7px)"
+    },
+    "_bounce_1jqav_143": {
+      "background": "var(--Core-Background-Main,#fff)"
+    },
+    "_borderPulse_1oq8r_1": {
+      "color": "rgb(0, 145, 255)",
+      "background-color": "rgb(237, 246, 254)"
+    },
+    "_borderPulse_1wm9k_1": {
+      "color": "rgb(0, 145, 255)",
+      "background-color": "rgb(237, 246, 253)"
+    },
+    "cu-bouncedelay": {
+      "display": "inline-block",
+      "background-color": "rgb(var(--color-white))"
+    },
+    "CuContactSalesModal_fadeIn___C_oj": {
+      "opacity": "0",
+      "display": "flex",
+      "background-image": "url(\"/assets/images/overlay-desktop-2026.jpg\")",
+      "filter": "blur(7px)"
+    },
+    "CuSignUpOverlay_fadeInOverlay__Ip0Ao": {
+      "opacity": "0",
+      "display": "flex",
+      "background-image": "url(\"/assets/images/overlay-desktop-2026.jpg\")",
+      "filter": "blur(7px)"
+    },
+    "CuTitle_rotateGradientAngle__7Lvm1": {
+      "position": "absolute",
+      "display": "inline-block",
+      "background-color": "rgb(232, 232, 232)",
+      "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+    },
+    "CuTitle_rotatingGradientBorder__iTjhD": {
+      "transform": "translate(-50%, -50%)",
+      "position": "absolute",
+      "background-color": "initial",
+      "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+      "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+    },
+    "CuLightBox_overlayEntrance__zoQrp": {
+      "top": "0px",
+      "right": "0px",
+      "bottom": "0px",
+      "left": "0px",
+      "background-color": "rgba(0, 0, 0, 0.7)",
+      "background-image": "initial",
+      "background": "rgba(0, 0, 0, 0.7)"
+    },
+    "CuHomeTeamsTab4o_borderPulse__aALOZ": {
+      "color": "rgb(0, 145, 255)",
+      "background-color": "rgb(237, 246, 253)"
+    },
+    "Lp4ComingSoon_rotateGradientAngle__u03ro": {
+      "background-color": "rgb(232, 232, 232)",
+      "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+    },
+    "Lp4ComingSoon_rotatingGradientBorder__VRSd3": {
+      "transform": "translate(-50%, -50%)",
+      "position": "absolute",
+      "background-color": "initial",
+      "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+      "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+    },
+    "GradientPill_rotatingGradientBorder__Dp7_X": {
+      "transform": "translate(-50%, -50%)",
+      "position": "absolute",
+      "background-color": "initial",
+      "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+      "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+    },
+    "HomeHeroLongTitle_rainbowCtaRotatingBorder__6Vv3B": {
+      "position": "absolute",
+      "background-color": "initial",
+      "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+      "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+    },
+    "HomeHeroTabs0226_pulseRing__EOgbo": {
+      "position": "absolute",
+      "top": "0px",
+      "right": "0px",
+      "bottom": "0px",
+      "left": "0px"
+    },
+    "HomeHeroTabs0226_previewFadeIn__1HRTa": {
+      "opacity": "0",
+      "display": "flex"
+    },
+    "HomeHeroTabs0226_superAgentCardFadeIn__LILyr": {
+      "opacity": "0",
+      "transform": "translateY(10px)",
+      "position": "absolute",
+      "display": "grid",
+      "background": "var(--card-bg)",
+      "backdrop-filter": "blur(3px)",
+      "--card-bg": "color-mix(in srgb,var(--super-agent-primary,#ffede5) 92%,#fff 8%)"
+    },
+    "HeroEyebrow4o_rotateGradientAngle__n9aRK": {
+      "background-color": "rgb(232, 232, 232)",
+      "background-image": "conic-gradient(from var(--gradient-angle) at 50% 50%,#ff02f0 -10.8deg,#ed5f00 37.06deg,rgba(237,95,0,.09) 49.67deg,rgba(0,145,255,0) 265.91deg,#0091ff 301.53deg,#ff02f0 .97turn,#ed5f00 397.06deg)"
+    },
+    "HeroEyebrow4o_rotatingGradientBorder__toc6a": {
+      "transform": "translate(-50%, -50%)",
+      "position": "absolute",
+      "background-color": "initial",
+      "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+      "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+    },
+    "CuHomeHero4_1_rainbow__ChMsu": {
+      "transform": "unset",
+      "position": "relative"
+    },
+    "HomeHero4o_rainbow__HqbOe": {
+      "transform": "unset",
+      "position": "relative"
+    },
+    "HomeHero4o_rainbowCtaRotatingBorder__ZRkHK": {
+      "position": "absolute",
+      "background-color": "initial",
+      "background-image": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)",
+      "background": "conic-gradient(rgb(0, 145, 255), rgb(255, 2, 240), rgb(247, 104, 8), rgb(102, 71, 240), rgb(0, 145, 255) 1turn)"
+    },
+    "HomeHero4o_borderPulse__qF2ma": {
+      "color": "rgb(0, 145, 255)",
+      "background-color": "rgb(237, 246, 253)"
+    },
+    "HomeHero4o_pulseRing__ctI77": {
+      "position": "absolute",
+      "top": "0px",
+      "right": "0px",
+      "bottom": "0px",
+      "left": "0px"
+    }
+  },
+  "stylesheetStats": {
+    "total": 13,
+    "sameOrigin": 13,
+    "crossOriginBlocked": 0,
+    "rulesRead": 6683
+  },
+  "targetGeometry": {
+    "._button_sazky_38": {
+      "w": 205,
+      "h": 42
+    },
+    "._dot_3c9vk_69": {
+      "w": 14,
+      "h": 14
+    },
+    "._columnList_14o0y_210": {
+      "w": 214,
+      "h": 87
+    },
+    ".DesktopDropdownButton_dropdownButton__lHQ78": {
+      "w": 89,
+      "h": 32
+    },
+    ".DesktopDropdownButton_chevron__zKGu8": {
+      "w": 14,
+      "h": 14
+    },
+    ".CuNavigation_backdrop___14e_": {
+      "w": 1440,
+      "h": 60
+    },
+    ".CuNavigation_contactSalesButton__SkQBV, .CuNavigation_loginButton__zywvf, .CuNavigation_navLink__eR307": {
+      "w": 66,
+      "h": 32
+    },
+    ".CuNavigation_downloadButton__3_rNz, .CuNavigation_loginButton__zywvf, .CuNavigation_signupButton__NLFuY": {
+      "w": 61,
+      "h": 32
+    },
+    ".CuHomeTeamsTab4o_tabNavigationButton__PqyEu": {
+      "w": 83,
+      "h": 32
+    },
+    ".CuHomeTeamsTab4o_tabButtonContent__xjgtW": {
+      "w": 55,
+      "h": 20
+    },
+    ".Lp4AgentsSection_learnMoreButton__7L4oG": {
+      "w": 136,
+      "h": 52
+    },
+    ".CuHomeVideoSection4on_playCursor__KMdrq": {
+      "w": 172,
+      "h": 64
+    },
+    ".CuHomeVideoSection4on_playCursorInner__g__ko": {
+      "w": 146,
+      "h": 54
+    },
+    ".HomeHero4o_ctaButton__wsaMK": {
+      "w": 219,
+      "h": 52
+    },
+    ".HomeHero4o_rainbowHighlight__dEYxe": {
+      "w": 219,
+      "h": 52
+    },
+    ".HomeHero4o_checkmark__gL61H": {
+      "w": 16,
+      "h": 16
+    },
+    ".HomeHero4o_workspaceBuilderFeature__um7iP": {
+      "w": 80,
+      "h": 31
+    },
+    ".HomeHero4o_workspaceBuilderCTA__3JPRz": {
+      "w": 95,
+      "h": 32
+    },
+    ".CuHomeTeamsTab4o_tabNavigationButtonActive__Orb2g": {
+      "w": 83,
+      "h": 32
+    },
+    ".Lp4BrainSection_audioWave__l19pM path": {
+      "w": 5,
+      "h": 13
+    },
+    ".HomeHero4o_rainbowGradient__D2ZLR": {
+      "w": 282,
+      "h": 346
+    },
+    ".HomeHero4o_workspaceBuilderFeature__um7iP.HomeHero4o_selected__BdTPJ": {
+      "w": 80,
+      "h": 31
+    },
+    ".HomeHero4o_heroImageAnimated__h8zui": {
+      "w": 750,
+      "h": 539
+    }
+  },
+  "targetWrappers": {
+    "._columnList_14o0y_210": {
+      "position": "relative"
+    },
+    ".CuNavigation_backdrop___14e_": {
+      "position": "sticky"
+    },
+    ".CuHomeTeamsTab4o_tabButtonContent__xjgtW": {
+      "position": "relative"
+    },
+    ".CuJoinTeamsBanner4o_colorfulLogo__9s58s": {
+      "position": "relative"
+    },
+    ".GradientPill_gradientOverlay__ZTHAF": {
+      "position": "absolute"
+    },
+    ".GradientPill_rainbowBorderBlur__SUivm": {
+      "position": "relative"
+    },
+    ".HomeHeroLongTitle_ctaButton__A7WFO .HomeHeroLongTitle_rainbowHighlight__Q7PIf": {
+      "position": "relative"
+    },
+    ".HomeHeroTabs0226_featureTab__RkvQU svg path": {
+      "overflow": "hidden"
+    },
+    ".HomeHeroTabs0226_activateContainer__D8Pmk": {
+      "position": "relative"
+    },
+    ".CuHomeVideoSection4on_playCursor__KMdrq": {
+      "overflow": "hidden",
+      "position": "relative"
+    },
+    ".CuHomeVideoSection4on_playCursorInner__g__ko": {
+      "position": "fixed",
+      "transform": "matrix(1, 0, 0, 1, -86.1328, -32)"
+    },
+    ".HeroEyebrow4o_rainbowHighlight__ZFZj0": {
+      "overflow": "hidden",
+      "position": "relative"
+    },
+    ".HomeHero4o_rainbowHighlight__dEYxe": {
+      "position": "relative",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    ".HomeHero4o_checkmark__gL61H": {
+      "position": "relative"
+    },
+    ".Lp4BrainSection_audioWave__l19pM path": {
+      "overflow": "hidden"
+    },
+    ".GradientPill_rainbowGradient__xL1u4": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".HomeHeroLongTitle_ctaButton__A7WFO .HomeHeroLongTitle_rainbowGradient__QFJ0W": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".HomeHeroTabs0226_previewMediaInner__0Gy_y": {
+      "position": "relative"
+    },
+    ".HomeHeroTabs0226_superAgentCard__YuwB3": {
+      "position": "relative"
+    },
+    ".HeroEyebrow4o_rainbowGradient__qyi6H": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".HomeHero4o_rainbowGradient__D2ZLR": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".HomeHero4o_heroImageAnimated__h8zui": {
+      "position": "relative"
+    }
+  },
+  "scrollFrames": [
+    {
+      "pattern": "sequence-numbered-images",
+      "stem": "https://clickup.com/assets/home_2026/agent",
+      "frameCount": 24,
+      "targetSelector": "img",
+      "bbox": {
+        "x": 808,
+        "y": -4277,
+        "w": 40,
+        "h": 40
+      }
+    }
+  ],
+  "idleTrace": {
+    "durationMs": 6000,
+    "findings": []
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "index": 3,
+  "role": "footer",
+  "source": "landmark",
+  "tag": "footer",
+  "id": "footer",
+  "classes": "ui _wrapper_sg5ru_43",
+  "marker": "[data-scry-region=\"3\"]",
+  "bbox": {
+    "x": 140,
+    "y": 11912,
+    "w": 1160,
+    "h": 62
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1160px",
+    "height": "62px",
+    "minHeight": "0px",
+    "padding": "12px 40px",
+    "margin": "0px 140px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(41, 45, 52)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(41, 45, 52)",
+    "fontFamily": "\"Plus Jakarta Sans\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "© 2026 ClickUp\nStatus\nSecurity\nPrivacy\nTerms\nCookie Preferences",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "_container_sg5ru_62",
+      "text": "© 2026 ClickUp\nStatus\nSecurity\nPrivacy\nTerms\nCookie Preferences"
+    }
+  ],
+  "imagePath": "regions/03-footer.png",
+  "content": {
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "text": "Cookie Preferences",
+        "isPrimary": false,
+        "isPill": false,
+        "href": null,
+        "bbox": {
+          "x": 1112,
+          "y": 850,
+          "w": 148,
+          "h": 38
+        },
+        "shape": {
+          "padding": "9px 9px 9px 9px",
+          "fontSize": 14,
+          "fontWeight": 600,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "16px"
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "Status",
+        "href": "https://status.clickup.com/"
+      },
+      {
+        "text": "Security",
+        "href": "/terms/security-policy"
+      },
+      {
+        "text": "Privacy",
+        "href": "/terms/privacy"
+      },
+      {
+        "text": "Terms",
+        "href": "/terms"
+      }
+    ],
+    "lists": [],
+    "images": []
+  },
+  "gradients": []
+}

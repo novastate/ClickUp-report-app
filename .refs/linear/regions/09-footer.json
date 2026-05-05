@@ -1,0 +1,218 @@
+{
+  "index": 9,
+  "role": "footer",
+  "source": "landmark",
+  "tag": "footer",
+  "id": null,
+  "classes": "Footer_footer__lJt10",
+  "marker": "[data-scry-region=\"9\"]",
+  "bbox": {
+    "x": 0,
+    "y": 10317,
+    "w": 1440,
+    "h": 464
+  },
+  "styles": {
+    "display": "block",
+    "position": "relative",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1440px",
+    "height": "464px",
+    "minHeight": "auto",
+    "padding": "0px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(35, 37, 42) rgb(247, 248, 248) rgb(247, 248, 248)",
+    "borderWidth": "1px 0px 0px",
+    "borderStyle": "solid none none",
+    "background": "rgb(8, 9, 10) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgb(8, 9, 10)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "50",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Product\nIntake\nPlan\nBuild\nDiffs\nMonitor\nPricing\nSecurity\nFeatures\nAsks\nAgents\nCustomer Requests\nInsights\nMobile\nIntegrations\nChangelog\nCompany\nAbout\nCustomers\nCareers\nBlog\nMethod\nQuality\nBrand\nResources\nSwitch\nDownload\nDocumentation\nDocs\nDe",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "Footer_wrapper__YH6tI",
+      "text": "Product\nIntake\nPlan\nBuild\nDiffs\nMonitor\nPricing\nSecurity\nFeatures\nAsks\nAgents\nCu"
+    }
+  ],
+  "imagePath": "regions/09-footer.png",
+  "content": {
+    "headings": [
+      {
+        "level": 3,
+        "text": "Product",
+        "fontSize": 13,
+        "source": "explicit",
+        "bbox": {
+          "x": 304,
+          "y": 493,
+          "w": 160,
+          "h": 20
+        }
+      },
+      {
+        "level": 3,
+        "text": "Features",
+        "fontSize": 13,
+        "source": "explicit",
+        "bbox": {
+          "x": 528,
+          "y": 493,
+          "w": 160,
+          "h": 20
+        }
+      },
+      {
+        "level": 3,
+        "text": "Company",
+        "fontSize": 13,
+        "source": "explicit",
+        "bbox": {
+          "x": 752,
+          "y": 493,
+          "w": 160,
+          "h": 20
+        }
+      },
+      {
+        "level": 3,
+        "text": "Resources",
+        "fontSize": 13,
+        "source": "explicit",
+        "bbox": {
+          "x": 976,
+          "y": 493,
+          "w": 160,
+          "h": 20
+        }
+      },
+      {
+        "level": 3,
+        "text": "Connect",
+        "fontSize": 13,
+        "source": "explicit",
+        "bbox": {
+          "x": 1200,
+          "y": 493,
+          "w": 160,
+          "h": 20
+        }
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [],
+    "links": [
+      {
+        "text": "Intake",
+        "href": "/intake"
+      },
+      {
+        "text": "Plan",
+        "href": "/plan"
+      },
+      {
+        "text": "Build",
+        "href": "/build"
+      },
+      {
+        "text": "Diffs",
+        "href": "/diffs"
+      },
+      {
+        "text": "Monitor",
+        "href": "/monitor"
+      },
+      {
+        "text": "Pricing",
+        "href": "/pricing"
+      },
+      {
+        "text": "Security",
+        "href": "/security"
+      },
+      {
+        "text": "Asks",
+        "href": "/asks"
+      },
+      {
+        "text": "Agents",
+        "href": "/agents"
+      },
+      {
+        "text": "Customer Requests",
+        "href": "/customer-requests"
+      },
+      {
+        "text": "Insights",
+        "href": "/insights"
+      },
+      {
+        "text": "Mobile",
+        "href": "/mobile"
+      }
+    ],
+    "lists": [
+      [
+        "Intake",
+        "Plan",
+        "Build",
+        "Diffs",
+        "Monitor",
+        "Pricing",
+        "Security"
+      ],
+      [
+        "Asks",
+        "Agents",
+        "Customer Requests",
+        "Insights",
+        "Mobile",
+        "Integrations",
+        "Changelog"
+      ],
+      [
+        "About",
+        "Customers",
+        "Careers",
+        "Blog",
+        "Method",
+        "Quality",
+        "Brand"
+      ],
+      [
+        "Switch",
+        "Download",
+        "DocumentationDocs",
+        "Developers",
+        "Status",
+        "Enterprise",
+        "Startups"
+      ]
+    ],
+    "images": []
+  },
+  "gradients": []
+}

@@ -1,0 +1,176 @@
+{
+  "capturedAt": "2026-05-05T11:58:29.025Z",
+  "pageStats": {
+    "elementsSampled": 2096
+  },
+  "colors": {
+    "palette": [
+      "#f7f8f8",
+      "#62666d",
+      "#d0d6e0",
+      "#8a8f98",
+      "#e2e4e7",
+      "#ffffff",
+      "#ffffff@0.05",
+      "#f79ce0",
+      "#f7bf8b",
+      "#ffffff@0.08",
+      "#ffdf9f",
+      "#83dcdc",
+      "#8fa6ff",
+      "#08090a",
+      "#5e6ad2",
+      "#23252a"
+    ],
+    "byCount": {
+      "#f7f8f8": 5293,
+      "#62666d": 1551,
+      "#d0d6e0": 804,
+      "#8a8f98": 658,
+      "#e2e4e7": 596,
+      "#ffffff": 535,
+      "#ffffff@0.05": 242,
+      "#f79ce0": 205,
+      "#f7bf8b": 110,
+      "#ffffff@0.08": 77,
+      "#ffdf9f": 50,
+      "#83dcdc": 45,
+      "#8fa6ff": 40,
+      "#08090a": 38,
+      "#5e6ad2": 30,
+      "#23252a": 18
+    },
+    "byRole": {
+      "text": {
+        "#f7f8f8": 1106,
+        "#62666d": 323,
+        "#d0d6e0": 172,
+        "#8a8f98": 134,
+        "#e2e4e7": 120,
+        "#ffffff": 107,
+        "#f79ce0": 41,
+        "#f7bf8b": 22
+      },
+      "background": {
+        "#08090a": 530,
+        "#ffffff@0.05": 38,
+        "#00ff05@0.10": 16,
+        "#0f1011": 6,
+        "#6366f1": 5,
+        "#f34e52@0.10": 4,
+        "#27a644@0.07": 4,
+        "#eb5757": 3
+      },
+      "border": {
+        "#f7f8f8": 4187,
+        "#62666d": 1228,
+        "#d0d6e0": 632,
+        "#8a8f98": 524,
+        "#e2e4e7": 476,
+        "#ffffff": 428,
+        "#ffffff@0.05": 204,
+        "#f79ce0": 164
+      }
+    },
+    "semantic": {
+      "bg": "#08090a",
+      "fg": "#f7f8f8",
+      "accent": "#5e6ad2"
+    }
+  },
+  "typography": {
+    "fontFamilies": [
+      "Inter Variable",
+      "Berkeley Mono"
+    ],
+    "scale": [
+      "10px",
+      "12px",
+      "13px",
+      "14px",
+      "15px",
+      "16px",
+      "24px",
+      "32px",
+      "48px",
+      "64px",
+      "72px"
+    ],
+    "weights": [
+      "400",
+      "510",
+      "590",
+      "300"
+    ],
+    "lineHeights": [
+      "15px",
+      "17px",
+      "18px",
+      "20px",
+      "21px",
+      "24px"
+    ]
+  },
+  "spacing": {
+    "paddings": [
+      "1px",
+      "2px",
+      "6px",
+      "8px",
+      "12px",
+      "16px",
+      "20px",
+      "24px",
+      "32px",
+      "96px",
+      "128px",
+      "156px",
+      "212px",
+      "385px"
+    ],
+    "gaps": [
+      "2px",
+      "3px",
+      "4px",
+      "6px",
+      "8px",
+      "12px",
+      "15px",
+      "16px"
+    ],
+    "margins": [
+      "-16px",
+      "-2px",
+      "1px",
+      "4px",
+      "5px",
+      "12px",
+      "19px",
+      "22px",
+      "24px",
+      "48px",
+      "375px",
+      "450px",
+      "578px",
+      "828px"
+    ]
+  },
+  "radii": [
+    "0px",
+    "2px",
+    "4px",
+    "6px",
+    "8px",
+    "12px",
+    "22px",
+    "9999px"
+  ],
+  "shadows": [
+    "rgba(0, 0, 0, 0.03) 0px 1.2px 0px 0px",
+    "rgba(0, 0, 0, 0.4) 0px 2px 4px 0px",
+    "rgba(0, 0, 0, 0.2) 0px 0px 12px 0px inset",
+    "rgb(35, 37, 42) 0px 0px 0px 1px inset",
+    "rgba(0, 0, 0, 0.2) 0px 0px 0px 1px",
+    "rgba(8, 9, 10, 0.6) 0px 4px 32px 0px"
+  ]
+}

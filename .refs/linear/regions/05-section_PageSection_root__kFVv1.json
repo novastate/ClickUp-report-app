@@ -1,0 +1,154 @@
+{
+  "index": 5,
+  "role": "section.PageSection_root__kFVv1",
+  "source": "main-section",
+  "tag": "section",
+  "id": null,
+  "classes": "PageSection_root__kFVv1 PageSection_rootHomepage__2x22W",
+  "marker": "[data-scry-region=\"5\"]",
+  "bbox": {
+    "x": 48,
+    "y": 6072,
+    "w": 1344,
+    "h": 1073
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1344px",
+    "height": "1072.72px",
+    "minHeight": "0px",
+    "padding": "96px 0px 128px",
+    "margin": "0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(247, 248, 248)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Review PRs and agent output\nUnderstand code changes at a glance with structural diffs for human and agent output. Review, discuss, and merge — all within Linear.\n4.0 Diffs →\nkinetic-ios/src/screens/Home/HomeScreen.tsx kinetic-ios/src/HomeSc",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_header__3JdVh",
+      "text": "Review PRs and agent output\nUnderstand code changes at a glance with structural "
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "PageSection_illustration__P1Yb9",
+      "text": "kinetic-ios/src/screens/Home/HomeScreen.tsx kinetic-ios/src/HomeScreen.tsx\nLinea"
+    }
+  ],
+  "imagePath": "regions/05-section_PageSection_root__kFVv1.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "Review PRs and agent output",
+        "fontSize": 48,
+        "source": "explicit",
+        "bbox": {
+          "x": 78,
+          "y": 136,
+          "w": 542,
+          "h": 96
+        }
+      },
+      {
+        "level": 3,
+        "text": "Understand code changes at a glance with structural diffs for human and agent output. Review, discuss, and merge — all within Linear.",
+        "fontSize": 24,
+        "source": "inferred",
+        "bbox": {
+          "x": 752,
+          "y": 136,
+          "w": 608,
+          "h": 96
+        }
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Understand code changes at a glance with structural diffs for human and agent output. Review, discuss, and merge — all within Linear.",
+        "fontSize": 24
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Linear",
+        "isPrimary": false,
+        "isPill": true,
+        "href": null,
+        "bbox": {
+          "x": 1276,
+          "y": 428,
+          "w": 83,
+          "h": 32
+        },
+        "shape": {
+          "padding": "0px 12px 0px 12px",
+          "fontSize": 13,
+          "fontWeight": 510,
+          "radius": 9999,
+          "minHeight": null,
+          "lineHeight": "32px"
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "4.0Diffs→",
+        "href": "/diffs"
+      }
+    ],
+    "lists": [],
+    "images": []
+  },
+  "gradients": [
+    {
+      "gradient": "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 100%)",
+      "bbox": {
+        "x": 267,
+        "y": -3348,
+        "w": 800,
+        "h": 320
+      },
+      "area": 256000
+    },
+    {
+      "gradient": "radial-gradient(50% 50%, rgb(255, 255, 255) 0px, rgba(255, 255, 255, 0) 90%)",
+      "bbox": {
+        "x": 336,
+        "y": -3417,
+        "w": 400,
+        "h": 400
+      },
+      "area": 160000
+    }
+  ]
+}

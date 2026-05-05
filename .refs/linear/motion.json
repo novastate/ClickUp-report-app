@@ -1,0 +1,838 @@
+{
+  "keyframes": [
+    {
+      "name": "grid-dot-0-0-upDown",
+      "cssText": "@keyframes grid-dot-0-0-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-1-upDown",
+      "cssText": "@keyframes grid-dot-0-1-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 1; }\n  42.8571% { opacity: 1; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 1; }\n  64.2857% { opacity: 1; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-2-upDown",
+      "cssText": "@keyframes grid-dot-0-2-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  42.8571% { opacity: 1; }\n  42.8571% { opacity: 1; }\n  50% { opacity: 1; }\n  50% { opacity: 1; }\n  57.1429% { opacity: 1; }\n  57.1429% { opacity: 1; }\n  64.2857% { opacity: 1; }\n  64.2857% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-3-upDown",
+      "cssText": "@keyframes grid-dot-0-3-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 1; }\n  42.8571% { opacity: 1; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 1; }\n  64.2857% { opacity: 1; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-4-upDown",
+      "cssText": "@keyframes grid-dot-0-4-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-1-0-upDown",
+      "cssText": "@keyframes grid-dot-1-0-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-1-1-upDown",
+      "cssText": "@keyframes grid-dot-1-1-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-1-2-upDown",
+      "cssText": "@keyframes grid-dot-1-2-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  42.8571% { opacity: 1; }\n  42.8571% { opacity: 1; }\n  50% { opacity: 1; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 1; }\n  64.2857% { opacity: 1; }\n  64.2857% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-1-3-upDown",
+      "cssText": "@keyframes grid-dot-1-3-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-1-4-upDown",
+      "cssText": "@keyframes grid-dot-1-4-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-2-0-upDown",
+      "cssText": "@keyframes grid-dot-2-0-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-2-1-upDown",
+      "cssText": "@keyframes grid-dot-2-1-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-2-2-upDown",
+      "cssText": "@keyframes grid-dot-2-2-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  42.8571% { opacity: 1; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  71.4286% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  92.8571% { opacity: 1; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-2-3-upDown",
+      "cssText": "@keyframes grid-dot-2-3-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-2-4-upDown",
+      "cssText": "@keyframes grid-dot-2-4-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-3-0-upDown",
+      "cssText": "@keyframes grid-dot-3-0-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-3-1-upDown",
+      "cssText": "@keyframes grid-dot-3-1-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-3-2-upDown",
+      "cssText": "@keyframes grid-dot-3-2-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 1; }\n  14.2857% { opacity: 1; }\n  14.2857% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  35.7143% { opacity: 1; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  78.5714% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  92.8571% { opacity: 1; }\n  92.8571% { opacity: 1; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "grid-dot-3-3-upDown",
+      "cssText": "@keyframes grid-dot-3-3-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-3-4-upDown",
+      "cssText": "@keyframes grid-dot-3-4-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-4-0-upDown",
+      "cssText": "@keyframes grid-dot-4-0-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-4-1-upDown",
+      "cssText": "@keyframes grid-dot-4-1-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 1; }\n  14.2857% { opacity: 1; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 1; }\n  92.8571% { opacity: 1; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-4-2-upDown",
+      "cssText": "@keyframes grid-dot-4-2-upDown { \n  0% { opacity: 1; }\n  7.14286% { opacity: 1; }\n  7.14286% { opacity: 1; }\n  14.2857% { opacity: 1; }\n  14.2857% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  21.4286% { opacity: 1; }\n  28.5714% { opacity: 1; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  85.7143% { opacity: 1; }\n  92.8571% { opacity: 1; }\n  92.8571% { opacity: 1; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "grid-dot-4-3-upDown",
+      "cssText": "@keyframes grid-dot-4-3-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 1; }\n  14.2857% { opacity: 1; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 1; }\n  92.8571% { opacity: 1; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-4-4-upDown",
+      "cssText": "@keyframes grid-dot-4-4-upDown { \n  0% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  7.14286% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  14.2857% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  21.4286% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  28.5714% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  35.7143% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  42.8571% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  57.1429% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  64.2857% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  71.4286% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  78.5714% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  85.7143% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  92.8571% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-0-pong",
+      "cssText": "@keyframes grid-dot-0-0-pong { \n  0% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 1; }\n  62.5% { opacity: 1; }\n  62.5% { opacity: 1; }\n  75% { opacity: 1; }\n  75% { opacity: 1; }\n  87.5% { opacity: 1; }\n  87.5% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-1-pong",
+      "cssText": "@keyframes grid-dot-0-1-pong { \n  0% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  87.5% { opacity: 0.3; }\n  87.5% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-2-pong",
+      "cssText": "@keyframes grid-dot-0-2-pong { \n  0% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  87.5% { opacity: 0.3; }\n  87.5% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-3-pong",
+      "cssText": "@keyframes grid-dot-0-3-pong { \n  0% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  75% { opacity: 1; }\n  87.5% { opacity: 1; }\n  87.5% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    },
+    {
+      "name": "grid-dot-0-4-pong",
+      "cssText": "@keyframes grid-dot-0-4-pong { \n  0% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  75% { opacity: 1; }\n  87.5% { opacity: 1; }\n  87.5% { opacity: 1; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "grid-dot-1-0-pong",
+      "cssText": "@keyframes grid-dot-1-0-pong { \n  0% { opacity: 1; }\n  12.5% { opacity: 1; }\n  12.5% { opacity: 1; }\n  25% { opacity: 1; }\n  25% { opacity: 1; }\n  37.5% { opacity: 1; }\n  37.5% { opacity: 1; }\n  50% { opacity: 1; }\n  50% { opacity: 1; }\n  62.5% { opacity: 1; }\n  62.5% { opacity: 1; }\n  75% { opacity: 1; }\n  75% { opacity: 1; }\n  87.5% { opacity: 1; }\n  87.5% { opacity: 1; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "grid-dot-1-1-pong",
+      "cssText": "@keyframes grid-dot-1-1-pong { \n  0% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  12.5% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  25% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  37.5% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  50% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  62.5% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  75% { opacity: 0.3; }\n  87.5% { opacity: 0.3; }\n  87.5% { opacity: 0.3; }\n  100% { opacity: 0.3; }\n}"
+    }
+  ],
+  "transitionRules": [
+    {
+      "selector": "[data-sonner-toaster]",
+      "value": "transform 0.4s"
+    },
+    {
+      "selector": "[data-sonner-toast]",
+      "value": "transform 0.4s, opacity 0.4s, height 0.4s, box-shadow 0.2s"
+    },
+    {
+      "selector": "[data-sonner-toast][data-styled=\"true\"] [data-button]",
+      "value": "opacity 0.4s, box-shadow 0.2s"
+    },
+    {
+      "selector": "[data-sonner-toast][data-styled=\"true\"] [data-close-button]",
+      "value": "opacity 0.1s, background 0.2s, border-color 0.2s"
+    },
+    {
+      "selector": "[data-sonner-toast] > *",
+      "value": "opacity 0.4s"
+    },
+    {
+      "selector": "[data-sonner-toast][data-removed=\"true\"][data-front=\"false\"][data-swipe-out=\"false\"][data-expanded=\"false\"]",
+      "value": "transform 0.5s, opacity 0.2s"
+    },
+    {
+      "selector": ".sonner-loader",
+      "value": "opacity 0.2s, transform 0.2s"
+    }
+  ],
+  "animationRules": [
+    {
+      "selector": ".grid-dot-0-0-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-0-0-upDown"
+    },
+    {
+      "selector": ".grid-dot-0-1-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-0-1-upDown"
+    },
+    {
+      "selector": ".grid-dot-0-2-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-0-2-upDown"
+    },
+    {
+      "selector": ".grid-dot-0-3-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-0-3-upDown"
+    },
+    {
+      "selector": ".grid-dot-0-4-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-0-4-upDown"
+    },
+    {
+      "selector": ".grid-dot-1-0-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-1-0-upDown"
+    },
+    {
+      "selector": ".grid-dot-1-1-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-1-1-upDown"
+    },
+    {
+      "selector": ".grid-dot-1-2-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-1-2-upDown"
+    },
+    {
+      "selector": ".grid-dot-1-3-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-1-3-upDown"
+    },
+    {
+      "selector": ".grid-dot-1-4-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-1-4-upDown"
+    },
+    {
+      "selector": ".grid-dot-2-0-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-2-0-upDown"
+    },
+    {
+      "selector": ".grid-dot-2-1-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-2-1-upDown"
+    },
+    {
+      "selector": ".grid-dot-2-2-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-2-2-upDown"
+    },
+    {
+      "selector": ".grid-dot-2-3-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-2-3-upDown"
+    },
+    {
+      "selector": ".grid-dot-2-4-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-2-4-upDown"
+    },
+    {
+      "selector": ".grid-dot-3-0-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-3-0-upDown"
+    },
+    {
+      "selector": ".grid-dot-3-1-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-3-1-upDown"
+    },
+    {
+      "selector": ".grid-dot-3-2-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-3-2-upDown"
+    },
+    {
+      "selector": ".grid-dot-3-3-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-3-3-upDown"
+    },
+    {
+      "selector": ".grid-dot-3-4-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-3-4-upDown"
+    },
+    {
+      "selector": ".grid-dot-4-0-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-4-0-upDown"
+    },
+    {
+      "selector": ".grid-dot-4-1-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-4-1-upDown"
+    },
+    {
+      "selector": ".grid-dot-4-2-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-4-2-upDown"
+    },
+    {
+      "selector": ".grid-dot-4-3-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-4-3-upDown"
+    },
+    {
+      "selector": ".grid-dot-4-4-upDown",
+      "value": "2800ms steps(1) 0s infinite normal none running grid-dot-4-4-upDown"
+    },
+    {
+      "selector": ".grid-dot-0-0-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-0-0-pong"
+    },
+    {
+      "selector": ".grid-dot-0-1-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-0-1-pong"
+    },
+    {
+      "selector": ".grid-dot-0-2-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-0-2-pong"
+    },
+    {
+      "selector": ".grid-dot-0-3-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-0-3-pong"
+    },
+    {
+      "selector": ".grid-dot-0-4-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-0-4-pong"
+    },
+    {
+      "selector": ".grid-dot-1-0-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-1-0-pong"
+    },
+    {
+      "selector": ".grid-dot-1-1-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-1-1-pong"
+    },
+    {
+      "selector": ".grid-dot-1-2-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-1-2-pong"
+    },
+    {
+      "selector": ".grid-dot-1-3-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-1-3-pong"
+    },
+    {
+      "selector": ".grid-dot-1-4-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-1-4-pong"
+    },
+    {
+      "selector": ".grid-dot-2-0-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-2-0-pong"
+    },
+    {
+      "selector": ".grid-dot-2-1-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-2-1-pong"
+    },
+    {
+      "selector": ".grid-dot-2-2-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-2-2-pong"
+    },
+    {
+      "selector": ".grid-dot-2-3-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-2-3-pong"
+    },
+    {
+      "selector": ".grid-dot-2-4-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-2-4-pong"
+    },
+    {
+      "selector": ".grid-dot-3-0-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-3-0-pong"
+    },
+    {
+      "selector": ".grid-dot-3-1-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-3-1-pong"
+    },
+    {
+      "selector": ".grid-dot-3-2-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-3-2-pong"
+    },
+    {
+      "selector": ".grid-dot-3-3-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-3-3-pong"
+    },
+    {
+      "selector": ".grid-dot-3-4-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-3-4-pong"
+    },
+    {
+      "selector": ".grid-dot-4-0-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-4-0-pong"
+    },
+    {
+      "selector": ".grid-dot-4-1-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-4-1-pong"
+    },
+    {
+      "selector": ".grid-dot-4-2-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-4-2-pong"
+    },
+    {
+      "selector": ".grid-dot-4-3-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-4-3-pong"
+    },
+    {
+      "selector": ".grid-dot-4-4-pong",
+      "value": "1600ms steps(1) 0s infinite normal none running grid-dot-4-4-pong"
+    },
+    {
+      "selector": ".grid-dot-0-0-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-0-0-agent"
+    },
+    {
+      "selector": ".grid-dot-0-1-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-0-1-agent"
+    },
+    {
+      "selector": ".grid-dot-0-2-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-0-2-agent"
+    },
+    {
+      "selector": ".grid-dot-0-3-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-0-3-agent"
+    },
+    {
+      "selector": ".grid-dot-0-4-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-0-4-agent"
+    },
+    {
+      "selector": ".grid-dot-1-0-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-1-0-agent"
+    },
+    {
+      "selector": ".grid-dot-1-1-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-1-1-agent"
+    },
+    {
+      "selector": ".grid-dot-1-2-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-1-2-agent"
+    },
+    {
+      "selector": ".grid-dot-1-3-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-1-3-agent"
+    },
+    {
+      "selector": ".grid-dot-1-4-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-1-4-agent"
+    },
+    {
+      "selector": ".grid-dot-2-0-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-2-0-agent"
+    },
+    {
+      "selector": ".grid-dot-2-1-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-2-1-agent"
+    },
+    {
+      "selector": ".grid-dot-2-2-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-2-2-agent"
+    },
+    {
+      "selector": ".grid-dot-2-3-agent",
+      "value": "3200ms steps(1) 0s infinite normal none running grid-dot-2-3-agent"
+    }
+  ],
+  "keyframeNames": [
+    "grid-dot-0-0-upDown",
+    "grid-dot-0-1-upDown",
+    "grid-dot-0-2-upDown",
+    "grid-dot-0-3-upDown",
+    "grid-dot-0-4-upDown",
+    "grid-dot-1-0-upDown",
+    "grid-dot-1-1-upDown",
+    "grid-dot-1-2-upDown",
+    "grid-dot-1-3-upDown",
+    "grid-dot-1-4-upDown",
+    "grid-dot-2-0-upDown",
+    "grid-dot-2-1-upDown",
+    "grid-dot-2-2-upDown",
+    "grid-dot-2-3-upDown",
+    "grid-dot-2-4-upDown",
+    "grid-dot-3-0-upDown",
+    "grid-dot-3-1-upDown",
+    "grid-dot-3-2-upDown",
+    "grid-dot-3-3-upDown",
+    "grid-dot-3-4-upDown",
+    "grid-dot-4-0-upDown",
+    "grid-dot-4-1-upDown",
+    "grid-dot-4-2-upDown",
+    "grid-dot-4-3-upDown",
+    "grid-dot-4-4-upDown",
+    "grid-dot-0-0-pong",
+    "grid-dot-0-1-pong",
+    "grid-dot-0-2-pong",
+    "grid-dot-0-3-pong",
+    "grid-dot-0-4-pong",
+    "grid-dot-1-0-pong",
+    "grid-dot-1-1-pong"
+  ],
+  "transitionStyles": [
+    {
+      "value": "fill 0.15s",
+      "count": 71
+    },
+    {
+      "value": "color 0.1s",
+      "count": 34
+    },
+    {
+      "value": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 7
+    },
+    {
+      "value": "transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 7
+    },
+    {
+      "value": "border 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 6
+    },
+    {
+      "value": "filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 5
+    },
+    {
+      "value": "filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 4
+    },
+    {
+      "value": "filter 0.1s",
+      "count": 4
+    },
+    {
+      "value": "background 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 1
+    },
+    {
+      "value": "color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 1
+    },
+    {
+      "value": "border-color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 1
+    },
+    {
+      "value": "filter 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "count": 1
+    }
+  ],
+  "animationStyles": [
+    {
+      "value": "1.75s cubic-bezier(0.66, 0, 0, 1) infinite Hero_pulse__v7JR0",
+      "count": 1
+    }
+  ],
+  "baseStates": {
+    "sonner-fade-in": {
+      "opacity": "0",
+      "transform": "scale(0.8)"
+    },
+    "sonner-spin": {
+      "position": "absolute",
+      "top": "-3.9%",
+      "left": "-10%",
+      "background": "var(--gray11)",
+      "width": "24%",
+      "height": "8%"
+    }
+  },
+  "stylesheetStats": {
+    "total": 19,
+    "sameOrigin": 2,
+    "crossOriginBlocked": 17,
+    "rulesRead": 813
+  },
+  "targetGeometry": {},
+  "targetWrappers": {
+    ".grid-dot-0-0-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-1-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-2-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-3-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-4-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-0-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-1-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-2-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-3-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-4-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-0-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-1-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-2-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-3-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-4-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-0-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-1-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-2-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-3-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-4-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-0-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-1-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-2-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-3-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-4-upDown": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-0-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-1-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-2-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-3-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-4-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-0-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-1-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-2-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-3-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-4-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-0-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-1-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-2-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-3-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-4-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-0-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-1-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-2-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-3-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-4-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-0-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-1-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-2-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-3-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-4-pong": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-0-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-1-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-2-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-3-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-0-4-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-0-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-1-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-2-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-3-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-1-4-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-0-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-1-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-2-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-3-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-2-4-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-0-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-1-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-2-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-3-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-3-4-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-0-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-1-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-2-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-3-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    },
+    ".grid-dot-4-4-agent": {
+      "overflow": "hidden",
+      "position": "absolute"
+    }
+  },
+  "scrollFrames": [],
+  "idleTrace": {
+    "durationMs": 6000,
+    "findings": []
+  }
+}

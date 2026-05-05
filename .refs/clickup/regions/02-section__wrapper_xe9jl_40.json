@@ -1,0 +1,208 @@
+{
+  "index": 2,
+  "role": "section._wrapper_xe9jl_40",
+  "source": "main-section",
+  "tag": "section",
+  "id": null,
+  "classes": "_wrapper_xe9jl_40 v4",
+  "marker": "[data-scry-region=\"2\"]",
+  "bbox": {
+    "x": 140,
+    "y": 8891,
+    "w": 1160,
+    "h": 1017
+  },
+  "styles": {
+    "display": "block",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "row",
+    "alignItems": "normal",
+    "justifyContent": "normal",
+    "gap": "normal",
+    "width": "1160px",
+    "height": "1017px",
+    "minHeight": "0px",
+    "padding": "80px 0px",
+    "margin": "0px 140px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(41, 45, 52)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(41, 45, 52)",
+    "fontFamily": "\"Plus Jakarta Sans\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Rated 4.7/5 by 10,000+ users on G2\n#1 most referenced company on G2 reports\nRead customer stories\nConvergence powerhouse\nPowering businesses of all sizes\n85%\nof Fortune 500 companies\n3M+\ntasks automated by Agents\nFortune 500 companies that ",
+  "childOutline": [
+    {
+      "tag": "div",
+      "id": null,
+      "class": "_wrapper_hggtp_44 ui _isImageLast_hggtp_110 _alignStretch_hggtp_85",
+      "text": "Rated 4.7/5 by 10,000+ users on G2\n#1 most referenced company on G2 reports\nRead"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "_wrapper_hggtp_44 ui _removeTopSpacing_hggtp_98",
+      "text": "Convergence powerhouse\nPowering businesses of all sizes\n85%\nof Fortune 500 compa"
+    }
+  ],
+  "imagePath": "regions/02-section__wrapper_xe9jl_40.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "#1 most referenced company on G2 reports",
+        "fontSize": 40,
+        "source": "explicit",
+        "bbox": {
+          "x": 228,
+          "y": 196,
+          "w": 444,
+          "h": 96
+        }
+      },
+      {
+        "level": 2,
+        "text": "Powering businesses of all sizes",
+        "fontSize": 40,
+        "source": "explicit",
+        "bbox": {
+          "x": 768,
+          "y": 635,
+          "w": 444,
+          "h": 96
+        }
+      },
+      {
+        "level": 2,
+        "text": "85%",
+        "fontSize": 34,
+        "source": "inferred",
+        "bbox": {
+          "x": 768,
+          "y": 851,
+          "w": 211,
+          "h": 40
+        }
+      },
+      {
+        "level": 2,
+        "text": "3M+",
+        "fontSize": 34,
+        "source": "inferred",
+        "bbox": {
+          "x": 995,
+          "y": 851,
+          "w": 217,
+          "h": 40
+        }
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "text": "Read customer stories",
+        "isPrimary": false,
+        "isPill": false,
+        "href": "/customers",
+        "bbox": {
+          "x": 228,
+          "y": 455,
+          "w": 205,
+          "h": 42
+        },
+        "shape": {
+          "padding": "10px 20px 10px 20px",
+          "fontSize": 16,
+          "fontWeight": 600,
+          "radius": 8,
+          "minHeight": null,
+          "lineHeight": "22px"
+        }
+      }
+    ],
+    "links": [],
+    "lists": [],
+    "images": [
+      {
+        "src": "https://cdn.web.clickup.com/assets/ui/v5/g2-badges/g2-best-software-2026-agentic-ai-products.webp",
+        "alt": "G2 Best Software 2026 Agentic AI Products award badge",
+        "bbox": {
+          "x": 682,
+          "y": 73,
+          "w": 82,
+          "h": 94
+        }
+      },
+      {
+        "src": "https://cdn.web.clickup.com/assets/ui/v5/g2-badges/g2-best-software-2026-ai-products.webp",
+        "alt": "G2 Best Software 2026 AI Products award badge",
+        "bbox": {
+          "x": 776,
+          "y": 73,
+          "w": 82,
+          "h": 94
+        }
+      },
+      {
+        "src": "https://cdn.web.clickup.com/assets/ui/v5/g2-badges/g2-best-software-2026-software.webp",
+        "alt": "G2 Best Software 2026 Software award badge",
+        "bbox": {
+          "x": 870,
+          "y": 73,
+          "w": 82,
+          "h": 94
+        }
+      },
+      {
+        "src": "https://cdn.web.clickup.com/assets/ui/v5/g2-badges/g2-best-software-2026-agentic-ai-products.webp",
+        "alt": "G2 Best Software 2026 Agentic AI Products award badge",
+        "bbox": {
+          "x": 964,
+          "y": 73,
+          "w": 82,
+          "h": 94
+        }
+      },
+      {
+        "src": "https://cdn.web.clickup.com/assets/ui/v5/g2-badges/g2-best-software-2026-ai-products.webp",
+        "alt": "G2 Best Software 2026 AI Products award badge",
+        "bbox": {
+          "x": 1058,
+          "y": 73,
+          "w": 82,
+          "h": 94
+        }
+      },
+      {
+        "src": "https://cdn.web.clickup.com/assets/ui/v5/g2-badges/g2-best-software-2026-software.webp",
+        "alt": "G2 Best Software 2026 Software award badge",
+        "bbox": {
+          "x": 1152,
+          "y": 73,
+          "w": 82,
+          "h": 94
+        }
+      }
+    ]
+  },
+  "gradients": []
+}

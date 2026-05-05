@@ -1,0 +1,131 @@
+{
+  "index": 8,
+  "role": "section.CTA_homepagePrefooter__FWdih",
+  "source": "main-section",
+  "tag": "section",
+  "id": null,
+  "classes": "CTA_homepagePrefooter__FWdih",
+  "marker": "[data-scry-region=\"8\"]",
+  "bbox": {
+    "x": 48,
+    "y": 9865,
+    "w": 1344,
+    "h": 228
+  },
+  "styles": {
+    "display": "flex",
+    "position": "static",
+    "boxSizing": "border-box",
+    "flexDirection": "column",
+    "alignItems": "center",
+    "justifyContent": "center",
+    "gap": "40px",
+    "width": "1344px",
+    "height": "228px",
+    "minHeight": "0px",
+    "padding": "0px",
+    "margin": "224px 0px",
+    "borderRadius": "0px",
+    "borderColor": "rgb(247, 248, 248)",
+    "borderWidth": "0px",
+    "borderStyle": "none",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "24px",
+    "letterSpacing": "normal",
+    "textTransform": "none",
+    "textAlign": "start",
+    "boxShadow": "none",
+    "opacity": "1",
+    "transform": "none",
+    "overflow": "visible",
+    "zIndex": "auto",
+    "transition": "all",
+    "animation": "none"
+  },
+  "motion": null,
+  "textPreview": "Built for the future. Available today.\nGet started\nContact sales\nOpen app Download",
+  "childOutline": [
+    {
+      "tag": "h2",
+      "id": null,
+      "class": "sc-d5151d0-0 cvEOJe CTA_heading__8iGL9",
+      "text": "Built for the future. Available today."
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "class": "Flex_root__DOQCW",
+      "text": "Get started\nContact sales\nOpen app Download"
+    }
+  ],
+  "imagePath": "regions/08-section_CTA_homepagePrefooter__F.png",
+  "content": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "Built for the future. Available today.",
+        "fontSize": 72,
+        "source": "explicit",
+        "bbox": {
+          "x": 359,
+          "y": 40,
+          "w": 722,
+          "h": 144
+        }
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "text": "Get started",
+        "isPrimary": false,
+        "isPill": true,
+        "href": "/signup",
+        "bbox": {
+          "x": 579,
+          "y": 224,
+          "w": 127,
+          "h": 44
+        },
+        "shape": {
+          "padding": "0px 20px 0px 20px",
+          "fontSize": 16,
+          "fontWeight": 510,
+          "radius": 9999,
+          "minHeight": null,
+          "lineHeight": "44px"
+        }
+      },
+      {
+        "text": "Contact sales",
+        "isPrimary": false,
+        "isPill": true,
+        "href": "/contact/sales",
+        "bbox": {
+          "x": 718,
+          "y": 224,
+          "w": 144,
+          "h": 44
+        },
+        "shape": {
+          "padding": "0px 20px 0px 20px",
+          "fontSize": 16,
+          "fontWeight": 510,
+          "radius": 9999,
+          "minHeight": null,
+          "lineHeight": "44px"
+        }
+      }
+    ],
+    "links": [],
+    "lists": [],
+    "images": []
+  },
+  "gradients": []
+}
