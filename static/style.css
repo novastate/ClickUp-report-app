@@ -893,3 +893,22 @@ nav a:first-child {
     gap: 10px;
   }
 }
+
+/* --- Danger zone (Settings) ------------------------------------------- */
+.danger-zone {
+  margin-top: 32px;
+  padding: 20px;
+  border-top: 1px solid #fed7d7;
+  background: #fff5f5;
+}
+.danger-zone h4 {
+  margin: 0 0 8px 0;
+  color: #c53030;
+  font-size: 15px;
+}
+.danger-zone p {
+  margin: 0 0 12px 0;
+  color: #4a5568;
+  font-size: 13px;
+  line-height: 1.5;
+}

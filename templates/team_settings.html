@@ -99,12 +99,16 @@
         {% else %}
         <a href="/" class="btn btn-secondary">Cancel</a>
         {% endif %}
-        {% if team %}
-        <button type="button" class="btn btn-danger" id="delete-btn" style="margin-left:auto;"
-                onclick="deleteTeam({{ team.id }})">Delete Team</button>
-        {% endif %}
       </div>
     </form>
+
+    {% if team %}
+    <div class="danger-zone">
+      <h4>Danger zone</h4>
+      <p>Deleting this team removes all sprint history, snapshots, and scope changes. This cannot be undone.</p>
+      <button type="button" class="btn btn-danger" id="delete-btn" onclick="deleteTeam({{ team.id }})">Delete Team</button>
+    </div>
+    {% endif %}
   </div>
 </div>
 
