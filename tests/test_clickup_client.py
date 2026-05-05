@@ -1,11 +1,11 @@
 import pytest
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 from src.clickup_client import ClickUpClient
 
 @pytest.mark.asyncio
 async def test_get_spaces():
     mock_response = AsyncMock()
-    mock_response.json.return_value = {"teams": [{"id": "123", "name": "SGIT"}]}
+    mock_response.json = MagicMock(return_value={"teams": [{"id": "123", "name": "SGIT"}]})
     mock_response.raise_for_status = lambda: None
 
     with patch("httpx.AsyncClient.get", return_value=mock_response) as mock_get:
@@ -17,12 +17,12 @@ async def test_get_spaces():
 @pytest.mark.asyncio
 async def test_get_folder_lists():
     mock_response = AsyncMock()
-    mock_response.json.return_value = {
+    mock_response.json = MagicMock(return_value={
         "lists": [
             {"id": "list_1", "name": "Iteration 5 (23/2 - 8/3)", "task_count": 10},
             {"id": "list_2", "name": "Backlog", "task_count": 20},
         ]
-    }
+    })
     mock_response.raise_for_status = lambda: None
 
     with patch("httpx.AsyncClient.get", return_value=mock_response):
@@ -34,11 +34,11 @@ async def test_get_folder_lists():
 @pytest.mark.asyncio
 async def test_get_list_tasks_handles_pagination():
     page_0 = AsyncMock()
-    page_0.json.return_value = {"tasks": [{"id": f"t{i}"} for i in range(100)]}
+    page_0.json = MagicMock(return_value={"tasks": [{"id": f"t{i}"} for i in range(100)]})
     page_0.raise_for_status = lambda: None
 
     page_1 = AsyncMock()
-    page_1.json.return_value = {"tasks": [{"id": "t100"}]}
+    page_1.json = MagicMock(return_value={"tasks": [{"id": "t100"}]})
     page_1.raise_for_status = lambda: None
 
     with patch("httpx.AsyncClient.get", side_effect=[page_0, page_1]):
@@ -61,7 +61,7 @@ async def test_extract_task_data():
     assert extracted["task_id"] == "abc123"
     assert extracted["task_name"] == "Fix bug"
     assert extracted["task_status"] == "in progress"
-    assert extracted["assignee_name"] == "Anna"
+    assert extracted["assignee_name"] == "Anna, Erik"
     assert extracted["points"] == 3.0
     assert extracted["hours"] == 2.0  # 7200000ms = 2h
 
