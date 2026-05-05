@@ -31,6 +31,13 @@ async def lifespan(app: FastAPI):
     if AUTH_BYPASS:
         log.warning("AUTH_BYPASS is ON — every request is treated as 'Dev (bypass)' user. NEVER deploy to production with this on.")
     init_db(DB_PATH)
+    if AUTH_BYPASS:
+        # The synthetic dev user must exist in the users table so foreign keys
+        # (e.g., user_favorites.user_id) hold. Idempotent; safe across restarts.
+        from src.auth.users import upsert_user
+        upsert_user(id="dev_bypass", email="dev@localhost",
+                    username="Dev (bypass)", color="#888888",
+                    profile_picture=None)
     if _should_catch_up_snapshot():
         log.info("Last snapshot run was >24h ago (or never); firing catch-up job")
         # Hold task ref on app.state so Python's GC doesn't collect it mid-run.
