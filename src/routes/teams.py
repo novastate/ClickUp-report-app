@@ -83,3 +83,21 @@ async def sync_sprints(team_id: int, request: Request,
         sprint = create_sprint_from_list(team["id"], lst["id"], lst["name"])
         synced.append(sprint)
     return {"synced": len(synced), "sprints": synced}
+
+
+@router.post("/{team_id}/favorite")
+def toggle_team_favorite(team_id: int, request: Request,
+                         user=Depends(get_current_user)):
+    """Toggle the current user's favorite status on this team.
+    Returns {"favorited": bool}. 404 if the team is missing or not in the
+    user's active workspace."""
+    team = team_service.get_team(team_id)
+    if not team:
+        raise HTTPException(404, "Team not found")
+    active_ws = request.state.active_workspace_id
+    # Workspace check: avoid leaking team existence across workspaces.
+    if active_ws and team.get("workspace_id") and team["workspace_id"] != active_ws:
+        raise HTTPException(404, "Team not found")
+    from src.services.favorites_service import toggle_favorite
+    favorited = toggle_favorite(user["id"], team_id)
+    return {"favorited": favorited}
