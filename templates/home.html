@@ -2,7 +2,7 @@
 {% block title %}Sprint Reporter — Home{% endblock %}
 {% block content %}
 
-{% if product_areas %}
+{% if areas %}
 <div class="home-wrap">
 <section class="workspace-banner">
   <div class="banner-stat"><strong>{{ workspace.total_areas }}</strong> product area{{ 's' if workspace.total_areas != 1 else '' }}</div>
@@ -12,53 +12,37 @@
   <div class="banner-stat banner-meta">last activity: {{ workspace.last_activity }}</div>
 </section>
 
-{% for pa in product_areas %}
-<section class="product-area">
-  <header class="pa-header">
-    <h2 class="pa-title">{{ pa.space_name }}</h2>
-    <span class="pa-badge">{{ pa.teams | length }} team{{ 's' if pa.teams|length != 1 else '' }}</span>
-    <div class="pa-stats">
-      <span class="pa-stat">active: <strong>{{ pa.stats.active_sprints }}</strong></span>
-      <span class="pa-stat">closed: <strong>{{ pa.stats.closed_sprints }}</strong></span>
-      <span class="pa-stat">avg velocity: <strong>{{ pa.stats.avg_velocity }}</strong></span>
-      <span class="pa-stat">avg completion: <strong>{{ (pa.stats.avg_completion * 100) | round | int }}%</strong></span>
-    </div>
-  </header>
+<div class="team-grid">
+  {% for area in areas %}
+    {% if area.space_id %}
+    <a href="/areas/{{ area.space_id }}" class="area-card">
+    {% else %}
+    <div class="area-card area-card--unassigned">
+    {% endif %}
+      <div class="area-card-header">
+        <h2 class="area-card-title">{{ area.space_name }}</h2>
+        <span class="area-card-badge">{{ area.team_count }} team{{ 's' if area.team_count != 1 else '' }}</span>
+      </div>
 
-  <div class="team-grid">
-    {% for team in pa.teams %}
-    <article class="team-card">
-      <h3 class="team-card-title">{{ team.name }}</h3>
-
-      {% if team.active_sprint %}
-      <p class="team-card-status">
-        <span class="badge-active">ACTIVE</span>
-        <a href="/sprint/{{ team.active_sprint.id }}">{{ team.active_sprint.name | display_name }}</a>
-      </p>
-      {% elif team.last_closed %}
-      <p class="team-card-status">
-        Last sprint: <strong>{{ team.last_closed.name | display_name }}</strong>
-        · {{ (team.last_closed.completion * 100) | round | int }}%
-        · <span class="text-muted">{{ team.last_closed.ago }}</span>
-      </p>
-      {% else %}
-      <p class="team-card-status text-muted">No sprints yet</p>
-      {% endif %}
+      <div class="area-card-stats">
+        <span class="area-card-stat"><strong>{{ area.stats.active_sprints }}</strong> active</span>
+        <span class="area-card-stat"><strong>{{ area.stats.closed_sprints }}</strong> closed</span>
+        <span class="area-card-stat"><strong>{{ area.stats.avg_velocity }}</strong> avg velocity</span>
+        <span class="area-card-stat"><strong>{{ (area.stats.avg_completion * 100) | round | int }}%</strong> avg completion</span>
+      </div>
 
       <div class="sparkline-wrap">
-        <canvas class="sparkline" data-points="{{ team.velocity_sparkline | tojson }}"></canvas>
+        <canvas class="sparkline" data-points="{{ area.completion_sparkline | tojson }}"></canvas>
       </div>
 
-      <div class="team-card-actions">
-        <a class="btn btn-secondary" href="/teams/{{ team.id }}/sprints">Sprint History</a>
-        <a class="btn btn-secondary" href="/teams/{{ team.id }}/trends">Trends</a>
-        <a class="btn btn-secondary" href="/teams/{{ team.id }}/settings">Settings</a>
-      </div>
-    </article>
-    {% endfor %}
-  </div>
-</section>
-{% endfor %}
+      <div class="area-card-meta">last activity: {{ area.last_activity }}</div>
+    {% if area.space_id %}
+    </a>
+    {% else %}
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
 </div>
 
 {% else %}
