@@ -1,4 +1,5 @@
 import uvicorn
+import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -11,16 +12,22 @@ from src.config import DAILY_SNAPSHOT_TIME, get_clickup_api_key
 from src.services.snapshot_service import detect_scope_changes, record_daily_progress
 from src.clickup_client import ClickUpClient
 from src.database import get_connection
+from src.logging_config import configure_logging
 import asyncio
+
+log = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # startup
+    configure_logging()
+    log.info("App startup")
     init_db(DB_PATH)
     scheduler.start()
     yield
     # shutdown
+    log.info("App shutdown")
     scheduler.shutdown()
 
 
