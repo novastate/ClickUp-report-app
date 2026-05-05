@@ -218,3 +218,23 @@ def test_workspace_post_sets_active_and_redirects(app):
     assert r.status_code == 302
     assert r.headers["location"] == "/"
     assert get_session(sid)["active_workspace_id"] == "ws_chosen"
+
+
+def test_logout_deletes_session_and_clears_cookie(app):
+    from src.auth.users import upsert_user
+    from src.auth.sessions import create_session, get_session
+    upsert_user(id="u1", email="a@x.se", username="anna",
+                color=None, profile_picture=None)
+    sid = create_session(user_id="u1", active_workspace_id=None)
+
+    client = TestClient(app)
+    client.cookies.set("sprint_reporter_session", sid)
+    r = client.post("/auth/logout", follow_redirects=False)
+    assert r.status_code == 302
+    assert r.headers["location"] == "/auth/login"
+    # Session row gone
+    assert get_session(sid) is None
+    # Cookie was cleared (max-age=0 or similar)
+    cookie_header = r.headers.get("set-cookie", "")
+    assert "sprint_reporter_session" in cookie_header
+    assert "Max-Age=0" in cookie_header or "max-age=0" in cookie_header.lower()

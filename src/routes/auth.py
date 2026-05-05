@@ -10,7 +10,7 @@ from src.auth.oauth import (
     fetch_user,
     fetch_workspaces,
 )
-from src.auth.sessions import create_session, set_active_workspace
+from src.auth.sessions import create_session, delete_session, set_active_workspace
 from src.auth.state import create_state, consume_state
 from src.auth.users import get_user_token, save_user_token, upsert_user
 from src.config import COOKIE_SECURE
@@ -107,3 +107,15 @@ def workspace_post(request: Request, workspace_id: str = Form(...),
     set_active_workspace(request.state.session_id, workspace_id)
     log.info("User %s selected workspace %s", user["id"], workspace_id)
     return RedirectResponse("/", status_code=302)
+
+
+@router.post("/logout")
+def logout(request: Request):
+    """Delete the session row, clear the cookie, redirect to login."""
+    sid = request.cookies.get(COOKIE_NAME)
+    if sid:
+        delete_session(sid)
+        log.info("Logged out session=%s", sid[:8])
+    response = RedirectResponse("/auth/login", status_code=302)
+    response.delete_cookie(key=COOKIE_NAME)
+    return response
