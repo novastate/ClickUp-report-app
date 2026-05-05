@@ -20,6 +20,11 @@ CLICKUP_SERVICE_API_KEY = os.getenv("CLICKUP_SERVICE_API_KEY", "")
 # Cookie security: must be False for local HTTP dev, True everywhere else.
 COOKIE_SECURE = os.getenv("COOKIE_SECURE", "true").lower() != "false"
 
+# DEV ONLY: skip OAuth entirely. Every request is treated as a synthetic
+# "Dev (bypass)" user with the system API key. NEVER set true in production.
+AUTH_BYPASS = os.getenv("AUTH_BYPASS", "false").lower() == "true"
+AUTH_BYPASS_WORKSPACE_ID = os.getenv("CLICKUP_WORKSPACE_ID", "")
+
 
 def get_service_api_key() -> str:
     """Service-account key for the daily snapshot job (impersonal cron).

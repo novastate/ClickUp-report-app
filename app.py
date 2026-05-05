@@ -27,6 +27,9 @@ async def lifespan(app: FastAPI):
     # startup
     configure_logging()
     log.info("App startup")
+    from src.config import AUTH_BYPASS
+    if AUTH_BYPASS:
+        log.warning("AUTH_BYPASS is ON — every request is treated as 'Dev (bypass)' user. NEVER deploy to production with this on.")
     init_db(DB_PATH)
     if _should_catch_up_snapshot():
         log.info("Last snapshot run was >24h ago (or never); firing catch-up job")

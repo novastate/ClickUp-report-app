@@ -12,10 +12,19 @@ import logging
 from fastapi import Request, HTTPException
 from src.auth.sessions import get_session, roll_session
 from src.auth.users import get_user, get_user_token
-from src.clickup_client import get_user_client
+from src.clickup_client import get_user_client, get_system_client
+from src.config import AUTH_BYPASS, AUTH_BYPASS_WORKSPACE_ID
 
 log = logging.getLogger(__name__)
 COOKIE_NAME = "sprint_reporter_session"
+
+_BYPASS_USER = {
+    "id": "dev_bypass",
+    "email": "dev@localhost",
+    "username": "Dev (bypass)",
+    "color": "#888888",
+    "profile_picture": None,
+}
 
 
 def get_current_user(request: Request) -> dict:
@@ -28,7 +37,17 @@ def get_current_user(request: Request) -> dict:
       request.state.user_client           — ClickUpClient with the user's OAuth token
 
     Raises HTTPException(401) on missing/expired/broken session.
+
+    If AUTH_BYPASS is on, short-circuits and returns the synthetic dev user
+    with the system API key as the client. Loud warning logged at startup.
     """
+    if AUTH_BYPASS:
+        request.state.user = _BYPASS_USER
+        request.state.session_id = None
+        request.state.active_workspace_id = AUTH_BYPASS_WORKSPACE_ID or None
+        request.state.user_client = get_system_client()
+        return _BYPASS_USER
+
     session_id = request.cookies.get(COOKIE_NAME)
     if not session_id:
         raise HTTPException(status_code=401, detail="not_authenticated")

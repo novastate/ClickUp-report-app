@@ -13,7 +13,7 @@ from src.auth.oauth import (
 from src.auth.sessions import create_session, delete_session, set_active_workspace
 from src.auth.state import create_state, consume_state
 from src.auth.users import get_user_token, save_user_token, upsert_user
-from src.config import COOKIE_SECURE
+from src.config import AUTH_BYPASS, COOKIE_SECURE
 
 log = logging.getLogger(__name__)
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -25,7 +25,10 @@ COOKIE_MAX_AGE = 30 * 24 * 60 * 60  # 30 days
 
 @router.get("/login")
 def login(request: Request):
-    """Redirect to ClickUp's authorization page with a fresh state."""
+    """Redirect to ClickUp's authorization page with a fresh state.
+    When AUTH_BYPASS is on, just bounce to / since the dev user is already authenticated."""
+    if AUTH_BYPASS:
+        return RedirectResponse("/", status_code=302)
     state = create_state()
     url = build_authorize_url(state=state)
     log.info("Redirecting to ClickUp authorize")
