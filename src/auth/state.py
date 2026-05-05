@@ -30,21 +30,23 @@ def create_state() -> str:
 
 
 def consume_state(state: str) -> bool:
-    """Look up state. If found and within TTL: delete and return True.
-    If missing or expired: return False (don't delete to keep evidence)."""
+    """Atomically delete state if found and within TTL; return True only for the winner.
+
+    Atomic single-statement DELETE prevents two concurrent /auth/callback requests
+    with the same state from both succeeding (would break one-shot semantics).
+    Stale or unknown rows are not deleted by this call (rowcount==0 for expired
+    rows means the WHERE didn't match) — they get cleaned up later by
+    cleanup_old_states()."""
     cutoff = (_now() - STATE_TTL).isoformat()
     conn = get_connection(DB_PATH)
-    row = conn.execute(
-        "SELECT state FROM oauth_state WHERE state = ? AND created_at > ?",
+    cur = conn.execute(
+        "DELETE FROM oauth_state WHERE state = ? AND created_at > ?",
         (state, cutoff),
-    ).fetchone()
-    if not row:
-        conn.close()
-        return False
-    conn.execute("DELETE FROM oauth_state WHERE state = ?", (state,))
+    )
     conn.commit()
+    deleted = cur.rowcount
     conn.close()
-    return True
+    return deleted == 1
 
 
 def cleanup_old_states() -> None:
