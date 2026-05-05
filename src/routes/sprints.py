@@ -1,27 +1,25 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request, Depends
 from src.services.sprint_service import get_sprint, close_forecast as do_close_forecast, close_sprint as do_close_sprint, get_sprint_status, get_sprint_capacity, set_sprint_capacity
 from pydantic import BaseModel
 from src.services.snapshot_service import save_forecast_snapshot, record_daily_progress, detect_scope_changes, get_scope_changes, get_forecast_snapshot, get_daily_progress_history, save_final_snapshot
 from src.services.trend_service import get_sprint_summary
 from src.services.team_service import get_team
-from src.clickup_client import ClickUpClient
-from src.config import get_clickup_api_key
+from src.auth.middleware import get_current_user
 
 router = APIRouter(prefix="/sprints", tags=["sprints"])
 
-async def _fetch_tasks(sprint: dict):
-    """Fetch tasks for a sprint, including linked tasks via locations."""
+async def _fetch_tasks(sprint: dict, client):
+    """Fetch tasks for a sprint using a caller-provided client."""
     team = get_team(sprint["team_id"])
-    client = ClickUpClient(get_clickup_api_key())
     raw_tasks = await client.get_list_tasks(
         sprint["clickup_list_id"],
         space_id=team["clickup_space_id"],
         workspace_id=team.get("clickup_workspace_id"),
     )
-    return client, raw_tasks
+    return raw_tasks
 
 @router.get("/{sprint_id}")
-def sprint_detail(sprint_id: int):
+def sprint_detail(sprint_id: int, user=Depends(get_current_user)):
     sprint = get_sprint(sprint_id)
     if not sprint:
         raise HTTPException(404, "Sprint not found")
@@ -33,13 +31,15 @@ def sprint_detail(sprint_id: int):
     return sprint
 
 @router.post("/{sprint_id}/close-forecast")
-async def close_forecast_route(sprint_id: int):
+async def close_forecast_route(sprint_id: int, request: Request,
+                               user=Depends(get_current_user)):
     sprint = get_sprint(sprint_id)
     if not sprint:
         raise HTTPException(404, "Sprint not found")
     if sprint.get("forecast_closed_at"):
         raise HTTPException(400, "Forecast already closed")
-    client, raw_tasks = await _fetch_tasks(sprint)
+    client = request.state.user_client
+    raw_tasks = await _fetch_tasks(sprint, client)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
     save_forecast_snapshot(sprint_id, tasks)
     # Detect carry-overs from previous sprint
@@ -75,10 +75,12 @@ async def close_forecast_route(sprint_id: int):
     return {"sprint": updated, "tasks_captured": len(tasks)}
 
 @router.post("/{sprint_id}/close")
-async def close_sprint_route(sprint_id: int):
-    await refresh_route(sprint_id)
+async def close_sprint_route(sprint_id: int, request: Request,
+                             user=Depends(get_current_user)):
+    await refresh_route(sprint_id, request, user)
     sprint = get_sprint(sprint_id)
-    client, raw_tasks = await _fetch_tasks(sprint)
+    client = request.state.user_client
+    raw_tasks = await _fetch_tasks(sprint, client)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
     # Save final snapshot with current task states
     save_final_snapshot(sprint_id, tasks)
@@ -94,7 +96,8 @@ async def close_sprint_route(sprint_id: int):
     return updated
 
 @router.post("/{sprint_id}/refresh")
-async def refresh_route(sprint_id: int):
+async def refresh_route(sprint_id: int, request: Request,
+                        user=Depends(get_current_user)):
     sprint = get_sprint(sprint_id)
     if not sprint:
         raise HTTPException(404, "Sprint not found")
@@ -102,7 +105,8 @@ async def refresh_route(sprint_id: int):
         raise HTTPException(400, "Forecast not yet closed")
     if sprint.get("closed_at"):
         raise HTTPException(400, "Sprint is closed")
-    client, raw_tasks = await _fetch_tasks(sprint)
+    client = request.state.user_client
+    raw_tasks = await _fetch_tasks(sprint, client)
     tasks = [client.extract_task_data(t) for t in raw_tasks]
     new_changes = detect_scope_changes(sprint_id, tasks, sprint_start_date=sprint.get("start_date"))
     completed = sum(1 for t in tasks if t["task_status"] in ("complete", "closed"))
@@ -114,7 +118,8 @@ async def refresh_route(sprint_id: int):
     return {"tasks": len(tasks), "completed": completed, "new_scope_changes": len(new_changes)}
 
 @router.get("/{sprint_id}/tasks")
-async def sprint_tasks(sprint_id: int, filter: str = None):
+async def sprint_tasks(sprint_id: int, request: Request, filter: str = None,
+                       user=Depends(get_current_user)):
     sprint = get_sprint(sprint_id)
     if not sprint:
         raise HTTPException(404, "Sprint not found")
@@ -131,7 +136,8 @@ async def sprint_tasks(sprint_id: int, filter: str = None):
             if c["change_type"] == "added":
                 tasks.append({**c, "scope_change": "added", "points": None, "hours": None})
     else:
-        client, raw_tasks = await _fetch_tasks(sprint)
+        client = request.state.user_client
+        raw_tasks = await _fetch_tasks(sprint, client)
         snapshot_ids = {t["task_id"] for t in get_forecast_snapshot(sprint_id)} if sprint.get("forecast_closed_at") else set()
         tasks = []
         for t in raw_tasks:
@@ -151,11 +157,12 @@ class CapacityEntry(BaseModel):
     capacity: float
 
 @router.get("/{sprint_id}/capacity")
-def get_capacity(sprint_id: int):
+def get_capacity(sprint_id: int, user=Depends(get_current_user)):
     return get_sprint_capacity(sprint_id)
 
 @router.post("/{sprint_id}/capacity")
-def save_capacity(sprint_id: int, entries: list[CapacityEntry]):
+def save_capacity(sprint_id: int, entries: list[CapacityEntry],
+                  user=Depends(get_current_user)):
     sprint = get_sprint(sprint_id)
     if not sprint:
         raise HTTPException(404, "Sprint not found")
