@@ -6,15 +6,18 @@ def _db_path() -> str:
 
 def create_team(name: str, workspace_id: str, space_id: str, folder_id: str,
                 metric_type: str = "task_count", capacity_mode: str = "individual",
-                sprint_length_days: int = 14, workspace_id_new: str | None = None) -> dict:
+                sprint_length_days: int = 14, workspace_id_new: str | None = None,
+                space_name: str | None = None) -> dict:
     """Create a team. `workspace_id` (positional) is the ClickUp workspace_id (legacy
     `clickup_workspace_id` column). `workspace_id_new` (kw-only optional) is the new
-    `workspace_id` column added by Task 1; equals the same ClickUp workspace_id but
-    stored separately to enable workspace scoping in OAuth flows."""
+    `workspace_id` column added by Task 1 of OAuth init; equals the same ClickUp
+    workspace_id but stored separately to enable workspace scoping in OAuth flows.
+    `space_name` is the human-readable ClickUp Space name (= Product Area), captured
+    at registration time so the home page doesn't have to hit ClickUp on every render."""
     conn = get_connection(_db_path())
     cursor = conn.execute(
-        "INSERT INTO teams (name, clickup_workspace_id, clickup_space_id, clickup_folder_id, metric_type, capacity_mode, sprint_length_days, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        (name, workspace_id, space_id, folder_id, metric_type, capacity_mode, sprint_length_days, workspace_id_new),
+        "INSERT INTO teams (name, clickup_workspace_id, clickup_space_id, clickup_folder_id, metric_type, capacity_mode, sprint_length_days, workspace_id, space_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (name, workspace_id, space_id, folder_id, metric_type, capacity_mode, sprint_length_days, workspace_id_new, space_name),
     )
     conn.commit()
     team_id = cursor.lastrowid

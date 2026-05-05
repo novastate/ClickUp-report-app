@@ -19,6 +19,7 @@ def create_team(body: TeamCreate, request: Request,
         body.name, body.clickup_workspace_id, body.clickup_space_id,
         body.clickup_folder_id, body.metric_type, body.capacity_mode,
         body.sprint_length_days, workspace_id_new=workspace_id,
+        space_name=body.space_name,
     )
     if body.members:
         team_service.set_team_members(team["id"], [m.model_dump() for m in body.members])

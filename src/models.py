@@ -14,6 +14,7 @@ class TeamCreate(BaseModel):
     metric_type: str = "task_count"
     capacity_mode: str = "individual"
     sprint_length_days: int = 14
+    space_name: str | None = None
     members: list[TeamMember] = []
 
 class TeamUpdate(BaseModel):
