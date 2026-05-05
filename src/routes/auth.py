@@ -1,17 +1,18 @@
 """Auth routes: login, callback, workspace picker, logout."""
 import logging
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
+from src.auth.middleware import get_current_user
 from src.auth.oauth import (
     build_authorize_url,
     exchange_code,
     fetch_user,
     fetch_workspaces,
 )
-from src.auth.sessions import create_session
+from src.auth.sessions import create_session, set_active_workspace
 from src.auth.state import create_state, consume_state
-from src.auth.users import upsert_user, save_user_token
+from src.auth.users import get_user_token, save_user_token, upsert_user
 from src.config import COOKIE_SECURE
 
 log = logging.getLogger(__name__)
@@ -86,3 +87,23 @@ async def callback(request: Request, code: str | None = None,
         samesite="lax", secure=COOKIE_SECURE,
     )
     return response
+
+
+@router.get("/workspace", response_class=HTMLResponse)
+async def workspace_get(request: Request, user=Depends(get_current_user)):
+    """Show the workspace picker. Fetches workspaces fresh from ClickUp."""
+    token = get_user_token(user["id"])
+    workspaces = await fetch_workspaces(token)
+    return templates.TemplateResponse(
+        "auth/workspace.html",
+        {"request": request, "workspaces": workspaces, "user": user},
+    )
+
+
+@router.post("/workspace")
+def workspace_post(request: Request, workspace_id: str = Form(...),
+                   user=Depends(get_current_user)):
+    """Save the selected workspace on the session."""
+    set_active_workspace(request.state.session_id, workspace_id)
+    log.info("User %s selected workspace %s", user["id"], workspace_id)
+    return RedirectResponse("/", status_code=302)

@@ -171,3 +171,50 @@ def test_callback_state_is_one_shot(app):
     r2 = client2.get(f"/auth/callback?code=the_code&state={state}",
                      follow_redirects=False)
     assert r2.status_code == 400
+
+
+def test_workspace_get_unauthenticated_returns_401(app):
+    client = TestClient(app)
+    r = client.get("/auth/workspace", follow_redirects=False)
+    assert r.status_code == 401
+
+
+def test_workspace_get_lists_workspaces(app):
+    """The picker fetches the user's workspaces fresh via their token."""
+    from src.auth.users import upsert_user, save_user_token
+    from src.auth.sessions import create_session
+    upsert_user(id="u1", email="a@x.se", username="anna",
+                color=None, profile_picture=None)
+    save_user_token(user_id="u1", access_token="oauth_xyz", scopes=None)
+    sid = create_session(user_id="u1", active_workspace_id=None)
+
+    with patch("httpx.AsyncClient.get",
+               return_value=_mock_workspaces_response([
+                   {"id": "ws1", "name": "Acme"},
+                   {"id": "ws2", "name": "Side"},
+               ])):
+        client = TestClient(app)
+        client.cookies.set("sprint_reporter_session", sid)
+        r = client.get("/auth/workspace")
+
+    assert r.status_code == 200
+    assert "Acme" in r.text
+    assert "Side" in r.text
+
+
+def test_workspace_post_sets_active_and_redirects(app):
+    from src.auth.users import upsert_user, save_user_token
+    from src.auth.sessions import create_session, get_session
+    upsert_user(id="u1", email="a@x.se", username="anna",
+                color=None, profile_picture=None)
+    save_user_token(user_id="u1", access_token="oauth_xyz", scopes=None)
+    sid = create_session(user_id="u1", active_workspace_id=None)
+
+    client = TestClient(app)
+    client.cookies.set("sprint_reporter_session", sid)
+    r = client.post("/auth/workspace", data={"workspace_id": "ws_chosen"},
+                    follow_redirects=False)
+
+    assert r.status_code == 302
+    assert r.headers["location"] == "/"
+    assert get_session(sid)["active_workspace_id"] == "ws_chosen"

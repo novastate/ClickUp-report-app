@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select workspace — Sprint Reporter</title>
+  <link rel="stylesheet" href="/static/style.css?v=5">
+</head>
+<body>
+<div class="auth-card">
+  <h1>Select workspace</h1>
+  <p class="text-muted">You're signed in as <strong>{{ user.username or user.email }}</strong>.</p>
+  <form method="post" action="/auth/workspace">
+    <ul class="workspace-list">
+      {% for ws in workspaces %}
+      <li>
+        <button type="submit" name="workspace_id" value="{{ ws.id }}" class="workspace-btn">
+          <span class="workspace-name">{{ ws.name }}</span>
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+  </form>
+</div>
+</body>
+</html>
