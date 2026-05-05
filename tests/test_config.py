@@ -24,7 +24,9 @@ def test_oauth_env_vars_loaded(monkeypatch):
 
 
 def test_cookie_secure_default_true(monkeypatch):
-    monkeypatch.delenv("COOKIE_SECURE", raising=False)
+    # setenv to "" instead of delenv — load_dotenv() in _reload_config would
+    # otherwise repopulate COOKIE_SECURE from a developer's local .env file.
+    monkeypatch.setenv("COOKIE_SECURE", "")
     cfg = _reload_config(monkeypatch)
     assert cfg.COOKIE_SECURE is True
 
