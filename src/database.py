@@ -161,6 +161,11 @@ def init_db(db_path: str):
     except Exception:
         pass  # Column already exists
 
+    try:
+        conn.execute("ALTER TABLE teams ADD COLUMN space_name TEXT")
+    except Exception:
+        pass  # Column already exists
+
     # Backfill workspace_id from the existing clickup_workspace_id column
     conn.execute("""
         UPDATE teams
