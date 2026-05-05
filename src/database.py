@@ -161,6 +161,15 @@ def init_db(db_path: str):
     except Exception:
         pass  # Column already exists
 
+    # Backfill workspace_id from the existing clickup_workspace_id column
+    conn.execute("""
+        UPDATE teams
+        SET workspace_id = clickup_workspace_id
+        WHERE (workspace_id IS NULL OR workspace_id = '')
+          AND clickup_workspace_id IS NOT NULL
+          AND clickup_workspace_id != ''
+    """)
+
     conn.execute("""
         UPDATE scope_changes SET sprint_day = CAST(
             julianday(detected_at) - julianday((SELECT start_date FROM sprints WHERE id = scope_changes.sprint_id)) + 1

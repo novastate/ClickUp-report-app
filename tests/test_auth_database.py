@@ -56,3 +56,21 @@ def test_init_db_is_idempotent(tmp_path):
     n = conn.execute("SELECT COUNT(*) AS n FROM users").fetchone()["n"]
     conn.close()
     assert n == 0
+
+
+def test_workspace_id_backfilled_from_clickup_workspace_id(tmp_path):
+    db = str(tmp_path / "test.db")
+    init_db(db)
+    conn = get_connection(db)
+    conn.execute("""
+        INSERT INTO teams (name, clickup_workspace_id, clickup_space_id, clickup_folder_id)
+        VALUES ('Acme', 'ws_42', 'sp_1', 'fld_1')
+    """)
+    conn.commit()
+    conn.close()
+    # Now re-init to trigger the backfill
+    init_db(db)
+    conn = get_connection(db)
+    row = conn.execute("SELECT workspace_id FROM teams WHERE name = 'Acme'").fetchone()
+    conn.close()
+    assert row["workspace_id"] == "ws_42"
