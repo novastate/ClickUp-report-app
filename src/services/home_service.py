@@ -47,8 +47,11 @@ def _humanize_ago(iso_ts: str | None) -> str:
     return f"{weeks} week{'s' if weeks != 1 else ''} ago"
 
 
-def _team_card(team: dict) -> dict:
-    """Build the per-team card payload."""
+def _team_card(team: dict, favorite_ids: set[int] | None = None) -> dict:
+    """Build the per-team card payload.
+    `favorite_ids` is the set of team IDs the current user has favorited
+    (used to render filled vs empty stars). Defaults to empty."""
+    favorite_ids = favorite_ids or set()
     sprints = get_team_sprints(team["id"])
     for s in sprints:
         s["status"] = get_sprint_status(s)
@@ -86,6 +89,7 @@ def _team_card(team: dict) -> dict:
         "active_sprint": active_card,
         "last_closed": last_closed,
         "velocity_sparkline": sparkline,
+        "is_favorite": team["id"] in favorite_ids,
         "_closed_count": len(closed_sprints),
         "_closed_summaries": [get_sprint_summary(s["id"]) for s in closed_sorted],
     }
@@ -207,12 +211,13 @@ def _area_completion_history(team_cards: list[dict]) -> list[float]:
     return series[-SPARKLINE_AREA_LEN:]
 
 
-async def build_workspace_overview(client, teams: list[dict]) -> dict:
+async def build_workspace_overview(client, teams: list[dict], user_id: str) -> dict:
     """Level-1 (home) context. Mutates `teams` in place via backfill if needed.
 
     Returns:
         {
           "workspace": {...},
+          "favorites": [<team_card>, ...],  # may be empty
           "areas": [
             {
               "space_id": str | None, "space_name": str,
@@ -225,8 +230,10 @@ async def build_workspace_overview(client, teams: list[dict]) -> dict:
           ],
         }
     """
+    from src.services.favorites_service import get_favorite_team_ids
+    favorite_ids = get_favorite_team_ids(user_id)
     await _backfill_space_names(client, teams)
-    pairs = [(t, _team_card(t)) for t in teams]
+    pairs = [(t, _team_card(t, favorite_ids)) for t in teams]
     grouped = _group_by_area(pairs)
 
     # Walk the same grouping to build the level-1 summary. Internal team-cards
@@ -260,10 +267,23 @@ async def build_workspace_overview(client, teams: list[dict]) -> dict:
         "avg_completion": (sum(all_completions) / len(all_completions)) if all_completions else 0,
         "last_activity": _last_activity_label(all_cards),
     }
-    return {"workspace": workspace, "areas": areas}
+    # Build the favorites list: only teams in scope (passed-in `teams`) AND favorited.
+    teams_by_id = {t["id"]: t for t in teams}
+    favorites_cards: list[dict] = []
+    for fid in favorite_ids:
+        if fid in teams_by_id:
+            # Reuse the already-built card from `pairs` rather than re-computing.
+            for t, card in pairs:
+                if t["id"] == fid:
+                    favorites_cards.append(_strip_internal(card))
+                    break
+    favorites_cards.sort(key=lambda c: str(c.get("name") or "").lower())
+
+    return {"workspace": workspace, "favorites": favorites_cards, "areas": areas}
 
 
-async def build_area_detail(client, teams: list[dict], space_id: str) -> dict | None:
+async def build_area_detail(client, teams: list[dict], space_id: str,
+                            user_id: str) -> dict | None:
     """Level-2 (area page) context. Returns None if no team in the workspace
     matches `space_id`.
 
@@ -273,12 +293,14 @@ async def build_area_detail(client, teams: list[dict], space_id: str) -> dict | 
           "teams": [<team_card>, ...],
         }
     """
+    from src.services.favorites_service import get_favorite_team_ids
+    favorite_ids = get_favorite_team_ids(user_id)
     await _backfill_space_names(client, teams)
     in_area = [t for t in teams if (t.get("clickup_space_id") or "") == space_id]
     if not in_area:
         return None
 
-    pairs = [(t, _team_card(t)) for t in in_area]
+    pairs = [(t, _team_card(t, favorite_ids)) for t in in_area]
     cards = [card for _, card in pairs]
     sorted_pairs = sorted(pairs, key=lambda pr: str(pr[0].get("name") or "").lower())
 
