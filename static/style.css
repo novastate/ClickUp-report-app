@@ -765,6 +765,38 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
   font-size: 13px;
   padding: 6px 14px;
 }
+.identity-bar .identity-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.identity-bar .user-chip {
+  font-size: 12px;
+  color: var(--shell-fg);
+  opacity: 0.85;
+  letter-spacing: -0.01em;
+}
+.identity-bar .logout-form {
+  margin: 0;
+}
+.identity-bar .logout-form .btn {
+  font-size: 12px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--shell-fg);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.identity-bar .logout-form .btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.identity-bar .workspace-switcher select {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--shell-fg);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+}
 
 .breadcrumbs {
   display: flex;
