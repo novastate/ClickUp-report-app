@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ area.space_name }} — Sprint Reporter{% endblock %}
+{% block content %}
+
+<div class="home-wrap">
+<section class="workspace-banner">
+  <div class="banner-stat"><strong>{{ area.team_count }}</strong> team{{ 's' if area.team_count != 1 else '' }}</div>
+  <div class="banner-stat"><strong>{{ area.stats.active_sprints }}</strong> active sprint{{ 's' if area.stats.active_sprints != 1 else '' }}</div>
+  <div class="banner-stat"><strong>{{ area.stats.closed_sprints }}</strong> closed sprint{{ 's' if area.stats.closed_sprints != 1 else '' }}</div>
+  <div class="banner-stat"><strong>{{ area.stats.avg_velocity }}</strong> avg velocity</div>
+  <div class="banner-stat"><strong>{{ (area.stats.avg_completion * 100) | round | int }}%</strong> avg completion</div>
+</section>
+
+<header class="pa-header">
+  <h2 class="pa-title">{{ area.space_name }}</h2>
+  <span class="pa-badge">{{ area.team_count }} team{{ 's' if area.team_count != 1 else '' }}</span>
+</header>
+
+<div class="team-grid">
+  {% for team in teams %}
+  <article class="team-card">
+    <h3 class="team-card-title">{{ team.name }}</h3>
+
+    {% if team.active_sprint %}
+    <p class="team-card-status">
+      <span class="badge-active">ACTIVE</span>
+      <a href="/sprint/{{ team.active_sprint.id }}">{{ team.active_sprint.name | display_name }}</a>
+    </p>
+    {% elif team.last_closed %}
+    <p class="team-card-status">
+      Last sprint: <strong>{{ team.last_closed.name | display_name }}</strong>
+      · {{ (team.last_closed.completion * 100) | round | int }}%
+      · <span class="text-muted">{{ team.last_closed.ago }}</span>
+    </p>
+    {% else %}
+    <p class="team-card-status text-muted">No sprints yet</p>
+    {% endif %}
+
+    <div class="sparkline-wrap">
+      <canvas class="sparkline" data-points="{{ team.velocity_sparkline | tojson }}"></canvas>
+    </div>
+
+    <div class="team-card-actions">
+      <a class="btn btn-secondary" href="/teams/{{ team.id }}/sprints">Sprint History</a>
+      <a class="btn btn-secondary" href="/teams/{{ team.id }}/trends">Trends</a>
+      <a class="btn btn-secondary" href="/teams/{{ team.id }}/settings">Settings</a>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+</div>
+
+{% endblock %}
