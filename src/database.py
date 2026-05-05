@@ -101,6 +101,39 @@ def init_db(db_path: str):
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
         CREATE INDEX IF NOT EXISTS idx_final_snap_sprint ON sprint_final_snapshots(sprint_id);
+
+        CREATE TABLE IF NOT EXISTS users (
+            id TEXT PRIMARY KEY,
+            email TEXT NOT NULL,
+            username TEXT,
+            color TEXT,
+            profile_picture TEXT,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS user_tokens (
+            user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+            encrypted_access_token TEXT NOT NULL,
+            scopes TEXT,
+            granted_at TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS sessions (
+            session_id TEXT PRIMARY KEY,
+            user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            active_workspace_id TEXT,
+            created_at TEXT NOT NULL,
+            expires_at TEXT NOT NULL,
+            last_seen TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+        CREATE INDEX IF NOT EXISTS idx_sessions_expires ON sessions(expires_at);
+
+        CREATE TABLE IF NOT EXISTS oauth_state (
+            state TEXT PRIMARY KEY,
+            created_at TEXT NOT NULL
+        );
     """)
     # Migrations for existing databases
     try:
@@ -122,6 +155,11 @@ def init_db(db_path: str):
         conn.execute("ALTER TABLE scope_changes ADD COLUMN sprint_day INTEGER")
     except Exception:
         pass
+
+    try:
+        conn.execute("ALTER TABLE teams ADD COLUMN workspace_id TEXT")
+    except Exception:
+        pass  # Column already exists
 
     conn.execute("""
         UPDATE scope_changes SET sprint_day = CAST(
