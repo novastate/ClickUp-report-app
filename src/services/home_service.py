@@ -188,12 +188,65 @@ def _last_activity_label(cards: list[dict]) -> str:
     return sorted(candidates, key=_ord)[0]
 
 
-async def build_home_context(client, teams: list[dict]) -> dict:
-    """Top-level entry point. Mutates `teams` in place via backfill if needed."""
-    await _backfill_space_names(client, teams)
+SPARKLINE_AREA_LEN = 12  # last N closed-sprint completion %s for area-card sparkline
 
+
+def _area_completion_history(team_cards: list[dict]) -> list[float]:
+    """Chronologically-sorted completion rates of all closed sprints across the
+    teams in this area. Capped at SPARKLINE_AREA_LEN entries.
+
+    Note: per-team `_closed_summaries` is already ordered by end_date when built
+    in `_team_card` (closed_sorted). We rely on that order, then merge by team
+    and slice the tail. Rough but good enough for a sparkline trend.
+    """
+    series: list[float] = []
+    for c in team_cards:
+        for s in c.get("_closed_summaries", []):
+            rate = s.get("completion_rate", 0) or 0
+            series.append(round(rate * 100))
+    return series[-SPARKLINE_AREA_LEN:]
+
+
+async def build_workspace_overview(client, teams: list[dict]) -> dict:
+    """Level-1 (home) context. Mutates `teams` in place via backfill if needed.
+
+    Returns:
+        {
+          "workspace": {...},
+          "areas": [
+            {
+              "space_id": str | None, "space_name": str,
+              "team_count": int,
+              "stats": {active_sprints, closed_sprints, avg_velocity, avg_completion},
+              "completion_sparkline": [int...],  # last 12 sprint completion %s
+              "last_activity": str,
+            },
+            ...
+          ],
+        }
+    """
+    await _backfill_space_names(client, teams)
     pairs = [(t, _team_card(t)) for t in teams]
-    product_areas = _group_by_area(pairs)
+    grouped = _group_by_area(pairs)
+
+    # Walk the same grouping to build the level-1 summary. Internal team-cards
+    # carry the per-sprint summaries we need; we don't expose them outwards.
+    by_area_name: dict[str, list[dict]] = {}
+    for t, card in pairs:
+        key = t.get("space_name") or "(unassigned)"
+        by_area_name.setdefault(key, []).append(card)
+
+    areas = []
+    for area in grouped:
+        cards_with_internals = by_area_name.get(area["space_name"], [])
+        areas.append({
+            "space_id": area["space_id"],
+            "space_name": area["space_name"],
+            "team_count": len(area["teams"]),
+            "stats": area["stats"],
+            "completion_sparkline": _area_completion_history(cards_with_internals),
+            "last_activity": _last_activity_label(cards_with_internals),
+        })
 
     all_cards = [card for _, card in pairs]
     total_closed = sum(c["_closed_count"] for c in all_cards)
@@ -202,10 +255,40 @@ async def build_home_context(client, teams: list[dict]) -> dict:
     ]
     workspace = {
         "total_teams": len(teams),
-        "total_areas": len(product_areas),
+        "total_areas": len(areas),
         "total_closed_sprints": total_closed,
         "avg_completion": (sum(all_completions) / len(all_completions)) if all_completions else 0,
         "last_activity": _last_activity_label(all_cards),
     }
+    return {"workspace": workspace, "areas": areas}
 
-    return {"workspace": workspace, "product_areas": product_areas}
+
+async def build_area_detail(client, teams: list[dict], space_id: str) -> dict | None:
+    """Level-2 (area page) context. Returns None if no team in the workspace
+    matches `space_id`.
+
+    Returns:
+        {
+          "area": {space_id, space_name, team_count, stats},
+          "teams": [<team_card>, ...],
+        }
+    """
+    await _backfill_space_names(client, teams)
+    in_area = [t for t in teams if (t.get("clickup_space_id") or "") == space_id]
+    if not in_area:
+        return None
+
+    pairs = [(t, _team_card(t)) for t in in_area]
+    cards = [card for _, card in pairs]
+    sorted_pairs = sorted(pairs, key=lambda pr: str(pr[0].get("name") or "").lower())
+
+    space_name = next((t.get("space_name") for t in in_area if t.get("space_name")), None) or "(unassigned)"
+    return {
+        "area": {
+            "space_id": space_id,
+            "space_name": space_name,
+            "team_count": len(in_area),
+            "stats": _area_stats(cards),
+        },
+        "teams": [_strip_internal(card) for _, card in sorted_pairs],
+    }
