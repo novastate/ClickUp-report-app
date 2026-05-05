@@ -251,6 +251,7 @@
       clickup_workspace_id: selectedSpace ? selectedSpace.dataset.workspaceId || '' : '',
       clickup_space_id: spaceSelect.value,
       clickup_folder_id: folderSelect.value,
+      space_name: selectedSpace ? selectedSpace.text : '',
       metric_type: document.querySelector('input[name="metric_type"]:checked').value,
       capacity_mode: document.querySelector('input[name="capacity_mode"]:checked').value,
       sprint_length_days: parseInt(document.getElementById('sprint-length').value, 10),
