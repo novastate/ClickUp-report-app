@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Login error — Sprint Reporter</title>
+<link rel="stylesheet" href="/static/style.css?v=5"></head>
+<body>
+<div class="auth-card">
+  <h1>Login error</h1>
+  <p>Sign-in was {% if error == "access_denied" %}cancelled{% else %}rejected ({{ error }}){% endif %}.</p>
+  <a class="btn btn-primary" href="/auth/login">Try again</a>
+</div>
+</body>
+</html>
