@@ -19,7 +19,7 @@ def _make_tasks(ids_and_statuses):
     ]
 
 def test_save_and_get_forecast_snapshot(test_db):
-    team = create_team("T", "s", "f")
+    team = create_team("T", "ws_test", "s", "f")
     sprint = create_sprint_from_list(team["id"], "l1", "Iteration 1 (1/1 - 14/1)")
     tasks = _make_tasks([("t1", "to do"), ("t2", "to do"), ("t3", "to do")])
     save_forecast_snapshot(sprint["id"], tasks)
@@ -28,7 +28,7 @@ def test_save_and_get_forecast_snapshot(test_db):
     assert {t["task_id"] for t in snapshot} == {"t1", "t2", "t3"}
 
 def test_record_daily_progress(test_db):
-    team = create_team("T", "s", "f")
+    team = create_team("T", "ws_test", "s", "f")
     sprint = create_sprint_from_list(team["id"], "l1", "Iteration 1 (1/1 - 14/1)")
     record_daily_progress(sprint["id"], total_tasks=10, completed_tasks=3,
                           total_points=20, completed_points=6,
@@ -38,7 +38,7 @@ def test_record_daily_progress(test_db):
     assert history[0]["completed_tasks"] == 3
 
 def test_detect_scope_changes_added(test_db):
-    team = create_team("T", "s", "f")
+    team = create_team("T", "ws_test", "s", "f")
     sprint = create_sprint_from_list(team["id"], "l1", "Iteration 1 (1/1 - 14/1)")
     forecast_tasks = _make_tasks([("t1", "to do"), ("t2", "to do")])
     save_forecast_snapshot(sprint["id"], forecast_tasks)
@@ -49,7 +49,7 @@ def test_detect_scope_changes_added(test_db):
     assert changes[0]["task_id"] == "t3"
 
 def test_detect_scope_changes_removed(test_db):
-    team = create_team("T", "s", "f")
+    team = create_team("T", "ws_test", "s", "f")
     sprint = create_sprint_from_list(team["id"], "l1", "Iteration 1 (1/1 - 14/1)")
     forecast_tasks = _make_tasks([("t1", "to do"), ("t2", "to do"), ("t3", "to do")])
     save_forecast_snapshot(sprint["id"], forecast_tasks)
@@ -60,7 +60,7 @@ def test_detect_scope_changes_removed(test_db):
     assert changes[0]["task_id"] == "t3"
 
 def test_closed_sprint_task_list_reconstruction(test_db):
-    team = create_team("T", "s", "f")
+    team = create_team("T", "ws_test", "s", "f")
     sprint = create_sprint_from_list(team["id"], "l1", "Iteration 1 (1/1 - 14/1)")
     forecast_tasks = _make_tasks([("t1", "to do"), ("t2", "to do"), ("t3", "to do")])
     save_forecast_snapshot(sprint["id"], forecast_tasks)
@@ -77,7 +77,7 @@ def test_closed_sprint_task_list_reconstruction(test_db):
     assert all_ids == {"t1", "t2", "t3", "t4"}
 
 def test_detect_scope_changes_no_duplicates(test_db):
-    team = create_team("T", "s", "f")
+    team = create_team("T", "ws_test", "s", "f")
     sprint = create_sprint_from_list(team["id"], "l1", "Iteration 1 (1/1 - 14/1)")
     forecast_tasks = _make_tasks([("t1", "to do")])
     save_forecast_snapshot(sprint["id"], forecast_tasks)
