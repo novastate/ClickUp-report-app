@@ -884,3 +884,12 @@ nav a:first-child {
   margin: 4px 0 8px 0;
   line-height: 1.4;
 }
+
+/* --- Tablet / narrow desktop (481-1280px): stack KPI cards ------------- */
+@media (max-width: 1280px) and (min-width: 481px) {
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
