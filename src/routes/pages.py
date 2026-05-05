@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from src.services.team_service import get_all_teams, get_team, get_team_members
@@ -64,6 +64,17 @@ def _needs_setup() -> bool:
     return not get_service_api_key()
 
 
+def _no_users_yet() -> bool:
+    """Bootstrap mode: allow /setup if no users have ever logged in.
+    After the first OAuth login, /setup requires authentication."""
+    from src.database import get_connection
+    from src.config import DB_PATH
+    conn = get_connection(DB_PATH)
+    row = conn.execute("SELECT COUNT(*) AS n FROM users").fetchone()
+    conn.close()
+    return row["n"] == 0
+
+
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request, user=Depends(get_current_user)):
     if _needs_setup():
@@ -83,6 +94,12 @@ async def home(request: Request, user=Depends(get_current_user)):
 
 @router.get("/setup", response_class=HTMLResponse)
 def setup_page(request: Request):
+    if not _no_users_yet():
+        # Once users exist, /setup requires authentication
+        try:
+            get_current_user(request)
+        except HTTPException:
+            return RedirectResponse("/auth/login", status_code=302)
     current_key = get_clickup_api_key()
     masked = f"pk_...{current_key[-8:]}" if current_key and len(current_key) > 12 else ""
     return templates.TemplateResponse("setup.html", _ctx(request, masked_key=masked, has_key=bool(current_key)))
@@ -90,6 +107,11 @@ def setup_page(request: Request):
 
 @router.post("/setup")
 async def save_setup(request: Request):
+    if not _no_users_yet():
+        try:
+            get_current_user(request)
+        except HTTPException:
+            return RedirectResponse("/auth/login", status_code=302)
     form = await request.form()
     api_key = form.get("api_key", "").strip()
     if api_key:

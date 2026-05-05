@@ -11,9 +11,9 @@ from fastapi import Request, HTTPException
 from fastapi.responses import RedirectResponse, JSONResponse
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
-from src.config import DAILY_SNAPSHOT_TIME, get_clickup_api_key
+from src.config import DAILY_SNAPSHOT_TIME
 from src.services.snapshot_service import detect_scope_changes, record_daily_progress
-from src.clickup_client import ClickUpClient, ClickUpError
+from src.clickup_client import ClickUpClient, ClickUpError, get_system_client
 from src.auth.middleware import handle_clickup_error
 from src.database import get_connection
 from src.logging_config import configure_logging
@@ -90,7 +90,8 @@ async def daily_snapshot_job():
     ).fetchall()
     conn.close()
 
-    client = ClickUpClient(get_clickup_api_key())
+    client = get_system_client()
+    log.info("Daily snapshot job using service client")
     success = 0
     failed = 0
     for raw_sprint in sprints:
