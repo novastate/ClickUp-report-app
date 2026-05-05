@@ -134,6 +134,14 @@ def init_db(db_path: str):
             state TEXT PRIMARY KEY,
             created_at TEXT NOT NULL
         );
+
+        CREATE TABLE IF NOT EXISTS user_favorites (
+            user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
+            created_at TEXT NOT NULL,
+            PRIMARY KEY (user_id, team_id)
+        );
+        CREATE INDEX IF NOT EXISTS idx_user_favorites_user ON user_favorites(user_id);
     """)
     # Migrations for existing databases
     try:

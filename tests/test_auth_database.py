@@ -74,3 +74,15 @@ def test_workspace_id_backfilled_from_clickup_workspace_id(tmp_path):
     row = conn.execute("SELECT workspace_id FROM teams WHERE name = 'Acme'").fetchone()
     conn.close()
     assert row["workspace_id"] == "ws_42"
+
+
+def test_init_db_creates_user_favorites_table(tmp_path):
+    db = str(tmp_path / "test.db")
+    init_db(db)
+    conn = get_connection(db)
+    cols = {r["name"] for r in conn.execute("PRAGMA table_info(user_favorites)").fetchall()}
+    indexes = {r["name"] for r in conn.execute("PRAGMA index_list(user_favorites)").fetchall()}
+    conn.close()
+    assert cols == {"user_id", "team_id", "created_at"}
+    # PRIMARY KEY composite + the named index = at least 2 indexes
+    assert any("idx_user_favorites_user" in i for i in indexes)
