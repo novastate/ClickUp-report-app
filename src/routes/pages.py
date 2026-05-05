@@ -95,10 +95,11 @@ async def home(request: Request, user=Depends(get_current_user)):
     request.state.user_workspaces = await oauth_fetch_workspaces(token) if token else []
     teams = _scoped_teams(request)
     from src.services.home_service import build_workspace_overview
-    overview = await build_workspace_overview(request.state.user_client, teams)
+    overview = await build_workspace_overview(request.state.user_client, teams, user["id"])
     return templates.TemplateResponse(
         "home.html",
-        _ctx(request, workspace=overview["workspace"], areas=overview["areas"]),
+        _ctx(request, workspace=overview["workspace"],
+             favorites=overview["favorites"], areas=overview["areas"]),
     )
 
 
@@ -111,7 +112,7 @@ async def area_page(request: Request, space_id: str,
     request.state.user_workspaces = await oauth_fetch_workspaces(token) if token else []
     teams = _scoped_teams(request)
     from src.services.home_service import build_area_detail
-    detail = await build_area_detail(request.state.user_client, teams, space_id)
+    detail = await build_area_detail(request.state.user_client, teams, space_id, user["id"])
     if detail is None:
         raise HTTPException(404, "Product Area not found")
     return templates.TemplateResponse(
