@@ -169,7 +169,7 @@
           </td>
           <td>
             {% if s.carried_over is defined and s.carried_over > 0 %}
-              <span style="color:#3182ce;">↩ {{ s.carried_over }}</span>
+              <span style="color:#5e4cc7;">↩ {{ s.carried_over }}</span>
             {% else %}
               <span class="text-muted">—</span>
             {% endif %}
@@ -217,7 +217,7 @@
           label: 'Velocity',
           data: sprints.map(s => s.velocity),
           backgroundColor: 'rgba(95, 85, 238, 0.7)',
-          borderColor: '#5f55ee',
+          borderColor: '#7b68ee',
           borderWidth: 1,
         },
         {
@@ -280,7 +280,7 @@
         {
           label: 'Forecast Accuracy (%)',
           data: sprints.map(s => Math.round(s.forecast_accuracy * 100)),
-          borderColor: '#4299e1',
+          borderColor: '#0091ff',
           backgroundColor: 'rgba(66, 153, 225, 0.15)',
           borderWidth: 2,
           pointRadius: 4,
@@ -351,7 +351,7 @@
           label: 'Carried Over',
           data: sprints.map(s => s.carried_over || 0),
           backgroundColor: 'rgba(49, 130, 206, 0.7)',
-          borderColor: '#3182ce',
+          borderColor: '#7b68ee',
           borderWidth: 1,
         }
       ]

@@ -21,11 +21,11 @@
       {% endif %}
     </div>
     {% if status == 'active' %}
-    <button class="btn btn-secondary" id="refresh-btn" onclick="refreshSprint({{ sprint.id }})">🔄 Refresh Now</button>
-    <button class="btn btn-danger" onclick="closeSprint({{ sprint.id }})">🔒 Close Sprint</button>
+    <button class="btn btn-secondary" id="refresh-btn" onclick="refreshSprint({{ sprint.id }})">Refresh Now</button>
+    <button class="btn btn-danger" onclick="closeSprint({{ sprint.id }})">Close Sprint</button>
     {% elif status == 'planning' %}
-    <button class="btn btn-secondary" id="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
-    <button class="btn btn-success" onclick="showCloseForecastModal()">📋 Close Forecast</button>
+    <button class="btn btn-secondary" id="refresh-btn" onclick="location.reload()">Refresh</button>
+    <button class="btn btn-success" onclick="showCloseForecastModal()">Close Forecast</button>
     {% endif %}
   </div>
 </header>

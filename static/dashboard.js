@@ -57,14 +57,14 @@ async function refreshSprint(sprintId) {
     if (!resp.ok) {
       const detail = await resp.json().then(d => d.detail).catch(() => 'unknown');
       showToast('Refresh misslyckades: ' + detail, 'error');
-      btn.disabled = false; btn.textContent = '🔄 Refresh Now';
+      btn.disabled = false; btn.textContent = 'Refresh Now';
       return;
     }
-    deferToast('✓ Refresh klar');
+    deferToast('Refresh klar');
     location.reload();
   } catch (e) {
     showToast('Refresh misslyckades: ' + e.message, 'error');
-    btn.disabled = false; btn.textContent = '🔄 Refresh Now';
+    btn.disabled = false; btn.textContent = 'Refresh Now';
   }
 }
 
@@ -77,7 +77,7 @@ async function closeForecast(sprintId) {
       showToast('Close forecast misslyckades: ' + detail, 'error');
       return;
     }
-    deferToast('✓ Forecast låst');
+    deferToast('Forecast låst');
     location.reload();
   } catch (e) {
     showToast('Close forecast misslyckades: ' + e.message, 'error');
@@ -93,7 +93,7 @@ async function closeSprint(sprintId) {
       showToast('Close sprint misslyckades: ' + detail, 'error');
       return;
     }
-    deferToast('✓ Sprint stängd');
+    deferToast('Sprint stängd');
     location.reload();
   } catch (e) {
     showToast('Close sprint misslyckades: ' + e.message, 'error');
@@ -107,18 +107,18 @@ async function syncSprints(teamId) {
     const resp = await fetch(`/teams/${teamId}/sync-sprints`, { method: 'POST' });
     if (!resp.ok) {
       showToast('Sync misslyckades', 'error');
-      btn.disabled = false; btn.textContent = '🔄 Sync Sprints';
+      btn.disabled = false; btn.textContent = 'Sync from ClickUp';
       return;
     }
     const data = await resp.json().catch(() => ({ synced: 0 }));
     const count = data.synced || 0;
     const msg = count === 0
       ? 'Inga nya sprintar hittades.'
-      : '✓ Sync klar — ' + count + ' ' + (count === 1 ? 'sprint' : 'sprintar') + ' synkade.';
+      : 'Sync klar — ' + count + ' ' + (count === 1 ? 'sprint' : 'sprintar') + ' synkade.';
     deferToast(msg);
     location.reload();
   } catch (e) {
     showToast('Sync misslyckades: ' + e.message, 'error');
-    btn.disabled = false; btn.textContent = '🔄 Sync Sprints';
+    btn.disabled = false; btn.textContent = 'Sync from ClickUp';
   }
 }

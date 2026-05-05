@@ -376,21 +376,22 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
 .form-group label {
   font-size: 12px;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--fg-muted);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   padding: 8px 12px;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
   font-size: 14px;
-  color: #2d3748;
-  background: #fff;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  color: var(--fg);
+  background: var(--bg);
+  transition: border-color var(--t), box-shadow var(--t);
   width: 100%;
 }
 
@@ -398,14 +399,14 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #3182ce;
-  box-shadow: 0 0 0 3px rgba(95,85,238,0.12);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.15);
 }
 
 .form-group input:disabled,
 .form-group select:disabled {
-  background: #f7fafc;
-  color: #a0aec0;
+  background: var(--bg-secondary);
+  color: var(--fg-subtle);
   cursor: not-allowed;
 }
 
@@ -424,13 +425,14 @@ h3 { font-size: 1.1rem; margin-bottom: 12px; }
   text-transform: none;
   letter-spacing: 0;
   cursor: pointer;
-  color: #2d3748;
+  color: var(--fg);
 }
 
 .form-group .radio-group input[type="radio"] {
   width: auto;
   padding: 0;
   cursor: pointer;
+  accent-color: var(--accent);
 }
 
 .form-actions {

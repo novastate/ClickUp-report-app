@@ -1,0 +1,17 @@
+⏺ PID-filen heter .pid (dold fil — börjar med punkt). Den matchades inte av dina glob-mönster.
+
+  ls -la .pid
+  rm .pid
+  ./start.sh
+
+✻ Cogitated for 5s
+
+❯ nu startade den
+
+⏺ Bra! 🎉
+
+  Öppna http://localhost:8000 i webbläsaren så är du igång.
+
+  För framtida referens:
+  - Stoppa: ./stop.sh
+  - Stale PID-fil (om start.sh säger att den redan kör men ingen process finns): rm .pid och starta om
