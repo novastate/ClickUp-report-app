@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ team.name }} — Sprints — Sprint Reporter{% endblock %}
 {% block content %}
-<div class="top-bar">
-  <div>
+<header class="page-header">
+  <div class="title">
     <h1>{{ team.name }}</h1>
     <span class="meta">Sprint History</span>
   </div>
@@ -11,9 +11,8 @@
             title="Pulls all sprint lists from the team's ClickUp folder into this view. Doesn't push anything to ClickUp.">
       🔄 Sync from ClickUp
     </button>
-    <a href="/teams/{{ team.id }}/settings" class="btn btn-secondary">⚙ Settings</a>
   </div>
-</div>
+</header>
 
 <div class="content">
   {% if sprints %}
@@ -63,7 +62,7 @@
             {% endif %}
           </td>
           <td style="display:flex; gap:4px; align-items:center;">
-            <a href="/sprint/{{ sprint.id }}" class="btn {% if sprint.status == 'active' %}btn-primary{% else %}btn-light{% endif %}" style="font-size:11px; padding:4px 10px;">
+            <a href="/sprint/{{ sprint.id }}" class="btn {% if sprint.status == 'active' %}btn-primary{% else %}btn-secondary{% endif %}" style="font-size:11px; padding:4px 10px;">
               {% if sprint.status == 'active' %}Live View{% elif sprint.status == 'planning' %}Forecast{% else %}Report{% endif %}
             </a>
             {% if sprint.status == 'active' %}

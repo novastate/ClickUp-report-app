@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Sprint Reporter — Home{% endblock %}
 {% block content %}
-<div class="top-bar">
-  <div>
-    <h1 style="display:inline">Sprint Reporter</h1>
-  </div>
-</div>
-
 {% if teams %}
 <div class="content" style="padding-top: 24px;">
   {% for team in teams %}

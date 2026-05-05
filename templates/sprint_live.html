@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ sprint.name|display_name }} — Sprint Reporter{% endblock %}
 {% block content %}
-<div class="top-bar">
-  <div>
-    <h1 style="display:inline" data-sprint-id="{{ sprint.id }}">{{ sprint.name|display_name }}</h1>
+<header class="page-header">
+  <div class="title">
+    <h1 data-sprint-id="{{ sprint.id }}">{{ sprint.name|display_name }}</h1>
     <span class="meta">{{ sprint.start_date }} — {{ sprint.end_date }}</span>
     <span class="badge badge-{{ status }}">{{ status|status_label|upper }}</span>
   </div>
@@ -28,7 +28,7 @@
     <button class="btn btn-success" onclick="showCloseForecastModal()">📋 Close Forecast</button>
     {% endif %}
   </div>
-</div>
+</header>
 {% if status != 'planning' %}
 {% include "components/kpi_cards.html" %}
 <div class="content">

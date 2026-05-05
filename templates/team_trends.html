@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ team.name }} — Performance Trends — Sprint Reporter{% endblock %}
 {% block content %}
-<div class="top-bar">
-  <div>
-    <h1 style="display:inline">{{ team.name }}</h1>
+<header class="page-header">
+  <div class="title">
+    <h1>{{ team.name }}</h1>
     <span class="meta">Performance Trends</span>
   </div>
   <div class="actions">
@@ -14,9 +14,8 @@
     <a href="?range=8" class="btn {% if range == 8 %}btn-primary{% else %}btn-secondary{% endif %}">Last 8</a>
     {% endif %}
     <a href="?range=0" class="btn {% if range == 0 %}btn-primary{% else %}btn-secondary{% endif %}">All</a>
-    <a href="/teams/{{ team.id }}/sprints" class="btn btn-secondary">← Sprint History</a>
   </div>
-</div>
+</header>
 
 <div class="content" style="padding-top: 20px;">
 
