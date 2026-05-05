@@ -82,14 +82,14 @@ async def home(request: Request, user=Depends(get_current_user)):
     token = get_user_token(user["id"])
     request.state.user_workspaces = await oauth_fetch_workspaces(token) if token else []
     teams = _scoped_teams(request)
-    for team in teams:
-        team["sprints"] = get_team_sprints(team["id"])
-        team["active_sprint"] = None
-        for s in team["sprints"]:
-            s["status"] = get_sprint_status(s)
-            if s["status"] == "active":
-                team["active_sprint"] = s
-    return templates.TemplateResponse("home.html", _ctx(request, teams=teams))
+    from src.services.home_service import build_home_context
+    home_ctx = await build_home_context(request.state.user_client, teams)
+    return templates.TemplateResponse(
+        "home.html",
+        _ctx(request, workspace=home_ctx["workspace"],
+             product_areas=home_ctx["product_areas"],
+             teams=teams),
+    )
 
 
 @router.get("/setup", response_class=HTMLResponse)
