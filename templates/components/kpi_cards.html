@@ -9,7 +9,8 @@
     <div class="label">Completed</div>
     <div class="sub">of {{ summary.forecasted|default(0) }}</div>
   </div>
-  <div class="kpi-card" data-filter="scope_changes">
+  <div class="kpi-card" data-filter="scope_changes"
+       title="Tasks added (+) or removed (−) after the forecast was locked. Counts are independent — added tasks may include items completed before the sprint ended.">
     <div class="value red">+{{ summary.scope_added|default(0) }} / -{{ summary.scope_removed|default(0) }}</div>
     <div class="label">Scope Changes</div>
     <div class="sub">added / removed</div>
