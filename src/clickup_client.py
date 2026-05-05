@@ -1,6 +1,26 @@
+import asyncio
+import logging
 import httpx
 
+log = logging.getLogger(__name__)
+
 BASE_URL = "https://api.clickup.com/api/v2"
+
+DEFAULT_TIMEOUT = httpx.Timeout(30.0, connect=10.0)
+RETRY_STATUSES = {429, 500, 502, 503, 504}
+MAX_RETRIES = 3
+BACKOFF_BASE = 1.0   # seconds; doubles each retry → 1, 2, 4
+
+
+class ClickUpError(Exception):
+    """Raised when a ClickUp API call fails permanently (after retries)
+    or with a non-retriable status code."""
+
+    def __init__(self, message: str, status_code: int | None = None, body: str | None = None):
+        super().__init__(message)
+        self.status_code = status_code
+        self.body = body
+
 
 class ClickUpClient:
     def __init__(self, api_key: str):
@@ -8,15 +28,54 @@ class ClickUpClient:
         self.headers = {"Authorization": api_key}
 
     async def _get(self, path: str, params: dict = None) -> dict:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(
-                f"{BASE_URL}{path}",
-                headers=self.headers,
-                params=params or {},
-                timeout=30.0,
-            )
-            response.raise_for_status()
-            return response.json()
+        url = f"{BASE_URL}{path}"
+        response = None
+        for attempt in range(MAX_RETRIES + 1):
+            try:
+                async with httpx.AsyncClient(timeout=DEFAULT_TIMEOUT) as client:
+                    response = await client.get(url, headers=self.headers, params=params or {})
+                if response.status_code in RETRY_STATUSES and attempt < MAX_RETRIES:
+                    delay = BACKOFF_BASE * (2 ** attempt)
+                    log.warning(
+                        "ClickUp %s returned %d; retrying in %.1fs (attempt %d/%d)",
+                        path, response.status_code, delay, attempt + 1, MAX_RETRIES,
+                    )
+                    await asyncio.sleep(delay)
+                    continue
+                response.raise_for_status()
+                return response.json()
+            except (httpx.TimeoutException, httpx.NetworkError) as e:
+                if attempt < MAX_RETRIES:
+                    delay = BACKOFF_BASE * (2 ** attempt)
+                    log.warning(
+                        "ClickUp %s network error (%s); retrying in %.1fs (attempt %d/%d)",
+                        path, type(e).__name__, delay, attempt + 1, MAX_RETRIES,
+                    )
+                    await asyncio.sleep(delay)
+                    continue
+                log.error("ClickUp %s exhausted retries on network error: %s", path, e)
+                raise ClickUpError(f"Network error after {MAX_RETRIES} retries: {e}") from e
+            except httpx.HTTPStatusError as e:
+                # 4xx (non-429) — caller's fault, don't retry
+                log.error(
+                    "ClickUp %s returned %d (non-retriable); body=%s",
+                    path, e.response.status_code, e.response.text[:500],
+                )
+                raise ClickUpError(
+                    f"ClickUp returned {e.response.status_code} for {path}",
+                    status_code=e.response.status_code,
+                    body=e.response.text[:500],
+                ) from e
+        # Loop exited because retries exhausted on a retriable status
+        log.error(
+            "ClickUp %s returned %d after %d retries",
+            path, response.status_code if response is not None else -1, MAX_RETRIES,
+        )
+        raise ClickUpError(
+            f"ClickUp {path} returned {response.status_code if response is not None else 'no response'} after {MAX_RETRIES} retries",
+            status_code=response.status_code if response is not None else None,
+            body=response.text[:500] if response is not None else None,
+        )
 
     async def get_workspaces(self) -> list[dict]:
         data = await self._get("/team")
