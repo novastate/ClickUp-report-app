@@ -1,5 +1,5 @@
 import pytest
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 
 
 @pytest.fixture
@@ -38,7 +38,7 @@ def test_decrypt_with_wrong_key_raises(monkeypatch):
 
     monkeypatch.setenv("SESSION_ENCRYPTION_KEY", Fernet.generate_key().decode())
     importlib.reload(mod)
-    with pytest.raises(Exception):  # cryptography.fernet.InvalidToken
+    with pytest.raises(InvalidToken):
         mod.decrypt_token(encrypted)
 
 
