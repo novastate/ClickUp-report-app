@@ -6,6 +6,9 @@ from fastapi.staticfiles import StaticFiles
 from src.config import HOST, PORT, DB_PATH
 from src.database import init_db
 from src.routes import teams, sprints, clickup_proxy, pages
+from src.routes import auth as auth_routes
+from fastapi import Request, HTTPException
+from fastapi.responses import RedirectResponse, JSONResponse
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.config import DAILY_SNAPSHOT_TIME, get_clickup_api_key
@@ -133,10 +136,25 @@ scheduler = BackgroundScheduler()
 hour, minute = DAILY_SNAPSHOT_TIME.split(":")
 scheduler.add_job(run_daily_snapshot, "cron", hour=int(hour), minute=int(minute))
 
+app.include_router(auth_routes.router)
 app.include_router(pages.router)
 app.include_router(teams.router)
 app.include_router(sprints.router)
 app.include_router(clickup_proxy.router)
+
+
+@app.exception_handler(HTTPException)
+async def auth_exception_handler(request: Request, exc: HTTPException):
+    """Convert auth 401s to redirects for browser navigation; JSON for AJAX."""
+    if exc.status_code != 401:
+        # Default behavior for non-auth errors
+        return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
+    accept = request.headers.get("accept", "")
+    is_json_request = "application/json" in accept and "text/html" not in accept
+    if is_json_request or request.url.path.startswith("/api"):
+        return JSONResponse({"detail": exc.detail}, status_code=401)
+    return RedirectResponse("/auth/login", status_code=302)
+
 
 # Only mount static files if the directory exists
 if os.path.isdir("static"):
