@@ -19,6 +19,12 @@
 <div class="team-grid">
   {% for team in teams %}
   <article class="team-card">
+    <button class="favorite-btn{% if team.is_favorite %} favorite-btn--on{% endif %}"
+            data-team-id="{{ team.id }}"
+            aria-label="{% if team.is_favorite %}Unfavorite{% else %}Favorite{% endif %} {{ team.name }}"
+            title="{% if team.is_favorite %}Unfavorite{% else %}Favorite{% endif %}">
+      {% if team.is_favorite %}★{% else %}☆{% endif %}
+    </button>
     <h3 class="team-card-title">{{ team.name }}</h3>
 
     {% if team.active_sprint %}

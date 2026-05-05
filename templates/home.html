@@ -12,6 +12,51 @@
   <div class="banner-stat banner-meta">last activity: {{ workspace.last_activity }}</div>
 </section>
 
+{% if favorites %}
+<section class="favorites-section">
+  <header class="favorites-header">
+    <h2 class="favorites-title">★ Your Favorites</h2>
+    <span class="favorites-count">{{ favorites | length }} team{{ 's' if favorites|length != 1 else '' }}</span>
+  </header>
+  <div class="team-grid">
+    {% for team in favorites %}
+    <article class="team-card">
+      <button class="favorite-btn favorite-btn--on"
+              data-team-id="{{ team.id }}"
+              aria-label="Unfavorite {{ team.name }}"
+              title="Unfavorite">★</button>
+      <h3 class="team-card-title">{{ team.name }}</h3>
+
+      {% if team.active_sprint %}
+      <p class="team-card-status">
+        <span class="badge-active">ACTIVE</span>
+        <a href="/sprint/{{ team.active_sprint.id }}">{{ team.active_sprint.name | display_name }}</a>
+      </p>
+      {% elif team.last_closed %}
+      <p class="team-card-status">
+        Last sprint: <strong>{{ team.last_closed.name | display_name }}</strong>
+        · {{ (team.last_closed.completion * 100) | round | int }}%
+        · <span class="text-muted">{{ team.last_closed.ago }}</span>
+      </p>
+      {% else %}
+      <p class="team-card-status text-muted">No sprints yet</p>
+      {% endif %}
+
+      <div class="sparkline-wrap">
+        <canvas class="sparkline" data-points="{{ team.velocity_sparkline | tojson }}"></canvas>
+      </div>
+
+      <div class="team-card-actions">
+        <a class="btn btn-secondary" href="/teams/{{ team.id }}/sprints">Sprint History</a>
+        <a class="btn btn-secondary" href="/teams/{{ team.id }}/trends">Trends</a>
+        <a class="btn btn-secondary" href="/teams/{{ team.id }}/settings">Settings</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
 <div class="team-grid">
   {% for area in areas %}
     {% if area.space_id %}

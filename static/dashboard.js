@@ -156,3 +156,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+// === Favorites: toggle ★ via fetch (event delegation) ===
+document.addEventListener('click', async function (e) {
+  const btn = e.target.closest('.favorite-btn');
+  if (!btn) return;
+  e.preventDefault();
+  const teamId = btn.dataset.teamId;
+  if (!teamId) return;
+  try {
+    const resp = await fetch(`/teams/${teamId}/favorite`, { method: 'POST' });
+    if (!resp.ok) {
+      showToast('Could not update favorite', 'error');
+      return;
+    }
+    const { favorited } = await resp.json();
+    btn.textContent = favorited ? '★' : '☆';
+    btn.title = favorited ? 'Unfavorite' : 'Favorite';
+    btn.classList.toggle('favorite-btn--on', !!favorited);
+    btn.setAttribute('aria-label', (favorited ? 'Unfavorite' : 'Favorite'));
+  } catch (err) {
+    showToast('Could not update favorite: ' + err.message, 'error');
+  }
+});
