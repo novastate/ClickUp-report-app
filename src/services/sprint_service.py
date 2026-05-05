@@ -1,7 +1,10 @@
+import logging
 import os
 import re
 from datetime import datetime, date
 from src.database import get_connection
+
+log = logging.getLogger(__name__)
 
 def _db_path() -> str:
     return os.environ.get("DB_PATH", "./sprint_data.db")
