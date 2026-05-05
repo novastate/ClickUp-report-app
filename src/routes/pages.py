@@ -82,13 +82,30 @@ async def home(request: Request, user=Depends(get_current_user)):
     token = get_user_token(user["id"])
     request.state.user_workspaces = await oauth_fetch_workspaces(token) if token else []
     teams = _scoped_teams(request)
-    from src.services.home_service import build_home_context
-    home_ctx = await build_home_context(request.state.user_client, teams)
+    from src.services.home_service import build_workspace_overview
+    overview = await build_workspace_overview(request.state.user_client, teams)
     return templates.TemplateResponse(
         "home.html",
-        _ctx(request, workspace=home_ctx["workspace"],
-             product_areas=home_ctx["product_areas"],
-             teams=teams),
+        _ctx(request, workspace=overview["workspace"], areas=overview["areas"]),
+    )
+
+
+@router.get("/areas/{space_id}", response_class=HTMLResponse)
+async def area_page(request: Request, space_id: str,
+                    user=Depends(get_current_user)):
+    if _needs_setup():
+        return RedirectResponse("/setup")
+    token = get_user_token(user["id"])
+    request.state.user_workspaces = await oauth_fetch_workspaces(token) if token else []
+    teams = _scoped_teams(request)
+    from src.services.home_service import build_area_detail
+    detail = await build_area_detail(request.state.user_client, teams, space_id)
+    if detail is None:
+        raise HTTPException(404, "Product Area not found")
+    return templates.TemplateResponse(
+        "area.html",
+        _ctx(request, area=detail["area"], teams=detail["teams"],
+             breadcrumbs=_breadcrumbs(("Home", "/"), (detail["area"]["space_name"], None))),
     )
 
 
