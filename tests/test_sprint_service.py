@@ -28,25 +28,25 @@ def test_parse_iteration_dates_cross_year():
     assert end.year == 2026
 
 def test_create_sprint(test_db):
-    team = create_team("Test Team", "space1", "folder1")
+    team = create_team("Test Team", "ws_test", "space1", "folder1")
     sprint = create_sprint_from_list(team["id"], "list_1", "Iteration 6 (9/3 - 22/3)")
     assert sprint["name"] == "Iteration 6 (9/3 - 22/3)"
     assert sprint["clickup_list_id"] == "list_1"
 
 def test_sprint_status_planning(test_db):
-    team = create_team("Test Team", "space1", "folder1")
+    team = create_team("Test Team", "ws_test", "space1", "folder1")
     sprint = create_sprint_from_list(team["id"], "list_1", "Iteration 6 (9/3 - 22/3)")
     assert get_sprint_status(sprint) == "planning"
 
 def test_close_forecast_changes_status(test_db):
-    team = create_team("Test Team", "space1", "folder1")
+    team = create_team("Test Team", "ws_test", "space1", "folder1")
     sprint = create_sprint_from_list(team["id"], "list_1", "Iteration 6 (9/3 - 22/3)")
     updated = close_forecast(sprint["id"])
     assert updated["forecast_closed_at"] is not None
     assert get_sprint_status(updated) == "active"
 
 def test_close_sprint_changes_status(test_db):
-    team = create_team("Test Team", "space1", "folder1")
+    team = create_team("Test Team", "ws_test", "space1", "folder1")
     sprint = create_sprint_from_list(team["id"], "list_1", "Iteration 6 (9/3 - 22/3)")
     close_forecast(sprint["id"])
     updated = close_sprint(sprint["id"])
@@ -54,7 +54,7 @@ def test_close_sprint_changes_status(test_db):
     assert get_sprint_status(updated) == "closed"
 
 def test_cannot_close_sprint_before_forecast(test_db):
-    team = create_team("Test Team", "space1", "folder1")
+    team = create_team("Test Team", "ws_test", "space1", "folder1")
     sprint = create_sprint_from_list(team["id"], "list_1", "Iteration 6 (9/3 - 22/3)")
     with pytest.raises(ValueError, match="forecast"):
         close_sprint(sprint["id"])
