@@ -13,7 +13,8 @@ import os
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.config import DAILY_SNAPSHOT_TIME, get_clickup_api_key
 from src.services.snapshot_service import detect_scope_changes, record_daily_progress
-from src.clickup_client import ClickUpClient
+from src.clickup_client import ClickUpClient, ClickUpError
+from src.auth.middleware import handle_clickup_error
 from src.database import get_connection
 from src.logging_config import configure_logging
 import asyncio
@@ -154,6 +155,11 @@ async def auth_exception_handler(request: Request, exc: HTTPException):
     if is_json_request or request.url.path.startswith("/api"):
         return JSONResponse({"detail": exc.detail}, status_code=401)
     return RedirectResponse("/auth/login", status_code=302)
+
+
+@app.exception_handler(ClickUpError)
+async def clickup_error_handler(request: Request, exc: ClickUpError):
+    return handle_clickup_error(request, exc)
 
 
 # Only mount static files if the directory exists

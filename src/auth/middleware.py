@@ -55,3 +55,34 @@ def get_current_user(request: Request) -> dict:
     request.state.active_workspace_id = session.get("active_workspace_id")
     request.state.user_client = get_user_client(token)
     return user
+
+
+from fastapi.responses import RedirectResponse, JSONResponse
+from src.auth.users import delete_user_token
+from src.auth.sessions import delete_sessions_for_user, delete_session
+
+
+def handle_clickup_error(request: Request, exc) -> RedirectResponse | JSONResponse:
+    """Catch ClickUpError. On 401, treat as token revoked: delete token + sessions
+    and redirect to login (or 401 JSON for AJAX)."""
+    from src.clickup_client import ClickUpError
+    if not isinstance(exc, ClickUpError) or exc.status_code != 401:
+        # Re-raise non-401 ClickUp errors as 502
+        return JSONResponse({"detail": str(exc)}, status_code=502)
+
+    user = getattr(request.state, "user", None)
+    sid = getattr(request.state, "session_id", None)
+    if user:
+        log.warning("ClickUp 401 for user %s — purging token and sessions", user["id"])
+        delete_user_token(user["id"])
+        delete_sessions_for_user(user["id"])
+    elif sid:
+        delete_session(sid)
+
+    accept = request.headers.get("accept", "")
+    is_json_request = "application/json" in accept and "text/html" not in accept
+    if is_json_request or request.url.path.startswith("/api"):
+        return JSONResponse({"detail": "session_expired"}, status_code=401)
+    response = RedirectResponse("/auth/login", status_code=302)
+    response.delete_cookie(key=COOKIE_NAME)
+    return response
